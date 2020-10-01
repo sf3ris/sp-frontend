@@ -1,0 +1,7 @@
+.sidebar {
+    background-color: #086972;
+    height: 100vh;
+    position: 'fixed';
+    overflow: auto;
+    left: 0;
+}

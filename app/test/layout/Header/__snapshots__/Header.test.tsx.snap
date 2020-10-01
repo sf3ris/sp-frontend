@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header layout component test Should match snapshot 1`] = `
+"<section className=\\"search-and-user\\">
+  <form>
+    <input type=\\"search\\" value=\\"Page Title\\" disabled={true} />
+  </form>
+  <div className=\\"admin-profile\\">
+    <span className=\\"greeting\\">
+      Administrator
+    </span>
+    <div onClick={[Function: onUserClick]} className=\\"notifications\\">
+      <span className=\\"badge\\">
+        1
+      </span>
+      <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+    </div>
+  </div>
+</section>"
+`;

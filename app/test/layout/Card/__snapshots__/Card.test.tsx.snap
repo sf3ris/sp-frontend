@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Card Layout Component Should match snapshot 1`] = `
+"<article>
+  <h3>
+    card-title
+  </h3>
+</article>"
+`;

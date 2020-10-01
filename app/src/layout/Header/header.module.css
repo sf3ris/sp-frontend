@@ -1,0 +1,24 @@
+.header {
+    padding: 0; 
+    background-color:#dfdfdf;
+    height:3.75rem;
+    display:flex;
+    flex-direction: row;
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important
+}
+
+.container {
+    margin-top: auto;
+    margin-bottom: auto;
+    padding-left: 3rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.containerItem {
+    padding: 1rem;
+}
+
+.container:hover {
+    cursor: pointer;
+}

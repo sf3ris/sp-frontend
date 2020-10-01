@@ -1,0 +1,23 @@
+.menuEntry {
+    color:#fff;
+    list-style: disc;
+}
+
+.menuEntry:hover {
+    background-color: #dfdfdf;
+    color: #242e42;
+}
+
+.menuEntry span:hover {
+    cursor: pointer;
+}
+
+.link{
+    text-decoration: none;
+    color: inherit;
+}
+
+link:focus, link:hover, link:visited, link:link, link:active {
+    text-decoration: none;
+    color:inherit;
+}
