@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import Card from "../layout/Card/Card";
-import { IMembersState, getMembers } from "../features/members/slices/memberSlice";
+import { IMembersState, getMembers, postMember } from "../features/members/slices/memberSlice";
 import { RootState } from "../core/store";
 import { useSelector, useDispatch } from 'react-redux';
 import MemberComponent from "../components/member.component";
+import { IMember } from "../features/members/models/IMember";
 
 const MemberContainer : React.FC<{}> = props => {
 
@@ -19,9 +20,17 @@ const MemberContainer : React.FC<{}> = props => {
 
     }, [])
 
+    const onSave = ( member : Partial<IMember> ) => {
+
+        dispatch( postMember( member ));
+
+    }
+
     return (
 
-        <MemberComponent members={membersState.members} />
+        <MemberComponent 
+            onSave={onSave}
+            members={membersState.members} />
 
     )
 

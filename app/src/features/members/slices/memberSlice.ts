@@ -68,3 +68,20 @@ export const getMembers = () : AppThunk => async dispatch => {
     }
 
 }
+
+export const postMember = ( member : Partial<IMember>) : AppThunk => async dispatch => {
+
+    try {
+
+        await membersService.postMember( member );
+
+        dispatch(getMembers());
+
+    }
+    catch( e ) {
+
+        console.log(e);
+
+    }
+
+}

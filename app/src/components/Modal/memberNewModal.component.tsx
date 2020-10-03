@@ -1,106 +1,198 @@
-import React from 'react';
-import { Modal, TextField, Grid, makeStyles, Theme, createStyles } from '@material-ui/core';
+import React, { useState } from 'react';
+import { Modal, TextField, Grid, makeStyles, Theme, createStyles, Button } from '@material-ui/core';
+import MemberTextField from './memberTextField.component';
+import { IMember } from '../../features/members/models/IMember';
 
 interface IMemberNewModalComponentProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
+    onSave: ( member : Partial<IMember> ) => void;
 }
 
 const modalStyle = () : React.CSSProperties => {
     const top = '10vh';
-    const left = '15vw';
+    const left = '25vw';
 
     return {
         top : top,
         left: left,
         backgroundColor:'#fff',
         position:'absolute',
-        width:'70vw',
-        padding:'10px'
+        padding:'10px',
+        width: '50vw'
     }
 }
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
+const useStyles = makeStyles((theme : Theme) => createStyles({
     root: {
-      '& .MuiTextField-root': {
-        margin: theme.spacing(1),
-        width: 200,
-      },
+        display : 'flex',
+        flexWrap : 'wrap'
     },
-  }),
-);
+    textContainer : {
+        width: '80%',
+        marginRight:'auto',
+        marginLeft:'auto',
+        marginTop:'10px'
+    }
+}))
 
 const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props => {
 
     const classes = useStyles();
 
+    const [ name, setName ]             = useState<string>('');
+    const [ lastName, setLastName]      = useState<string>('');
+    const [ birthDate, setBirthDate]    = useState<string>('');
+    const [ birthPlace, setBirthPlace]  = useState<string>('');
+    const [ fiscalCode, setFiscalCode]  = useState<string>('');
+    const [ address, setAddress]        = useState<string>('');
+    const [ zipCode, setZipCode]        = useState<string>('');
+    const [ city, setCity]              = useState<string>('');
+    const [ province, setProvince]      = useState<string>('');
+    const [ gender, setGender]          = useState<string>('');
+    const [ phone, setPhone]            = useState<string>('');
+    const [ email, setEmail]            = useState<string>('');
+
+    const onNameChange          = ( value : string ) => setName(value);
+    const onLastNameChange      = ( value : string ) => setLastName(value);
+    const onBirthDateChange     = ( value : string ) => setBirthDate(value);
+    const onBirthPlaceChange    = ( value : string ) => setBirthPlace(value);
+    const onFiscalCodeChange    = ( value : string ) => setFiscalCode(value);
+    const onAddressChange       = ( value : string ) => setAddress(value);
+    const onZipCodeChange       = ( value : string ) => setZipCode(value);
+    const onProvinceChange      = ( value : string ) => setProvince(value);
+    const onCityChange          = ( value : string ) => setCity(value);
+    const onGenderChange        = ( value : string ) => setGender(value);
+    const onPhoneChange         = ( value : string ) => setPhone(value);
+    const onEmailChange         = ( value : string ) => setEmail(value);
+
+    const resetForm = () => {
+
+        setName('');
+        setLastName('');
+        setBirthDate('');
+        setBirthPlace('');
+        setFiscalCode('');
+        setAddress('');
+        setZipCode('');
+        setProvince('');
+        setCity('');
+        setGender('');
+        setPhone('');
+        setEmail('');
+
+    }
+
+    const onClose = () => {
+
+        resetForm();
+        props.toggle();
+
+    }
+
+    const onSave = () => {
+
+        props.onSave({
+            name,
+            last_name: lastName,
+            birth_date: birthDate,
+            birth_place: birthPlace,
+            fiscal_code: fiscalCode,
+            address,
+            zip_code: zipCode,
+            city,
+            province,
+            gender,
+            phone,
+            email
+        });
+
+        onClose();
+
+    }
+    
     return (
 
-        <Modal open={props.isOpen} onClose={props.toggle}>
+        <Modal open={props.isOpen} onClose={onClose}>
 
             <div style={modalStyle()}>
-
-                <h3>Creazione Socio</h3>
-
-                <hr/>
                 
-                <form className={classes.root}> 
+                <div className={classes.root}>
+                    <div className={classes.textContainer}>
 
-                    <Grid container spacing={3}>
+                        <MemberTextField
+                            label="Nome"
+                            value={name}
+                            onChange={onNameChange} />
 
-                        <Grid item xs={6}>
+                        <MemberTextField
+                            label="Cognome"
+                            value={lastName}
+                            onChange={onLastNameChange} />
 
-                            <TextField label="Nome"/>
+                        <MemberTextField
+                            label="Data di nascita"
+                            value={birthDate}
+                            onChange={onBirthDateChange} />
 
-                        </Grid>  
+                        <MemberTextField
+                            label="Luogo di nascita"
+                            value={birthPlace}
+                            onChange={onBirthPlaceChange} />
 
-                       <Grid item xs={6}>
+                        <MemberTextField
+                            label="Codice Fiscale"
+                            value={fiscalCode}
+                            maxLength={16}
+                            onChange={onFiscalCodeChange} />
 
-                            <TextField label="Cognome"/>
+                        <MemberTextField
+                            label="Indirizzo"
+                            value={address}
+                            onChange={onAddressChange} />
 
-                        </Grid>  
+                        <MemberTextField
+                            label="CAP"
+                            maxLength={5}
+                            value={zipCode}
+                            onChange={onZipCodeChange} />
 
-                        <Grid item xs={12}>
+                        <MemberTextField
+                            label="Città"
+                            value={city}
+                            onChange={onCityChange} />
 
-                            <TextField label="Luogo di Nascita"/>
+                        <MemberTextField
+                            label="Provincia"
+                            value={province}
+                            onChange={onProvinceChange} />
 
-                        </Grid>  
+                        <MemberTextField
+                            label="Sesso"
+                            value={gender}
+                            maxLength={1}
+                            onChange={onGenderChange} />
 
-                        <Grid item xs={12}>
+                        <MemberTextField
+                            label="Telefono"
+                            value={phone}
+                            onChange={onPhoneChange} />
 
-                            <TextField label="Data di nascita"/>
+                        <MemberTextField
+                            label="Email"
+                            value={email}
+                            onChange={onEmailChange} />
+                            
+                    </div>
 
-                        </Grid>  
+                </div>
+                <div className={classes.textContainer}>
 
-                        <Grid item xs={12}>
+                        <Button variant="contained" color="secondary" onClick={onClose} >Annulla</Button>
 
-                            <TextField label="Codice Fiscale"/>
+                        <Button variant="contained" color="primary" onClick={onSave} style={{float:'right'}} >Salva</Button>
 
-                        </Grid>  
-
-                        <Grid item xs={12}>
-
-                            <TextField label="Email"/>
-
-                        </Grid>  
-
-                        <Grid item xs={12}>
-
-                            <TextField label="Telefono"/>
-
-                        </Grid>  
-
-                        <Grid item xs={12}>
-
-                            <TextField label="Indirizzo"/>
-
-                        </Grid>  
-
-                    </Grid>
-
-                </form>
-
+                    </div>
             </div>
 
         </Modal>

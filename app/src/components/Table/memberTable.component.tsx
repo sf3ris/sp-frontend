@@ -28,7 +28,7 @@ const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
                         </TableHead>
                         <TableBody>
 
-                            {props.members.map( (member, index) => <MemberRowComponent member={member} key={index} /> )}
+                            {props.members.map( member => <MemberRowComponent member={member} key={member._id} /> )}
 
                         </TableBody>
                     </Table>

@@ -5,7 +5,8 @@ import MemberNewModalComponent from './Modal/memberNewModal.component';
 import { Grid } from '@material-ui/core';
 
 interface IMemberComponentProps {
-    members : IMember[]
+    members : IMember[];
+    onSave: ( member : Partial<IMember>) => void;
 }
 
 const MemberComponent : React.FC<IMemberComponentProps> = props => {
@@ -31,7 +32,10 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
 
                 </Grid>
 
-                <MemberNewModalComponent isOpen={isOpenNewModal} toggle={toggleModal} />
+                <MemberNewModalComponent 
+                    onSave={props.onSave}
+                    isOpen={isOpenNewModal} 
+                    toggle={toggleModal} />
 
             </article>
         </section>

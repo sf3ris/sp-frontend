@@ -1,4 +1,5 @@
 export interface IMember {
+    _id : string;
     name : string;
     last_name : string;
     birth_date : string;
@@ -8,7 +9,8 @@ export interface IMember {
     zip_code : string;
     city : string;
     province : string;
-    gender : keyof typeof Gender;
+    gender: string;
+    //gender : keyof typeof Gender;
     phone : string;
     email : string;
 }
