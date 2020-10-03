@@ -1,9 +1,10 @@
 import React from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faBookmark, faCalendar,faUser } from '@fortawesome/free-regular-svg-icons';
-import { faHome, faCog } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCog, faUsersCog, faUserSecret, faUserShield } from '@fortawesome/free-solid-svg-icons';
 import HomeContainer from '../container/HomeContainer';
 import ProfileContainer from '../container/ProfileContainer';
+import MemberContainer from '../container/MemberContainer';
 
 export interface IRoute {
     name : string;
@@ -21,9 +22,10 @@ export const routes : IRoute[] = [
         component: HomeContainer
     },
     {
-        name: 'Bookmars',
-        path: '/bookmarks',
-        icon: faBookmark,
+        name: 'Members',
+        path: '/members',
+        icon: faUserShield,
+        component: MemberContainer
     },
     {
         name: 'Calendar',

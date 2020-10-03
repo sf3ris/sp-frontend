@@ -10,6 +10,7 @@ const Card : React.FC<ICardProps> = props => {
 
         <article>
             <h3>{props.title}</h3>
+            {props.children}
         </article>
 
     )

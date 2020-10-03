@@ -1,0 +1,43 @@
+import React, { useState } from 'react';
+import { IMember } from '../features/members/models/IMember';
+import MemberTableComponent from './Table/memberTable.component';
+import MemberNewModalComponent from './Modal/memberNewModal.component';
+import { Grid } from '@material-ui/core';
+
+interface IMemberComponentProps {
+    members : IMember[]
+}
+
+const MemberComponent : React.FC<IMemberComponentProps> = props => {
+
+    const [ isOpenNewModal, setIsOpenNewModal ] = useState<boolean>(false);
+
+    const toggleModal = () => {
+        setIsOpenNewModal(!isOpenNewModal);
+    }
+
+    return (
+
+        <section className="grid">
+            <article>
+
+                <Grid container spacing={3} style={{padding:'10px'}}>
+
+                    <Grid item xs={12}>
+
+                        <MemberTableComponent members={props.members} onNew={toggleModal} />
+
+                    </Grid>
+
+                </Grid>
+
+                <MemberNewModalComponent isOpen={isOpenNewModal} toggle={toggleModal} />
+
+            </article>
+        </section>
+
+    )
+
+}
+
+export default MemberComponent;

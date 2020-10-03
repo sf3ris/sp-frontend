@@ -12,8 +12,7 @@ const Router : React.FC<{}> = props => {
         <Switch>
 
             {routes.map(renderRoute)}
-
-            <Route path="/profile" exact component={ProfileContainer} />
+            
             <Redirect to='/home' />
 
         </Switch>
