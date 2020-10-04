@@ -25,4 +25,4 @@ build:
     script:
         - cd app
         - yarn install
-        - CI=true yarn run build
+        - CI=false yarn run build
