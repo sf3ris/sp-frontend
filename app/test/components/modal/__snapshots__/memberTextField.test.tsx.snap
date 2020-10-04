@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Member Text Field component Should match snapshot 1`] = `"<WithStyles(ForwardRef(TextField)) disabled={[undefined]} className=\\"makeStyles-textField-1\\" InputLabelProps={{...}} inputProps={{...}} margin=\\"normal\\" label=\\"label\\" value=\\"value\\" onChange={[Function: onChange]} />"`;

@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { IMember } from '../models/IMember';
+import qs from 'querystring';
  
 const getMembers = async () : Promise<IMember[]> => {
 
@@ -36,7 +37,13 @@ const postMember = async ( member : Partial<IMember>) => {
 
             const endpoint = host + `/members`;
 
-            const response = await axios.post( endpoint, { ...member } );
+            const config = {
+                headers: {
+                  'Content-Type': 'application/x-www-form-urlencoded'
+                }
+            }
+
+            const response = await axios.post( endpoint, qs.stringify({...member}), config );
 
             resolve(response.data);
 

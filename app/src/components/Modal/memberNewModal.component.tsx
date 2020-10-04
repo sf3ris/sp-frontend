@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Modal, TextField, Grid, makeStyles, Theme, createStyles, Button } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { Modal, makeStyles, Theme, createStyles, Button } from '@material-ui/core';
 import MemberTextField from './memberTextField.component';
 import { IMember } from '../../features/members/models/IMember';
 
@@ -7,6 +7,7 @@ interface IMemberNewModalComponentProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
     onSave: ( member : Partial<IMember> ) => void;
+    member? : IMember;
 }
 
 const modalStyle = () : React.CSSProperties => {
@@ -40,18 +41,18 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
     const classes = useStyles();
 
-    const [ name, setName ]             = useState<string>('');
-    const [ lastName, setLastName]      = useState<string>('');
-    const [ birthDate, setBirthDate]    = useState<string>('');
-    const [ birthPlace, setBirthPlace]  = useState<string>('');
-    const [ fiscalCode, setFiscalCode]  = useState<string>('');
-    const [ address, setAddress]        = useState<string>('');
-    const [ zipCode, setZipCode]        = useState<string>('');
-    const [ city, setCity]              = useState<string>('');
-    const [ province, setProvince]      = useState<string>('');
-    const [ gender, setGender]          = useState<string>('');
-    const [ phone, setPhone]            = useState<string>('');
-    const [ email, setEmail]            = useState<string>('');
+    const [ name, setName ]             = useState<string>(props.member?.name || '');
+    const [ lastName, setLastName]      = useState<string>(props.member?.last_name || '');
+    const [ birthDate, setBirthDate]    = useState<string>(props.member?.birth_date || '');
+    const [ birthPlace, setBirthPlace]  = useState<string>(props.member?.birth_place || '');
+    const [ fiscalCode, setFiscalCode]  = useState<string>(props.member?.fiscal_code || '');
+    const [ address, setAddress]        = useState<string>(props.member?.address || '');
+    const [ zipCode, setZipCode]        = useState<string>(props.member?.zip_code || '');
+    const [ city, setCity]              = useState<string>(props.member?.city || '');
+    const [ province, setProvince]      = useState<string>(props.member?.province || '');
+    const [ gender, setGender]          = useState<string>(props.member?.gender || '');
+    const [ phone, setPhone]            = useState<string>(props.member?.phone || '');
+    const [ email, setEmail]            = useState<string>(props.member?.email || '');
 
     const onNameChange          = ( value : string ) => setName(value);
     const onLastNameChange      = ( value : string ) => setLastName(value);
@@ -83,6 +84,23 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
     }
 
+    const setForm = ( member : IMember) => {
+
+        setName(member.name);
+        setLastName(member.last_name);
+        setBirthDate(member.birth_date);
+        setBirthPlace(member.birth_place);
+        setFiscalCode(member.fiscal_code);
+        setAddress(member.address);
+        setZipCode(member.zip_code);
+        setProvince(member.province);
+        setCity(member.city);
+        setGender(member.gender);
+        setPhone(member.phone);
+        setEmail(member.email);
+
+    }
+
     const onClose = () => {
 
         resetForm();
@@ -110,6 +128,12 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
         onClose();
 
     }
+
+    useEffect(() => {
+
+        props.member && setForm(props.member);
+
+    }, [props.member])
     
     return (
 
@@ -188,9 +212,9 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
                 </div>
                 <div className={classes.textContainer}>
 
-                        <Button variant="contained" color="secondary" onClick={onClose} >Annulla</Button>
+                        <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose} >Annulla</Button>
 
-                        <Button variant="contained" color="primary" onClick={onSave} style={{float:'right'}} >Salva</Button>
+                        <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}} >Salva</Button>
 
                     </div>
             </div>

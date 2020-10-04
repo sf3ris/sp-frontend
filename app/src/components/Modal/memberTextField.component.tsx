@@ -7,6 +7,7 @@ interface IMemberTextFieldProps {
     value : string;
     width?: string;
     maxLength?:number;
+    disabled?: boolean;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({
@@ -25,7 +26,8 @@ const MemberTextField : React.FC<IMemberTextFieldProps> = props => {
 
     return (
 
-        <TextField 
+        <TextField
+            disabled={props.disabled}
             className={classes.textField}
             InputLabelProps={{
                 shrink: true,

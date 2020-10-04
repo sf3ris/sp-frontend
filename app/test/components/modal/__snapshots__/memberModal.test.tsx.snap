@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Member Modal Component Should match snapshot 1`] = `
+"<ForwardRef(Modal) open={true} onClose={[Function: onClose]}>
+  <div style={{...}}>
+    <div className=\\"makeStyles-root-1\\">
+      <div className=\\"makeStyles-textContainer-2\\">
+        <MemberTextField label=\\"Nome\\" value=\\"\\" onChange={[Function: onNameChange]} />
+        <MemberTextField label=\\"Cognome\\" value=\\"\\" onChange={[Function: onLastNameChange]} />
+        <MemberTextField label=\\"Data di nascita\\" value=\\"\\" onChange={[Function: onBirthDateChange]} />
+        <MemberTextField label=\\"Luogo di nascita\\" value=\\"\\" onChange={[Function: onBirthPlaceChange]} />
+        <MemberTextField label=\\"Codice Fiscale\\" value=\\"\\" maxLength={16} onChange={[Function: onFiscalCodeChange]} />
+        <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
+        <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
+        <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
+        <MemberTextField label=\\"Provincia\\" value=\\"\\" onChange={[Function: onProvinceChange]} />
+        <MemberTextField label=\\"Sesso\\" value=\\"\\" maxLength={1} onChange={[Function: onGenderChange]} />
+        <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
+        <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
+      </div>
+    </div>
+    <div className=\\"makeStyles-textContainer-2\\">
+      <WithStyles(ForwardRef(Button)) id=\\"idDiscardButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onClose]}>
+        Annulla
+      </WithStyles(ForwardRef(Button))>
+      <WithStyles(ForwardRef(Button)) id=\\"idSaveButton\\" variant=\\"contained\\" color=\\"primary\\" onClick={[Function: onSave]} style={{...}}>
+        Salva
+      </WithStyles(ForwardRef(Button))>
+    </div>
+  </div>
+</ForwardRef(Modal)>"
+`;

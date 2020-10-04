@@ -15,7 +15,7 @@ const MemberToolbarComponent : React.FC<IMemberToolbarComponentProps> = props =>
 
             <Grid item xs={12}>
 
-                <Button onClick={props.onNew} color="primary">
+                <Button id="idNewButtonMemberTable" onClick={props.onNew} color="primary">
                     <FontAwesomeIcon icon={faPlusSquare} /> <span style={{marginLeft:'5px'}}>New</span>
                 </Button>
 
