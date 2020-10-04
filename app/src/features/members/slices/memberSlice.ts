@@ -85,3 +85,38 @@ export const postMember = ( member : Partial<IMember>) : AppThunk => async dispa
     }
 
 }
+
+export const putMember = ( member : Partial<IMember>) : AppThunk => async dispatch => {
+
+    try{
+
+        await membersService.putMember( member );
+
+        dispatch(getMembers());
+
+    }
+    catch( e ) {
+
+        console.log(e);
+
+    }
+
+}
+
+export const deleteMember = ( member : IMember) : AppThunk => async dispatch => {
+
+    try{
+
+        await membersService.deleteMember( member );
+
+        dispatch(getMembers());
+
+    }
+    catch( e ) {
+
+        console.log(e);
+
+    }
+
+}
+

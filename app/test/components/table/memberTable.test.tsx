@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MemberTableComponent from '../../../src/components/Table/memberTable.component';
+import MemberTableComponent from '../../../src/component/member/Table/memberTable.component';
 import { IMember } from '../../../src/features/members/models/IMember';
 
 describe('Member table compponent', () => {

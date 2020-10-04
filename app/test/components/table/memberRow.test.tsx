@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MemberRowComponent from '../../../src/components/Table/memberRow.component';
+import MemberRowComponent from '../../../src/component/member/Table/memberRow.component';
 import { IMember } from '../../../src/features/members/models/IMember';
 
 describe('Member Row Component', () => {
@@ -53,24 +53,6 @@ describe('Member Row Component', () => {
 
         expect(onEditFn).toBeCalled();
 
-    })
-
-    it('Should trigger delete', () => {
-
-        const wrapper = shallow(
-            <MemberRowComponent
-                member={memberMock}
-                onDeleteClick={onDeleteFn}
-                onEditClick={onEditFn} />
-        )
-
-        const editButton = wrapper.find('#deleteButtonId_123');
-        expect(editButton.length).toBe(1);
-
-        editButton.simulate('click');
-
-        expect(onDeleteFn).toBeCalled();
-
-    })
+    });
     
 })

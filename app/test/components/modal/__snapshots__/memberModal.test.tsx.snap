@@ -23,6 +23,9 @@ exports[`Member Modal Component Should match snapshot 1`] = `
       <WithStyles(ForwardRef(Button)) id=\\"idDiscardButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onClose]}>
         Annulla
       </WithStyles(ForwardRef(Button))>
+      <WithStyles(ForwardRef(Button)) id=\\"idPopulatedButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onPopulate]}>
+        Popola
+      </WithStyles(ForwardRef(Button))>
       <WithStyles(ForwardRef(Button)) id=\\"idSaveButton\\" variant=\\"contained\\" color=\\"primary\\" onClick={[Function: onSave]} style={{...}}>
         Salva
       </WithStyles(ForwardRef(Button))>

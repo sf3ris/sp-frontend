@@ -1,29 +1,38 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Member Row Component Should match snapshot 1`] = `
-"<WithStyles(ForwardRef(TableRow))>
-  <WithStyles(ForwardRef(TableCell))>
-    Mario
-  </WithStyles(ForwardRef(TableCell))>
-  <WithStyles(ForwardRef(TableCell))>
-    Rossi
-  </WithStyles(ForwardRef(TableCell))>
-  <WithStyles(ForwardRef(TableCell))>
-    1980-10-01
-  </WithStyles(ForwardRef(TableCell))>
-  <WithStyles(ForwardRef(TableCell))>
-    Tolentino
-  </WithStyles(ForwardRef(TableCell))>
-  <WithStyles(ForwardRef(TableCell))>
-    mario.rossi@libero.it
-  </WithStyles(ForwardRef(TableCell))>
-  <WithStyles(ForwardRef(TableCell)) colSpan={2}>
-    <WithStyles(ForwardRef(IconButton)) id=\\"editButtonId_123\\" onClick={[Function: onClick]} size=\\"small\\">
-      <FontAwesomeIcon icon={{...}} color=\\"green\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-    </WithStyles(ForwardRef(IconButton))>
-    <WithStyles(ForwardRef(IconButton)) id=\\"deleteButtonId_123\\" onClick={[Function: onClick]} size=\\"small\\">
-      <FontAwesomeIcon icon={{...}} color=\\"red\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-    </WithStyles(ForwardRef(IconButton))>
-  </WithStyles(ForwardRef(TableCell))>
-</WithStyles(ForwardRef(TableRow))>"
+"<Fragment>
+  <WithStyles(ForwardRef(TableRow))>
+    <WithStyles(ForwardRef(TableCell))>
+      Mario
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell))>
+      Rossi
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell))>
+      01/10/1980
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell))>
+      MRARSS80E01E783P
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell))>
+      Tolentino
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell))>
+      MC
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell))>
+      mario.rossi@libero.it
+    </WithStyles(ForwardRef(TableCell))>
+    <WithStyles(ForwardRef(TableCell)) colSpan={2}>
+      <WithStyles(ForwardRef(IconButton)) id=\\"editButtonId_123\\" onClick={[Function: onClick]} size=\\"small\\">
+        <FontAwesomeIcon icon={{...}} color=\\"green\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+      </WithStyles(ForwardRef(IconButton))>
+      <WithStyles(ForwardRef(IconButton)) id=\\"deleteButtonId_123\\" onClick={[Function: onDelete]} size=\\"small\\">
+        <FontAwesomeIcon icon={{...}} color=\\"red\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+      </WithStyles(ForwardRef(IconButton))>
+    </WithStyles(ForwardRef(TableCell))>
+  </WithStyles(ForwardRef(TableRow))>
+  <ConfirmDialog title=\\"Confermi cancellazione?\\" onOk={[Function: confirmDelete]} onDiscard={[Function: onDiscard]} isOpen={false} />
+</Fragment>"
 `;

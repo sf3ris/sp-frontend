@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MemberTextField from '../../../src/components/Modal/memberTextField.component';
+import MemberTextField from '../../../src/component/member/Modal/memberTextField.component';
 
 describe('Member Text Field component', () => {
 

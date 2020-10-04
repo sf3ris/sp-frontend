@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MemberToolbarComponent from '../../../src/components/Table/memberToolbar.component';
+import MemberToolbarComponent from '../../../src/component/member/Table/memberToolbar.component';
 
 describe('Member toolbar component', () => {
 

@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Modal, makeStyles, Theme, createStyles, Button } from '@material-ui/core';
 import MemberTextField from './memberTextField.component';
-import { IMember } from '../../features/members/models/IMember';
+import { IMember } from '../../../features/members/models/IMember';
+import { dateUtils } from '../../../utils/dateUtils';
 
 interface IMemberNewModalComponentProps {
     isOpen: boolean;
@@ -84,11 +85,30 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
     }
 
+    const onPopulate = () => {
+
+        setName('Mario');
+        setLastName('Verdi')
+        setBirthDate('10/01/1992');
+        setBirthPlace('Milano');
+        setFiscalCode('MRAVRD92E10E783P');
+        setAddress('Via delle grazie,15');
+        setZipCode('54201');
+        setProvince('MI');
+        setCity('Milano');
+        setGender('M');
+        setPhone('33348859961');
+        setEmail('mra.vrd@yahoo.it');
+
+    }
+
     const setForm = ( member : IMember) => {
+
+        const birth_date = dateUtils.formatDateToLocale( member.birth_date );
 
         setName(member.name);
         setLastName(member.last_name);
-        setBirthDate(member.birth_date);
+        setBirthDate(birth_date);
         setBirthPlace(member.birth_place);
         setFiscalCode(member.fiscal_code);
         setAddress(member.address);
@@ -110,7 +130,7 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
     const onSave = () => {
 
-        props.onSave({
+        const member : Partial<IMember> = {
             name,
             last_name: lastName,
             birth_date: birthDate,
@@ -123,7 +143,11 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
             gender,
             phone,
             email
-        });
+        };
+
+        if(props.member && '_id' in props.member) member._id = props.member._id;
+
+        props.onSave( member );
 
         onClose();
 
@@ -213,6 +237,8 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
                 <div className={classes.textContainer}>
 
                         <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose} >Annulla</Button>
+
+                        <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate} >Popola</Button>
 
                         <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}} >Salva</Button>
 

@@ -1,6 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import MemberNewModalComponent from '../../../src/components/Modal/memberNewModal.component';
+import MemberNewModalComponent from '../../../src/component/member/Modal/memberNewModal.component';
 
 describe('Member Modal Component', () => {
 

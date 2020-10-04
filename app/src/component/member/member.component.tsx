@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IMember } from '../features/members/models/IMember';
+import { IMember } from '../../features/members/models/IMember';
 import MemberTableComponent from './Table/memberTable.component';
 import MemberNewModalComponent from './Modal/memberNewModal.component';
 import { Grid } from '@material-ui/core';
@@ -7,6 +7,7 @@ import { Grid } from '@material-ui/core';
 interface IMemberComponentProps {
     members : IMember[];
     onSave: ( member : Partial<IMember>) => void;
+    onDelete : ( member : IMember ) => void;
 }
 
 const MemberComponent : React.FC<IMemberComponentProps> = props => {
@@ -27,10 +28,6 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
         toggleModal();
     }
 
-    const onDelete = ( member : IMember ) => {
-        console.log("DELETE");
-    }
-
     return (
 
         <section className="grid">
@@ -43,7 +40,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                         <MemberTableComponent 
                             members={props.members} 
                             onNew={toggleModal} 
-                            onDelete={onDelete}
+                            onDelete={props.onDelete}
                             onEdit={onEdit}/>
 
                     </Grid>
