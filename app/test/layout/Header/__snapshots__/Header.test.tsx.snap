@@ -15,6 +15,9 @@ exports[`Header layout component test Should match snapshot 1`] = `
       </span>
       <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
     </div>
+    <div onClick={[Function: onUserClick]} style={{...}}>
+      <FontAwesomeIcon onClick={[Function: onLogout]} icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+    </div>
   </div>
 </section>"
 `;

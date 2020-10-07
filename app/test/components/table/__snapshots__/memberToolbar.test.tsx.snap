@@ -3,11 +3,11 @@
 exports[`Member toolbar component Should match snapshot 1`] = `
 "<WithStyles(ForwardRef(Grid)) container={true}>
   <WithStyles(ForwardRef(Grid)) item={true} xs={12}>
-    <WithStyles(ForwardRef(Button)) id=\\"idNewButtonMemberTable\\" onClick={[Function: mockConstructor]} color=\\"primary\\">
+    <WithStyles(ForwardRef(Button)) variant=\\"contained\\" id=\\"idNewButtonMemberTable\\" onClick={[Function: mockConstructor]} color=\\"primary\\">
       <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
        
       <span style={{...}}>
-        New
+        Nuovo
       </span>
     </WithStyles(ForwardRef(Button))>
   </WithStyles(ForwardRef(Grid))>

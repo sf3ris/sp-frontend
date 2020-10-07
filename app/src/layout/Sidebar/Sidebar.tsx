@@ -4,11 +4,14 @@ import { IRoute, routes } from '../../routes/routes';
 import MenuEntry from  './Menu/MenuEntry';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
+import { useHistory } from 'react-router-dom';
 
 
 const Sidebar : React.FC<{}> = props => {
 
     const [ collapsed, setCollapsed ] = useState<boolean>(false);
+
+    const history = useHistory();
 
     const renderRoute = ( route : IRoute ) => !route.hideFromMenu && <MenuEntry collapsed={collapsed} route={route} key={route.name} />
 
@@ -20,10 +23,11 @@ const Sidebar : React.FC<{}> = props => {
 
     }
 
-    return (
+    return(
         
 
-        <div className="page-header">
+        history.location.pathname !== '/login' ?
+            <div className="page-header">
 
             <Logo collapsed={collapsed} />
             
@@ -41,10 +45,7 @@ const Sidebar : React.FC<{}> = props => {
                 </ul>
             </nav>
 
-            
-
-
-        </div>
+        </div> : null
 
     )
 

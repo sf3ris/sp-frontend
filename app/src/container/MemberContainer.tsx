@@ -5,6 +5,7 @@ import { RootState } from "../core/store";
 import { useSelector, useDispatch } from 'react-redux';
 import MemberComponent from "../component/member/member.component";
 import { IMember } from "../features/members/models/IMember";
+import DefaultLayout from "../layout/DefaultLayout";
 
 const MemberContainer : React.FC<{}> = props => {
 
@@ -36,10 +37,14 @@ const MemberContainer : React.FC<{}> = props => {
 
     return (
 
-        <MemberComponent 
-            onSave={onSave}
-            onDelete={onDelete}
-            members={membersState.members} />
+        <DefaultLayout>
+
+            <MemberComponent 
+                onSave={onSave}
+                onDelete={onDelete}
+                members={membersState.members} />
+                
+        </DefaultLayout>
 
     )
 

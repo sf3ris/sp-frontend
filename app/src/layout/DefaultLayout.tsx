@@ -14,7 +14,7 @@ const DefaultLayout : React.FC<{}> = props => {
         
           <Header />
 
-          <Router />
+          {props.children}
 
         </section>
 

@@ -4,6 +4,7 @@ import './app.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './core/store';
+import Router from './routes/Router';
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <div>
 
           <BrowserRouter>
-            <DefaultLayout />
+            <Router />
           </BrowserRouter>
 
       </div>
