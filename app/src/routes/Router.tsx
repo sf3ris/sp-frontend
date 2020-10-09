@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { routes, IRoute } from './routes';
 import { Route, Switch, Redirect } from 'react-router-dom';
 import LoginContainer from '../container/LoginContainer';
-import { IUserState } from '../shared/user/slices/userSlices';
-import { useSelector } from 'react-redux';
+import { IUserState, loginSuccesfully } from '../shared/user/slices/userSlices';
+import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from '../core/rootReducer';
 import { IUser } from '../shared/user/model/IUser';
 
@@ -12,6 +12,24 @@ const Router : React.FC<{}> = props => {
     const user : IUserState = useSelector(
         ( state : RootState) => state.userState
     )
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+  
+      const token     = localStorage.getItem('token');
+      const username  = localStorage.getItem('username');
+  
+      if(!token || !username) return;
+  
+      try{
+  
+        dispatch(loginSuccesfully({username: username, token: JSON.parse(token)}));
+  
+      }
+      catch(e) { }
+  
+    }, [])
 
     return (
 

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { makeStyles, Theme, TextField, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme : Theme) => ({
@@ -13,14 +13,17 @@ const useStyles = makeStyles((theme : Theme) => ({
 }))
 
 interface ILoginComponentProps {
-    onLogin : ( username : string ) => void;
+    onLogin : ( username : string, password: string ) => void;
 }
 
 const LoginComponent : React.FC<ILoginComponentProps> = props => {
 
     const classes = useStyles();
 
-    const onLogin = ( username : string ) => props.onLogin( username );
+    const [ username, setUsername ] = useState<string>('');
+    const [ password, setPassword ] = useState<string>('');
+
+    const onLogin = ( ) => props.onLogin( username, password );
 
     return (
 
@@ -30,11 +33,22 @@ const LoginComponent : React.FC<ILoginComponentProps> = props => {
 
                 <form className={classes.root}>
 
-                    <TextField label="username" variant="outlined" fullWidth />
+                    <TextField 
+                        value={username}
+                        onChange={ e => setUsername(e.target.value)}
+                        label="username" 
+                        variant="outlined" 
+                        fullWidth />
 
-                    <TextField label="password" type="password" variant="outlined" fullWidth />
+                    <TextField 
+                        value={password}
+                        onChange={ e => setPassword(e.target.value)}
+                        label="password" 
+                        type="password" 
+                        variant="outlined" 
+                        fullWidth />
 
-                    <Button onClick={() => onLogin('sf3ris')} className={classes.button} size="large" variant="contained" color="primary">
+                    <Button onClick={onLogin} className={classes.button} size="large" variant="contained" color="primary">
                         LOGIN
                     </Button>
 

@@ -2,6 +2,6 @@
 
 exports[`Logo Component Test Should match snapshot 1`] = `
 "<div className=\\"logo\\">
-  <img alt=\\"AppLogo\\" src=\\"\\" />
+  <img alt=\\"AppLogo\\" src=\\"\\" width=\\"100%\\" height=\\"100%\\" />
 </div>"
 `;

@@ -12,7 +12,7 @@ module.exports = {
       "^.+\\.(js|jsx)$": "babel-jest"
     },
     "moduleNameMapper" : {
-      "^.+\\.(svg|png)$": "<rootDir>/test/__mocks__/file-stub.ts"
+      "^.+\\.(svg|png|jpg)$": "<rootDir>/test/__mocks__/file-stub.ts"
     },
     "setupFilesAfterEnv": ["<rootDir>/setupTest.ts"]
   }

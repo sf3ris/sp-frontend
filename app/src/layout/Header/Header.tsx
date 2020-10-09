@@ -3,8 +3,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-regular-svg-icons';
 import { useHistory } from 'react-router-dom';
 import { faArrowRight, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../shared/user/slices/userSlices';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout, IUserState } from '../../shared/user/slices/userSlices';
+import { RootState } from '../../core/rootReducer';
 
 
 const Header : React.FC<{}> = props => {
@@ -12,6 +13,10 @@ const Header : React.FC<{}> = props => {
     const history = useHistory();
 
     const dispatch = useDispatch();
+
+    const user : IUserState = useSelector(
+        ( state : RootState ) => state.userState
+    )
 
     const onUserClick = () => {
 
@@ -33,9 +38,9 @@ const Header : React.FC<{}> = props => {
             </form>
             <div className="admin-profile">
 
-                <span className="greeting">Administrator</span>
+                <span className="greeting">{ user.user && user.user.username }</span>
                 <div onClick={onUserClick} className="notifications">
-                    <span className="badge">1</span>
+                    <span className="badge">0</span>
                     <FontAwesomeIcon icon={faUserCircle} />
                 </div>
 
