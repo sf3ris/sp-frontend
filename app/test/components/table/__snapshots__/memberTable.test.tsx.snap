@@ -2,7 +2,7 @@
 
 exports[`Member table compponent Should match snapshot 1`] = `
 "<Fragment>
-  <MemberToolbarComponent onNew={[Function: mockConstructor]} />
+  <MemberToolbarComponent onPDF={[Function: mockConstructor]} onNew={[Function: mockConstructor]} />
   <WithStyles(ForwardRef(TableContainer))>
     <WithStyles(ForwardRef(Table))>
       <WithStyles(ForwardRef(TableHead))>
@@ -27,6 +27,9 @@ exports[`Member table compponent Should match snapshot 1`] = `
           </WithStyles(ForwardRef(TableCell))>
           <WithStyles(ForwardRef(TableCell))>
             Email
+          </WithStyles(ForwardRef(TableCell))>
+          <WithStyles(ForwardRef(TableCell))>
+            Stato
           </WithStyles(ForwardRef(TableCell))>
           <WithStyles(ForwardRef(TableCell)) colSpan={2} />
         </WithStyles(ForwardRef(TableRow))>

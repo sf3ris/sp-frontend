@@ -9,6 +9,7 @@ interface IMemberTableComponentProps {
     onNew: (...args:any) => void;
     onEdit: ( member : IMember ) => void;
     onDelete: (member : IMember) => void;
+    onPDF: (...args:any) => void;
 }
 
 const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
@@ -16,7 +17,9 @@ const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
     return (
             <>
 
-                <MemberToolbarComponent onNew={props.onNew} />
+                <MemberToolbarComponent 
+                    onPDF={props.onPDF}
+                    onNew={props.onNew} />
 
                 <TableContainer>
                     <Table>
@@ -29,6 +32,7 @@ const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
                                 <TableCell>Città</TableCell>
                                 <TableCell>Provincia</TableCell>
                                 <TableCell>Email</TableCell>
+                                <TableCell>Stato</TableCell>
                                 <TableCell colSpan={2}></TableCell>
                             </TableRow>
                         </TableHead>

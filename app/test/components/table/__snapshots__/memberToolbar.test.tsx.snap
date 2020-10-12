@@ -3,11 +3,18 @@
 exports[`Member toolbar component Should match snapshot 1`] = `
 "<WithStyles(ForwardRef(Grid)) container={true}>
   <WithStyles(ForwardRef(Grid)) item={true} xs={12}>
-    <WithStyles(ForwardRef(Button)) variant=\\"contained\\" id=\\"idNewButtonMemberTable\\" onClick={[Function: mockConstructor]} color=\\"primary\\">
+    <WithStyles(ForwardRef(Button)) className=\\"makeStyles-button-1\\" variant=\\"contained\\" id=\\"idNewButtonMemberTable\\" onClick={[Function: mockConstructor]} color=\\"primary\\">
       <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
        
       <span style={{...}}>
         Nuovo
+      </span>
+    </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(Button)) className=\\"makeStyles-button-1\\" variant=\\"contained\\" id=\\"idPDFButtonMemberTable\\" onClick={[Function: mockConstructor]} color=\\"primary\\">
+      <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+       
+      <span style={{...}}>
+        PDF
       </span>
     </WithStyles(ForwardRef(Button))>
   </WithStyles(ForwardRef(Grid))>

@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import MemberComponent from "../component/member/member.component";
 import { IMember } from "../features/members/models/IMember";
 import DefaultLayout from "../layout/DefaultLayout";
+import { membersService } from "../features/members/services/members.service";
+import useDownload from "../shared/hooks/useDownload";
 
 const MemberContainer : React.FC<{}> = props => {
 
@@ -14,6 +16,8 @@ const MemberContainer : React.FC<{}> = props => {
     )
 
     const dispatch = useDispatch();
+
+    const { downloadPdf } = useDownload();
 
     useEffect(() => {
 
@@ -35,11 +39,20 @@ const MemberContainer : React.FC<{}> = props => {
 
     }
 
+    const onPDF = async () => {
+
+        const pdf = await membersService.getPDF();
+
+        downloadPdf(pdf.data, 'members.pdf');
+
+    }
+
     return (
 
         <DefaultLayout>
 
             <MemberComponent 
+                onPDF={onPDF}
                 onSave={onSave}
                 onDelete={onDelete}
                 members={membersState.members} />

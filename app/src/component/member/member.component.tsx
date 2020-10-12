@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { IMember } from '../../features/members/models/IMember';
 import MemberTableComponent from './Table/memberTable.component';
-import MemberNewModalComponent from './Modal/memberNewModal.component';
 import { Grid } from '@material-ui/core';
+import MemberModal from './Modal/memberModal.component';
 
 interface IMemberComponentProps {
     members : IMember[];
     onSave: ( member : Partial<IMember>) => void;
     onDelete : ( member : IMember ) => void;
+    onPDF : (...args: any) => void,
 }
 
 const MemberComponent : React.FC<IMemberComponentProps> = props => {
@@ -38,6 +39,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                     <Grid item xs={12}>
 
                         <MemberTableComponent 
+                            onPDF={props.onPDF}
                             members={props.members} 
                             onNew={toggleModal} 
                             onDelete={props.onDelete}
@@ -47,7 +49,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
 
                 </Grid>
 
-                <MemberNewModalComponent 
+                <MemberModal 
                     member={member}
                     onSave={props.onSave}
                     isOpen={isOpenNewModal} 

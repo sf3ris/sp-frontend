@@ -3,7 +3,7 @@ import { IMember } from '../models/IMember';
 import qs from 'querystring';
 import { dateUtils } from '../../../utils/dateUtils';
  
-const getMembers = async () : Promise<IMember[]> => {
+const getMembers = async ( ) : Promise<IMember[]> => {
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
 
@@ -14,6 +14,31 @@ const getMembers = async () : Promise<IMember[]> => {
             const endpoint = host + `/members`;
 
             const response = await axios.get( endpoint );
+
+            resolve(response.data);
+
+        }
+        catch(e) { 
+
+            reject(e.response) 
+
+        }
+
+    })
+
+}
+
+const getPDF = async ( ) : Promise<{data : string}> => {
+
+    const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
+
+    return new Promise( async (resolve,reject) => {
+
+        try{
+
+            const endpoint = host + `/members?${qs.stringify({format:'pdf'})}`;
+
+            const response = await axios.get<{data : string}>( endpoint );
 
             resolve(response.data);
 
@@ -44,7 +69,7 @@ const postMember = async ( member : Partial<IMember>) => {
                 }
             }
 
-            const response = await axios.post( endpoint, qs.stringify({...member, birth_date : dateUtils.formatDateToServerFormat(member.birth_date || '')}), config );
+            const response = await axios.post( endpoint, qs.stringify({...member }), config );
 
             resolve(response.data);
 
@@ -74,8 +99,6 @@ const putMember = async ( member : Partial<IMember>) => {
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }
-
-            if('birth_date' in member) member.birth_date = dateUtils.formatDateToServerFormat(member.birth_date || '');
 
             const response = await axios.put( endpoint, qs.stringify({...member }), config );
 
@@ -117,4 +140,6 @@ const deleteMember = async ( member : IMember) => {
 
 }
 
-export const membersService = { getMembers, postMember, putMember, deleteMember };
+
+
+export const membersService = { getMembers, postMember, putMember, deleteMember, getPDF };

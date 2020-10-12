@@ -1,13 +1,22 @@
 import React from 'react';
-import { Grid, Button } from '@material-ui/core';
+import { Grid, Button, makeStyles, Theme, createStyles } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlusSquare } from '@fortawesome/free-regular-svg-icons';
+import { faPlusSquare, faFilePdf } from '@fortawesome/free-regular-svg-icons';
 
 interface IMemberToolbarComponentProps {
-    onNew: (...args : any) => void
+    onNew: (...args : any) => void;
+    onPDF: (...args : any) => void;
 }
 
+const useStyles = makeStyles((theme: Theme) => createStyles({
+    button : {
+        margin : theme.spacing(2)
+    }
+}))
+
 const MemberToolbarComponent : React.FC<IMemberToolbarComponentProps> = props => {
+
+    const classes = useStyles();
 
     return (
 
@@ -15,8 +24,12 @@ const MemberToolbarComponent : React.FC<IMemberToolbarComponentProps> = props =>
 
             <Grid item xs={12}>
 
-                <Button variant="contained" id="idNewButtonMemberTable" onClick={props.onNew} color="primary">
+                <Button className={classes.button} variant="contained" id="idNewButtonMemberTable" onClick={props.onNew} color="primary">
                     <FontAwesomeIcon icon={faPlusSquare} /> <span style={{marginLeft:'5px'}}>Nuovo</span>
+                </Button>
+
+                <Button className={classes.button} variant="contained" id="idPDFButtonMemberTable" onClick={props.onPDF} color="primary">
+                    <FontAwesomeIcon icon={faFilePdf} /> <span style={{marginLeft:'5px'}}>PDF</span>
                 </Button>
 
             </Grid>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { TableRow, TableCell, Button, IconButton } from '@material-ui/core';
 import { IMember } from '../../../features/members/models/IMember';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash, faCircleNotch, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { dateUtils } from '../../../utils/dateUtils';
 import ConfirmDialog from '../../../layout/Dialog/ConfirmDialog';
 
@@ -38,6 +38,7 @@ const MemberRowComponent : React.FC<IMemberRowComponentProps> = props => {
                 <TableCell>{ props.member.city }</TableCell>
                 <TableCell>{ props.member.province }</TableCell>
                 <TableCell>{ props.member.email }</TableCell>
+                <TableCell><FontAwesomeIcon icon={faCircle} color="green" /></TableCell>
                 <TableCell colSpan={2}>
                     <IconButton id={"editButtonId_" + props.member._id} onClick={e => props.onEditClick(props.member)} size="small">
                         <FontAwesomeIcon icon={faPencilAlt} color="green" />

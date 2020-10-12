@@ -1,35 +1,42 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Member Modal Component Should match snapshot 1`] = `
-"<ForwardRef(Modal) open={true} onClose={[Function: onClose]}>
-  <div style={{...}}>
-    <div className=\\"makeStyles-root-1\\">
-      <div className=\\"makeStyles-textContainer-2\\">
-        <MemberTextField label=\\"Nome\\" value=\\"\\" onChange={[Function: onNameChange]} />
-        <MemberTextField label=\\"Cognome\\" value=\\"\\" onChange={[Function: onLastNameChange]} />
-        <MemberTextField label=\\"Data di nascita\\" value=\\"\\" onChange={[Function: onBirthDateChange]} />
-        <MemberTextField label=\\"Luogo di nascita\\" value=\\"\\" onChange={[Function: onBirthPlaceChange]} />
-        <MemberTextField label=\\"Codice Fiscale\\" value=\\"\\" maxLength={16} onChange={[Function: onFiscalCodeChange]} />
-        <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
-        <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
-        <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
-        <MemberTextField label=\\"Provincia\\" value=\\"\\" onChange={[Function: onProvinceChange]} />
-        <MemberTextField label=\\"Sesso\\" value=\\"\\" maxLength={1} onChange={[Function: onGenderChange]} />
-        <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
-        <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
-      </div>
-    </div>
+"<Fragment>
+  <div className=\\"makeStyles-root-1\\">
     <div className=\\"makeStyles-textContainer-2\\">
-      <WithStyles(ForwardRef(Button)) id=\\"idDiscardButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onClose]}>
-        Annulla
-      </WithStyles(ForwardRef(Button))>
-      <WithStyles(ForwardRef(Button)) id=\\"idPopulatedButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onPopulate]}>
-        Popola
-      </WithStyles(ForwardRef(Button))>
-      <WithStyles(ForwardRef(Button)) id=\\"idSaveButton\\" variant=\\"contained\\" color=\\"primary\\" onClick={[Function: onSave]} style={{...}}>
-        Salva
-      </WithStyles(ForwardRef(Button))>
+      <MemberTextField label=\\"Nome\\" value=\\"\\" onChange={[Function: onNameChange]} />
+      <MemberTextField label=\\"Cognome\\" value=\\"\\" onChange={[Function: onLastNameChange]} />
+      <MuiPickersUtilsProvider utils={[Function: DateFnsUtils]}>
+        <PickerWithState className=\\"makeStyles-selectField-3\\" margin=\\"normal\\" label=\\"Data di nascita\\" format=\\"dd/MM/yyyy\\" value={{...}} onChange={[Function: onChange]} minDate={{...}} maxDate={{...}} invalidDateMessage=\\"Invalid Date Format\\" minDateMessage=\\"Date should not be before minimal date\\" maxDateMessage=\\"Date should not be after maximal date\\" allowKeyboardControl={true} openTo=\\"date\\" views={{...}} />
+      </MuiPickersUtilsProvider>
+      <MemberTextField label=\\"Luogo di nascita\\" value=\\"\\" onChange={[Function: onBirthPlaceChange]} />
+      <MemberTextField label=\\"Codice Fiscale\\" value=\\"\\" maxLength={16} onChange={[Function: onFiscalCodeChange]} />
+      <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
+      <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
+      <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
+      <MemberTextField label=\\"Provincia\\" value=\\"\\" onChange={[Function: onProvinceChange]} />
+      <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
+      <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
+      <WithStyles(ForwardRef(InputLabel)) className=\\"makeStyles-selectField-3\\" id=\\"gender-select-id\\">
+        Sesso
+      </WithStyles(ForwardRef(InputLabel))>
+      <WithStyles(ForwardRef(Select)) labelId=\\"gender-select-id\\" value=\\"\\" onChange={[Function: onGenderChange]} className=\\"makeStyles-selectField-3\\">
+        <WithStyles(ForwardRef(MenuItem)) value=\\"M\\">
+          M
+        </WithStyles(ForwardRef(MenuItem))>
+        <WithStyles(ForwardRef(MenuItem)) value=\\"F\\">
+          F
+        </WithStyles(ForwardRef(MenuItem))>
+      </WithStyles(ForwardRef(Select))>
     </div>
   </div>
-</ForwardRef(Modal)>"
+  <div className=\\"makeStyles-textContainer-2\\">
+    <WithStyles(ForwardRef(Button)) id=\\"idDiscardButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onClose]}>
+      Annulla
+    </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(Button)) id=\\"idSaveButton\\" variant=\\"contained\\" color=\\"primary\\" onClick={[Function: onSave]} style={{...}}>
+      Salva
+    </WithStyles(ForwardRef(Button))>
+  </div>
+</Fragment>"
 `;

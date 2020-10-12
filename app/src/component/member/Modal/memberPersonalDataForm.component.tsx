@@ -1,28 +1,16 @@
 import React, { useState, useEffect } from 'react';
-import { Modal, makeStyles, Theme, createStyles, Button } from '@material-ui/core';
+import { makeStyles, Theme, createStyles, Button, Select, MenuItem, InputLabel } from '@material-ui/core';
 import MemberTextField from './memberTextField.component';
 import { IMember } from '../../../features/members/models/IMember';
 import { dateUtils } from '../../../utils/dateUtils';
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
+import DateFnsUtils from '@date-io/date-fns';
 
-interface IMemberNewModalComponentProps {
+interface IMemberPersonalDataFormComponentProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
     onSave: ( member : Partial<IMember> ) => void;
     member? : IMember;
-}
-
-const modalStyle = () : React.CSSProperties => {
-    const top = '10vh';
-    const left = '25vw';
-
-    return {
-        top : top,
-        left: left,
-        backgroundColor:'#fff',
-        position:'absolute',
-        padding:'10px',
-        width: '50vw'
-    }
 }
 
 const useStyles = makeStyles((theme : Theme) => createStyles({
@@ -35,16 +23,21 @@ const useStyles = makeStyles((theme : Theme) => createStyles({
         marginRight:'auto',
         marginLeft:'auto',
         marginTop:'10px'
+    },
+    selectField : {
+        marginLeft: theme.spacing(1),
+        marginRight: theme.spacing(1),
+        width: '45%'
     }
 }))
 
-const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props => {
+const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponentProps> = props => {
 
     const classes = useStyles();
 
     const [ name, setName ]             = useState<string>(props.member?.name || '');
     const [ lastName, setLastName]      = useState<string>(props.member?.last_name || '');
-    const [ birthDate, setBirthDate]    = useState<string>(props.member?.birth_date || '');
+    const [ birthDate, setBirthDate]    = useState<Date | null>(props.member ? new Date(props.member?.birth_date) : null);
     const [ birthPlace, setBirthPlace]  = useState<string>(props.member?.birth_place || '');
     const [ fiscalCode, setFiscalCode]  = useState<string>(props.member?.fiscal_code || '');
     const [ address, setAddress]        = useState<string>(props.member?.address || '');
@@ -57,14 +50,14 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
     const onNameChange          = ( value : string ) => setName(value);
     const onLastNameChange      = ( value : string ) => setLastName(value);
-    const onBirthDateChange     = ( value : string ) => setBirthDate(value);
+    const onBirthDateChange     = ( date : Date | null ) => setBirthDate(date);
     const onBirthPlaceChange    = ( value : string ) => setBirthPlace(value);
     const onFiscalCodeChange    = ( value : string ) => setFiscalCode(value);
     const onAddressChange       = ( value : string ) => setAddress(value);
     const onZipCodeChange       = ( value : string ) => setZipCode(value);
     const onProvinceChange      = ( value : string ) => setProvince(value);
     const onCityChange          = ( value : string ) => setCity(value);
-    const onGenderChange        = ( value : string ) => setGender(value);
+    const onGenderChange        = ( e : React.ChangeEvent<{value: unknown}> ) => setGender(e.target.value as string);
     const onPhoneChange         = ( value : string ) => setPhone(value);
     const onEmailChange         = ( value : string ) => setEmail(value);
 
@@ -72,7 +65,7 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
         setName('');
         setLastName('');
-        setBirthDate('');
+        setBirthDate(null);
         setBirthPlace('');
         setFiscalCode('');
         setAddress('');
@@ -89,7 +82,7 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
         setName('Mario');
         setLastName('Verdi')
-        setBirthDate('10/01/1992');
+        setBirthDate(new Date('10/01/1992'));
         setBirthPlace('Milano');
         setFiscalCode('MRAVRD92E10E783P');
         setAddress('Via delle grazie,15');
@@ -108,7 +101,7 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
         setName(member.name);
         setLastName(member.last_name);
-        setBirthDate(birth_date);
+        setBirthDate(new Date(member.birth_date));
         setBirthPlace(member.birth_place);
         setFiscalCode(member.fiscal_code);
         setAddress(member.address);
@@ -130,10 +123,12 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
     const onSave = () => {
 
+        const bDate = dateUtils.formatDateToServerFormat(birthDate || new Date());
+
         const member : Partial<IMember> = {
             name,
             last_name: lastName,
-            birth_date: birthDate,
+            birth_date: bDate,
             birth_place: birthPlace,
             fiscal_code: fiscalCode,
             address,
@@ -160,11 +155,8 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
     }, [props.member])
     
     return (
-
-        <Modal open={props.isOpen} onClose={onClose}>
-
-            <div style={modalStyle()}>
                 
+            <>
                 <div className={classes.root}>
                     <div className={classes.textContainer}>
 
@@ -178,10 +170,22 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
                             value={lastName}
                             onChange={onLastNameChange} />
 
-                        <MemberTextField
+{/*                         <MemberTextField
                             label="Data di nascita"
                             value={birthDate}
-                            onChange={onBirthDateChange} />
+                            onChange={onBirthDateChange} /> */}
+
+                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                            <KeyboardDatePicker
+                                className={classes.selectField}
+                                margin="normal"
+                                label="Data di nascita"
+                                format="dd/MM/yyyy"
+                                value={birthDate}
+                                onChange={ date => onBirthDateChange(date)}
+                                ></KeyboardDatePicker>
+
+                        </MuiPickersUtilsProvider>
 
                         <MemberTextField
                             label="Luogo di nascita"
@@ -216,12 +220,6 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
                             onChange={onProvinceChange} />
 
                         <MemberTextField
-                            label="Sesso"
-                            value={gender}
-                            maxLength={1}
-                            onChange={onGenderChange} />
-
-                        <MemberTextField
                             label="Telefono"
                             value={phone}
                             onChange={onPhoneChange} />
@@ -230,6 +228,17 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
                             label="Email"
                             value={email}
                             onChange={onEmailChange} />
+
+                        <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
+                        <Select 
+                            labelId="gender-select-id"
+                            value={gender}
+                            onChange={onGenderChange}
+                            className={classes.selectField}
+                            >
+                                <MenuItem value="M">M</MenuItem>
+                                <MenuItem value="F">F</MenuItem>
+                            </Select>
                             
                     </div>
 
@@ -238,17 +247,15 @@ const MemberNewModalComponent : React.FC<IMemberNewModalComponentProps> = props 
 
                         <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose} >Annulla</Button>
 
-                        <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate} >Popola</Button>
+                       {/*  <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate} >Popola</Button> */}
 
                         <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}} >Salva</Button>
 
-                    </div>
-            </div>
+                </div>
 
-        </Modal>
-
+            </>
     )
 
 }
 
-export default MemberNewModalComponent;
+export default MemberPersonalDataFormComponent;

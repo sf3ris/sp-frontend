@@ -50,13 +50,13 @@ export const { membersFetching, membersFetchSuccess, membersFetchError } = membe
 
 export default membersSlice.reducer;
 
-export const getMembers = () : AppThunk => async dispatch => {
+export const getMembers = ( ) : AppThunk => async dispatch => {
 
     try{
 
         dispatch( membersFetching(true));
 
-        const members = await membersService.getMembers();
+        const members = await membersService.getMembers( );
 
         dispatch( membersFetchSuccess( members ));
 
@@ -119,4 +119,6 @@ export const deleteMember = ( member : IMember) : AppThunk => async dispatch => 
     }
 
 }
+
+
 
