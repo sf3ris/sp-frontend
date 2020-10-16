@@ -1,3 +1,5 @@
+import { IMembership } from "../../memberships/models/membership";
+
 export interface IMember {
     _id : string;
     name : string;
@@ -13,6 +15,7 @@ export interface IMember {
     //gender : keyof typeof Gender;
     phone : string;
     email : string;
+    memberships : IMembership[]
 }
 
 enum Gender {

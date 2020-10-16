@@ -3,12 +3,14 @@ import { IMember } from '../../features/members/models/IMember';
 import MemberTableComponent from './Table/memberTable.component';
 import { Grid } from '@material-ui/core';
 import MemberModal from './Modal/memberModal.component';
+import { IMembership } from '../../features/memberships/models/membership';
 
 interface IMemberComponentProps {
     members : IMember[];
     onSave: ( member : Partial<IMember>) => void;
     onDelete : ( member : IMember ) => void;
-    onPDF : (...args: any) => void,
+    onPDF : (...args: any) => void;
+    onAddMembership : (member : IMember, membership : IMembership) => void;
 }
 
 const MemberComponent : React.FC<IMemberComponentProps> = props => {
@@ -52,7 +54,8 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                 <MemberModal 
                     member={member}
                     onSave={props.onSave}
-                    isOpen={isOpenNewModal} 
+                    isOpen={isOpenNewModal}
+                    onAddMembership={props.onAddMembership} 
                     toggle={toggleModal} />
 
             </article>

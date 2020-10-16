@@ -53,7 +53,7 @@ const getPDF = async ( ) : Promise<{data : string}> => {
 
 }
 
-const postMember = async ( member : Partial<IMember>) => {
+const postMember = async ( member : Partial<Omit<IMember, "memberships"|"id">>) => {
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
 
@@ -84,7 +84,7 @@ const postMember = async ( member : Partial<IMember>) => {
 
 }
 
-const putMember = async ( member : Partial<IMember>) => {
+const putMember = async ( member : Partial<Omit<IMember,"memberships">>) => {
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
 
@@ -100,7 +100,7 @@ const putMember = async ( member : Partial<IMember>) => {
                 }
             }
 
-            const response = await axios.put( endpoint, qs.stringify({...member }), config );
+            const response = await axios.put( endpoint, qs.stringify({...member}), config );
 
             resolve(response.data);
 

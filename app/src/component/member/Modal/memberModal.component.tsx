@@ -4,12 +4,14 @@ import { Modal, Tabs, Tab } from '@material-ui/core';
 import TabPanel from '../../../layout/Tabs/TabPanel';
 import MemberPersonalDataFormComponent from './memberPersonalDataForm.component';
 import MemberMembershipForm from './memberMemershipForm.component';
+import { IMembership } from '../../../features/memberships/models/membership';
 
 interface IMemberModalProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
     onSave: ( member : Partial<IMember> ) => void;
     member? : IMember;
+    onAddMembership: (member : IMember, membership : IMembership) => void;
 }
 
 const modalStyle = () : React.CSSProperties => {
@@ -57,7 +59,10 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
                     tab={tab} 
                     index={1}>
 
-                        <MemberMembershipForm />
+                        {props.member && 
+                            <MemberMembershipForm
+                                member={props.member}
+                                onAddMembership={props.onAddMembership}/> }
 
                 </TabPanel>
 

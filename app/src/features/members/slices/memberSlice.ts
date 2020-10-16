@@ -2,6 +2,8 @@ import { IMember } from '../models/IMember';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { AppThunk } from '../../../core/store';
 import { membersService } from '../services/members.service';
+import { IMembership } from '../../memberships/models/membership';
+import { membershipService } from '../../memberships/services/memberships.service';
 
 export interface IMembersState {
     members : IMember[];
@@ -69,7 +71,7 @@ export const getMembers = ( ) : AppThunk => async dispatch => {
 
 }
 
-export const postMember = ( member : Partial<IMember>) : AppThunk => async dispatch => {
+export const postMember = ( member : Partial<Omit<IMember, "memberships"|"id">>) : AppThunk => async dispatch => {
 
     try {
 
@@ -86,7 +88,7 @@ export const postMember = ( member : Partial<IMember>) : AppThunk => async dispa
 
 }
 
-export const putMember = ( member : Partial<IMember>) : AppThunk => async dispatch => {
+export const putMember = ( member : Partial<Omit<IMember, "memberships">>) : AppThunk => async dispatch => {
 
     try{
 
@@ -113,6 +115,25 @@ export const deleteMember = ( member : IMember) : AppThunk => async dispatch => 
 
     }
     catch( e ) {
+
+        console.log(e);
+
+    }
+
+}
+
+export const addMembership = (member : IMember, membership : IMembership ) : AppThunk => async dispatch => {
+
+    try{
+
+        const response = await membershipService.addMembership( member, membership );
+
+        dispatch(getMembers());
+
+
+    }
+    catch( e )
+    {
 
         console.log(e);
 

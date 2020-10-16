@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import Card from "../layout/Card/Card";
-import { IMembersState, getMembers, postMember, putMember, deleteMember } from "../features/members/slices/memberSlice";
+import { IMembersState, getMembers, postMember, putMember, deleteMember, addMembership } from "../features/members/slices/memberSlice";
 import { RootState } from "../core/store";
 import { useSelector, useDispatch } from 'react-redux';
 import MemberComponent from "../component/member/member.component";
@@ -8,6 +8,7 @@ import { IMember } from "../features/members/models/IMember";
 import DefaultLayout from "../layout/DefaultLayout";
 import { membersService } from "../features/members/services/members.service";
 import useDownload from "../shared/hooks/useDownload";
+import { IMembership } from "../features/memberships/models/membership";
 
 const MemberContainer : React.FC<{}> = props => {
 
@@ -29,7 +30,7 @@ const MemberContainer : React.FC<{}> = props => {
 
         if('_id' in member ) dispatch( putMember(member));
         else dispatch( postMember( member ));
-        
+
 
     }
 
@@ -47,6 +48,12 @@ const MemberContainer : React.FC<{}> = props => {
 
     }
 
+    const onAddMembership = ( member : IMember, membership : IMembership ) => {
+
+        dispatch(addMembership(member, membership));
+
+    }
+
     return (
 
         <DefaultLayout>
@@ -55,6 +62,7 @@ const MemberContainer : React.FC<{}> = props => {
                 onPDF={onPDF}
                 onSave={onSave}
                 onDelete={onDelete}
+                onAddMembership={onAddMembership}
                 members={membersState.members} />
                 
         </DefaultLayout>
