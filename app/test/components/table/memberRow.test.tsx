@@ -21,7 +21,8 @@ describe('Member Row Component', () => {
         province: 'MC',
         gender: 'M',
         phone: '3334885961',
-        email: 'mario.rossi@libero.it'
+        email: 'mario.rossi@libero.it',
+        memberships: []
     }
 
     it('Should match snapshot', () => {

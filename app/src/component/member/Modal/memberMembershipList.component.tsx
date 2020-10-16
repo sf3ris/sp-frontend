@@ -9,10 +9,6 @@ interface IMemberMembershipListProps {
 
 const MemberMembershipList : React.FC<IMemberMembershipListProps> = props => {
 
-    useEffect(() => {
-        console.log(props.memberships);
-    }, [props.memberships])
-
     const renderMembership = ( membership : IMembership, index : number ) => 
         <TableRow key={index}>
             <TableCell>
@@ -25,17 +21,23 @@ const MemberMembershipList : React.FC<IMemberMembershipListProps> = props => {
 
     return (
 
-        <TableContainer>
-            <Table>
-                <TableHead>
-                    <TableCell> Data Inizio </TableCell>
-                    <TableCell> Data Fine </TableCell>
-                </TableHead>
-                <TableBody>
-                    {props.memberships.map(renderMembership)}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <>
+
+            <h3 style={{margin:'auto'}}>Lista Tesseramenti</h3>
+
+            <TableContainer>
+                <Table>
+                    <TableHead>
+                        <TableCell> Data Inizio </TableCell>
+                        <TableCell> Data Fine </TableCell>
+                    </TableHead>
+                    <TableBody>
+                        {props.memberships.map(renderMembership)}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+
+        </>
 
     )
 

@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
-import { TableRow, TableCell, Button, IconButton } from '@material-ui/core';
+import React, { useState, useEffect } from 'react';
+import { TableRow, TableCell, IconButton } from '@material-ui/core';
 import { IMember } from '../../../features/members/models/IMember';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash, faCircleNotch, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { faPencilAlt, faTrash, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { dateUtils } from '../../../utils/dateUtils';
 import ConfirmDialog from '../../../layout/Dialog/ConfirmDialog';
 
@@ -28,6 +28,8 @@ const MemberRowComponent : React.FC<IMemberRowComponentProps> = props => {
         props.onDeleteClick( props.member );
     }
 
+    const isActive = props.member.memberships.some( membership => new Date(membership.end_date).getTime() >= new Date().getTime());
+
     return (
         <>
             <TableRow>
@@ -38,7 +40,7 @@ const MemberRowComponent : React.FC<IMemberRowComponentProps> = props => {
                 <TableCell>{ props.member.city }</TableCell>
                 <TableCell>{ props.member.province }</TableCell>
                 <TableCell>{ props.member.email }</TableCell>
-                <TableCell><FontAwesomeIcon icon={faCircle} color="green" /></TableCell>
+                <TableCell><FontAwesomeIcon icon={faCircle} color={isActive ? 'green' : 'red'} /></TableCell>
                 <TableCell colSpan={2}>
                     <IconButton id={"editButtonId_" + props.member._id} onClick={e => props.onEditClick(props.member)} size="small">
                         <FontAwesomeIcon icon={faPencilAlt} color="green" />

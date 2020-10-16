@@ -5,6 +5,8 @@ import { faHome, faCog, faUsersCog, faUserSecret, faUserShield } from '@fortawes
 import HomeContainer from '../container/HomeContainer';
 import ProfileContainer from '../container/ProfileContainer';
 import MemberContainer from '../container/MemberContainer';
+import CalendarContainer from '../container/CalendarContainer';
+import SettingsContainer from '../container/SettingsContainer';
 
 export interface IRoute {
     name : string;
@@ -30,11 +32,13 @@ export const routes : IRoute[] = [
     {
         name: 'Calendar',
         path: '/calendar',
+        component: CalendarContainer,
         icon: faCalendar
     },
     {
         name: 'Settings',
         path: '/settings',
+        component: SettingsContainer,
         icon: faCog
     },
     {

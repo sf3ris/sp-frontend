@@ -14,7 +14,7 @@ exports[`Member Modal Component Should match snapshot 1`] = `
       <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
       <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
       <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
-      <MemberTextField label=\\"Provincia\\" value=\\"\\" onChange={[Function: onProvinceChange]} />
+      <MemberTextField label=\\"Provincia\\" maxLength={2} value=\\"\\" onChange={[Function: onProvinceChange]} />
       <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
       <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
       <WithStyles(ForwardRef(InputLabel)) className=\\"makeStyles-selectField-3\\" id=\\"gender-select-id\\">

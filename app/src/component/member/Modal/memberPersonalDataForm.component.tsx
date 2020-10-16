@@ -52,7 +52,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
     const onLastNameChange      = ( value : string ) => setLastName(value);
     const onBirthDateChange     = ( date : Date | null ) => setBirthDate(date);
     const onBirthPlaceChange    = ( value : string ) => setBirthPlace(value);
-    const onFiscalCodeChange    = ( value : string ) => setFiscalCode(value);
+    const onFiscalCodeChange    = ( value : string ) => setFiscalCode(value.toUpperCase());
     const onAddressChange       = ( value : string ) => setAddress(value);
     const onZipCodeChange       = ( value : string ) => setZipCode(value);
     const onProvinceChange      = ( value : string ) => setProvince(value);
@@ -170,11 +170,6 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                             value={lastName}
                             onChange={onLastNameChange} />
 
-{/*                         <MemberTextField
-                            label="Data di nascita"
-                            value={birthDate}
-                            onChange={onBirthDateChange} /> */}
-
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
                                 className={classes.selectField}
@@ -216,6 +211,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
 
                         <MemberTextField
                             label="Provincia"
+                            maxLength={2}
                             value={province}
                             onChange={onProvinceChange} />
 

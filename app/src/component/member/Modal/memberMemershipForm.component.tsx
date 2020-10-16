@@ -22,11 +22,12 @@ const useStyles = makeStyles((theme : Theme) => createStyles({
     form: {
         width: '50%',
         margin:'auto',
-        marginLeft: '20px',
+        paddingLeft: '20px',
         display: 'flex',
         flexWrap: 'wrap',
-        flexDirection: 'row',
-        borderLeft: '1px solid black'
+        flexDirection: 'row'
+    },
+    list : {
     },
     dateField: {
         margin: theme.spacing(2)
@@ -59,7 +60,7 @@ const MemberMembershipForm : React.FC<IMemberMembershipFormProps> = props => {
     return (
 
         <div className={classes.root}>
-            <div>
+            <div className={classes.list}>
                 <MemberMembershipList memberships={props.member.memberships} />
             </div>
             <div className={classes.form}>

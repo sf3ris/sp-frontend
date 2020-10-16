@@ -54,6 +54,10 @@ const MemberContainer : React.FC<{}> = props => {
 
     }
 
+    useEffect(() => {
+        //console.log(membersState);
+    }, [membersState])
+
     return (
 
         <DefaultLayout>

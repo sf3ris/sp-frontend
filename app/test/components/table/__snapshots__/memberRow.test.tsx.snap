@@ -25,7 +25,7 @@ exports[`Member Row Component Should match snapshot 1`] = `
       mario.rossi@libero.it
     </WithStyles(ForwardRef(TableCell))>
     <WithStyles(ForwardRef(TableCell))>
-      <FontAwesomeIcon icon={{...}} color=\\"green\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+      <FontAwesomeIcon icon={{...}} color=\\"red\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
     </WithStyles(ForwardRef(TableCell))>
     <WithStyles(ForwardRef(TableCell)) colSpan={2}>
       <WithStyles(ForwardRef(IconButton)) id=\\"editButtonId_123\\" onClick={[Function: onClick]} size=\\"small\\">

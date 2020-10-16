@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IMember } from '../../features/members/models/IMember';
 import MemberTableComponent from './Table/memberTable.component';
 import { Grid } from '@material-ui/core';
@@ -30,6 +30,14 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
         setMember(member);
         toggleModal();
     }
+
+    useEffect(() => {
+
+        setMember(
+            props.members.find( m => m._id === member?._id)
+        );
+
+    }, [props.members])
 
     return (
 
