@@ -25,8 +25,8 @@ const modalStyle = () : React.CSSProperties => {
         position:'absolute',
         padding:'10px',
         width: '50vw',
-        maxHeight: '80vh',
-        overflow: 'scroll'
+        height: '80vh',
+        overflow:'scroll'
     }
 }
 
