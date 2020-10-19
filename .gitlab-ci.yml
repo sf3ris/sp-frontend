@@ -9,6 +9,9 @@ cache:
   paths:
     - /app/node_modules/
 
+before_script:
+    - apt-get install sshpass -y
+
 stages: 
     - test
     - build
