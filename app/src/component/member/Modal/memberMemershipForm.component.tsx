@@ -85,6 +85,7 @@ const MemberMembershipForm : React.FC<IMemberMembershipFormProps> = props => {
 
                     <hr />
                     <Button 
+                        color="primary"
                         disabled={!startMembershipDate && !stopMembershipDate}
                         onClick={onAddClick}
                         className={classes.button} 

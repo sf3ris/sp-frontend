@@ -40,9 +40,10 @@ const MemberContainer : React.FC<{}> = props => {
 
     }
 
-    const onPDF = async () => {
+    const onPDF = async ( columns : string []) => {
 
-        const pdf = await membersService.getPDF();
+        if(columns.length <= 0) return;
+        const pdf = await membersService.getPDF( columns );
 
         downloadPdf(pdf.data, 'members.pdf');
 
@@ -53,10 +54,6 @@ const MemberContainer : React.FC<{}> = props => {
         dispatch(addMembership(member, membership));
 
     }
-
-    useEffect(() => {
-        //console.log(membersState);
-    }, [membersState])
 
     return (
 

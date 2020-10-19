@@ -10,7 +10,7 @@ exports[`Member toolbar component Should match snapshot 1`] = `
         Nuovo
       </span>
     </WithStyles(ForwardRef(Button))>
-    <WithStyles(ForwardRef(Button)) className=\\"makeStyles-button-1\\" variant=\\"contained\\" id=\\"idPDFButtonMemberTable\\" onClick={[Function: mockConstructor]} color=\\"primary\\">
+    <WithStyles(ForwardRef(Button)) className=\\"makeStyles-button-1\\" variant=\\"contained\\" id=\\"idPDFButtonMemberTable\\" onClick={[Function: togglePDFModal]} color=\\"primary\\">
       <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
        
       <span style={{...}}>
@@ -18,5 +18,6 @@ exports[`Member toolbar component Should match snapshot 1`] = `
       </span>
     </WithStyles(ForwardRef(Button))>
   </WithStyles(ForwardRef(Grid))>
+  <MemberPDFModal onOk={[Function: mockConstructor]} isOpen={false} toggle={[Function: togglePDFModal]} />
 </WithStyles(ForwardRef(Grid))>"
 `;

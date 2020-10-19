@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { IMember } from '../models/IMember';
 import qs from 'querystring';
-import { dateUtils } from '../../../utils/dateUtils';
+import {store} from '../../../core/store';
+import { request } from '../../../core/request/request';
  
 const getMembers = async ( ) : Promise<IMember[]> => {
 
@@ -11,9 +12,9 @@ const getMembers = async ( ) : Promise<IMember[]> => {
 
         try{
 
-            const endpoint = host + `/members`;
+            const endpoint = `/members`;
 
-            const response = await axios.get( endpoint );
+            const response = await request<IMember[]>( host, { url: endpoint })
 
             resolve(response.data);
 
@@ -28,17 +29,19 @@ const getMembers = async ( ) : Promise<IMember[]> => {
 
 }
 
-const getPDF = async ( ) : Promise<{data : string}> => {
+const getPDF = async ( columns : string[] ) : Promise<{data : string}> => {
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
+
+    const user = store.getState().userState;
 
     return new Promise( async (resolve,reject) => {
 
         try{
 
-            const endpoint = host + `/members?${qs.stringify({format:'pdf'})}`;
+            const endpoint = `/members?${qs.stringify({format:'pdf'})}&columns=${columns.join(',')}`;
 
-            const response = await axios.get<{data : string}>( endpoint );
+            const response = await request<{data: string}>( host, { url: endpoint})
 
             resolve(response.data);
 
@@ -61,7 +64,7 @@ const postMember = async ( member : Partial<Omit<IMember, "memberships"|"id">>) 
 
         try{
 
-            const endpoint = host + `/members`;
+            const endpoint = `/members`;
 
             const config = {
                 headers: {
@@ -69,7 +72,7 @@ const postMember = async ( member : Partial<Omit<IMember, "memberships"|"id">>) 
                 }
             }
 
-            const response = await axios.post( endpoint, qs.stringify({...member }), config );
+            const response = await request<IMember>( host, { url: endpoint, method: 'POST', headers: config.headers, data: qs.stringify({...member})});
 
             resolve(response.data);
 
@@ -92,7 +95,7 @@ const putMember = async ( member : Partial<Omit<IMember,"memberships">>) => {
 
         try{
 
-            const endpoint = host + `/members/${member._id}`;
+            const endpoint = `/members/${member._id}`;
 
             const config = {
                 headers: {
@@ -100,7 +103,7 @@ const putMember = async ( member : Partial<Omit<IMember,"memberships">>) => {
                 }
             }
 
-            const response = await axios.put( endpoint, qs.stringify({...member}), config );
+            const response = await request<IMember>( host, { url: endpoint, method:'PUT', headers: config.headers, data: qs.stringify({...member})});
 
             resolve(response.data);
 
@@ -123,11 +126,11 @@ const deleteMember = async ( member : IMember) => {
 
         try{
 
-            const endpoint = host + `/members/${member._id}`;
+            const endpoint = `/members/${member._id}`;
 
-            const response = await axios.delete( endpoint );
+            const response = request<string>(host, { url: endpoint, method: 'DELETE' });
 
-            resolve(response.data);
+            resolve(response);
 
         }
         catch(e) { 

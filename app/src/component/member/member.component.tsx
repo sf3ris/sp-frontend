@@ -9,7 +9,7 @@ interface IMemberComponentProps {
     members : IMember[];
     onSave: ( member : Partial<IMember>) => void;
     onDelete : ( member : IMember ) => void;
-    onPDF : (...args: any) => void;
+    onPDF : ( columns : string[]) => void;
     onAddMembership : (member : IMember, membership : IMembership) => void;
 }
 

@@ -13,8 +13,8 @@ const login = ( username : string, password : string ) : Promise<IToken> => {
         const body = {
             username : username,
             password : password,
-            client_id : 'Ozh4F-fp_CI',
-            client_secret : 'WYwsBuI9zawIlFfMcy5F6Q',
+            client_id : process.env.REACT_APP_CLIENT_ID || '', 
+            client_secret : process.env.REACT_APP_CLIENT_SECRET || '',
             grant_type : 'password'
         };
         

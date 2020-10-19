@@ -34,7 +34,7 @@ describe('Member toolbar component', () => {
 
     })
 
-    it('Should trigger pdf', () => {
+    it('Should open pdf modal', () => {
 
         const wrapper = shallow(
             <MemberToolbarComponent 
@@ -45,7 +45,7 @@ describe('Member toolbar component', () => {
         const button = wrapper.find('#idPDFButtonMemberTable');
         button.simulate('click');
 
-        expect(onPdf).toBeCalled();
+        expect(wrapper.find('MemberPDFModal').prop('isOpen')).toBe(true);
 
     })
   

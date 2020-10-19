@@ -9,7 +9,7 @@ interface IMemberTableComponentProps {
     onNew: (...args:any) => void;
     onEdit: ( member : IMember ) => void;
     onDelete: (member : IMember) => void;
-    onPDF: (...args:any) => void;
+    onPDF: ( columns : string[] ) => void;
 }
 
 const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
