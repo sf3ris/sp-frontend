@@ -39,4 +39,4 @@ deploy:
         - CI=false yarn run build
         - export SSHPASS=$SSH_PASSWORD
         - sshpass -e scp -o stricthostkeychecking=no -r build/ $SSH_USERNAME@159.65.125.31:/usr/share/nginx/
-        #- sshpass -e ssh $SSH_USERNAME@159.65.125.31 'rm /usr/share/nginx/html.old; mv /usr/share/nginx/html /usr/share/nginx/html.old && mv /usr/share/nginx/build /usr/share/nginx/html'
+        - sshpass -e ssh $SSH_USERNAME@159.65.125.31 'rm -rf /usr/share/nginx/html.old; mv /usr/share/nginx/html /usr/share/nginx/html.old && mv /usr/share/nginx/build /usr/share/nginx/html'
