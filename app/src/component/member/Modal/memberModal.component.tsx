@@ -11,7 +11,8 @@ interface IMemberModalProps {
     toggle: (...args: any) => void;
     onSave: ( member : Partial<IMember> ) => void;
     member? : IMember;
-    onAddMembership: (member : IMember, membership : IMembership) => void;
+    onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
+    onDeleteMembership: ( member : IMember, membership : IMembership ) => void;
 }
 
 const modalStyle = () : React.CSSProperties => {
@@ -64,6 +65,7 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
                         {props.member && 
                             <MemberMembershipForm
                                 member={props.member}
+                                onDeleteMembership={props.onDeleteMembership}
                                 onAddMembership={props.onAddMembership}/> }
 
                 </TabPanel>

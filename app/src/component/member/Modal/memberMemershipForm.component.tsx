@@ -7,7 +7,8 @@ import { IMember } from '../../../features/members/models/IMember';
 import MemberMembershipList from './memberMembershipList.component';
 
 interface IMemberMembershipFormProps {
-    onAddMembership: ( member : IMember, membership: IMembership) => void;
+    onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
+    onDeleteMembership: ( member : IMember, membership : IMembership ) => void;
     member : IMember;
 }
 
@@ -57,11 +58,22 @@ const MemberMembershipForm : React.FC<IMemberMembershipFormProps> = props => {
 
     }
 
+    const onDelete = ( membership : IMembership ) => {
+
+        props.onDeleteMembership(
+            props.member,
+            membership
+        );
+
+    }
+
     return (
 
         <div className={classes.root}>
             <div className={classes.list}>
-                <MemberMembershipList memberships={props.member.memberships} />
+                <MemberMembershipList
+                    onDeleteMembership={onDelete}
+                    memberships={props.member.memberships} />
             </div>
             <div className={classes.form}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>

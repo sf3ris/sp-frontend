@@ -122,11 +122,30 @@ export const deleteMember = ( member : IMember) : AppThunk => async dispatch => 
 
 }
 
-export const addMembership = (member : IMember, membership : IMembership ) : AppThunk => async dispatch => {
+export const addMembership = (member : IMember, membership : Omit<IMembership,"_id"> ) : AppThunk => async dispatch => {
 
     try{
 
         const response = await membershipService.addMembership( member, membership );
+
+        dispatch(getMembers());
+
+
+    }
+    catch( e )
+    {
+
+        console.log(e);
+
+    }
+
+}
+
+export const deleteMembership = ( member: IMember, membership : IMembership ) : AppThunk => async dispatch => {
+
+    try{
+
+        const response = await membershipService.deleteMembership( member, membership );
 
         dispatch(getMembers());
 

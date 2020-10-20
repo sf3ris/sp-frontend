@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import Card from "../layout/Card/Card";
-import { IMembersState, getMembers, postMember, putMember, deleteMember, addMembership } from "../features/members/slices/memberSlice";
+import { IMembersState, getMembers, postMember, putMember, deleteMember, addMembership, deleteMembership } from "../features/members/slices/memberSlice";
 import { RootState } from "../core/store";
 import { useSelector, useDispatch } from 'react-redux';
 import MemberComponent from "../component/member/member.component";
@@ -49,9 +48,17 @@ const MemberContainer : React.FC<{}> = props => {
 
     }
 
-    const onAddMembership = ( member : IMember, membership : IMembership ) => {
+    const onAddMembership = ( member : IMember, membership : Omit<IMembership,"_id"> ) => {
 
         dispatch(addMembership(member, membership));
+
+    }
+
+    const onDeleteMembership = ( member : IMember, membership : IMembership ) => {
+
+        dispatch(
+            deleteMembership( member, membership)
+        );
 
     }
 
@@ -59,7 +66,8 @@ const MemberContainer : React.FC<{}> = props => {
 
         <DefaultLayout>
 
-            <MemberComponent 
+            <MemberComponent
+                onDeleteMembership={onDeleteMembership}
                 onPDF={onPDF}
                 onSave={onSave}
                 onDelete={onDelete}

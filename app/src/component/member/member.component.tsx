@@ -10,7 +10,8 @@ interface IMemberComponentProps {
     onSave: ( member : Partial<IMember>) => void;
     onDelete : ( member : IMember ) => void;
     onPDF : ( columns : string[]) => void;
-    onAddMembership : (member : IMember, membership : IMembership) => void;
+    onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
+    onDeleteMembership : ( member : IMember, membership : IMembership ) => void;
 }
 
 const MemberComponent : React.FC<IMemberComponentProps> = props => {
@@ -60,6 +61,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                 </Grid>
 
                 <MemberModal 
+                    onDeleteMembership={props.onDeleteMembership}
                     member={member}
                     onSave={props.onSave}
                     isOpen={isOpenNewModal}

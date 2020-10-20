@@ -1,11 +1,10 @@
 import { IMember } from "../../members/models/IMember";
 import { IMembership } from "../models/membership";
-import Axios from "axios";
 import qs from 'querystring'
 import { dateUtils } from "../../../utils/dateUtils";
 import { request } from "../../../core/request/request";
 
-export const addMembership =  async ( member : IMember, membership: IMembership ) : Promise<IMember> => {
+export const addMembership =  async ( member : IMember, membership: Omit<IMembership,"_id"> ) : Promise<IMember> => {
 
     return new Promise( async (resolve,reject) => {
 
@@ -30,4 +29,24 @@ export const addMembership =  async ( member : IMember, membership: IMembership 
 
 }
 
-export const membershipService = { addMembership };
+export const deleteMembership =  async ( member : IMember, membership: IMembership ) : Promise<IMember> => {
+
+    return new Promise( async (resolve,reject) => {
+
+        try{
+
+            const host      = process.env.REACT_APP_MEMBERS_SP_HOST || '';
+            const endpoint  = host + `/members/${member._id}/memberships/${membership._id}`;
+
+            const response = await request<IMember>( host, {url: endpoint, method:'DELETE' })
+
+            resolve(response.data)
+
+        }
+        catch(e) { reject(e.responsne) }
+
+    })
+
+}
+
+export const membershipService = { addMembership, deleteMembership };
