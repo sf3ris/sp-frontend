@@ -1,12 +1,13 @@
 import React from 'react';
 import { IconProp } from '@fortawesome/fontawesome-svg-core'
 import { faBookmark, faCalendar,faUser } from '@fortawesome/free-regular-svg-icons';
-import { faHome, faCog, faUsersCog, faUserSecret, faUserShield } from '@fortawesome/free-solid-svg-icons';
+import { faHome, faCog, faUsersCog, faUserSecret, faUserShield, faSkating } from '@fortawesome/free-solid-svg-icons';
 import HomeContainer from '../container/HomeContainer';
 import ProfileContainer from '../container/ProfileContainer';
 import MemberContainer from '../container/MemberContainer';
 import CalendarContainer from '../container/CalendarContainer';
 import SettingsContainer from '../container/SettingsContainer';
+import AthleteContainer from '../container/AthleteContainer';
 
 export interface IRoute {
     name : string;
@@ -28,6 +29,12 @@ export const routes : IRoute[] = [
         path: '/members',
         icon: faUserShield,
         component: MemberContainer
+    },
+    {
+        name: 'Athletes',
+        path: '/athletes',
+        icon: faSkating,
+        component: AthleteContainer
     },
     {
         name: 'Calendar',
