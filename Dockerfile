@@ -6,4 +6,4 @@ COPY ./app/package.json /app/app/package.json
 
 RUN yarn install
 
-CMD [ "yarn", "start" ]
+#CMD [ "yarn", "start" ]
