@@ -4,19 +4,12 @@ exports[`Member Modal Component Should match snapshot 1`] = `
 "<Fragment>
   <div className=\\"makeStyles-root-1\\">
     <div className=\\"makeStyles-textContainer-2\\">
-      <MemberTextField label=\\"Nome\\" value=\\"\\" onChange={[Function: onNameChange]} />
       <MemberTextField label=\\"Cognome\\" value=\\"\\" onChange={[Function: onLastNameChange]} />
+      <MemberTextField label=\\"Nome\\" value=\\"\\" onChange={[Function: onNameChange]} />
       <MuiPickersUtilsProvider utils={[Function: DateFnsUtils]}>
         <PickerWithState className=\\"makeStyles-selectField-3\\" margin=\\"normal\\" label=\\"Data di nascita\\" format=\\"dd/MM/yyyy\\" value={{...}} onChange={[Function: onChange]} minDate={{...}} maxDate={{...}} invalidDateMessage=\\"Invalid Date Format\\" minDateMessage=\\"Date should not be before minimal date\\" maxDateMessage=\\"Date should not be after maximal date\\" allowKeyboardControl={true} openTo=\\"date\\" views={{...}} />
       </MuiPickersUtilsProvider>
       <MemberTextField label=\\"Luogo di nascita\\" value=\\"\\" onChange={[Function: onBirthPlaceChange]} />
-      <MemberTextField label=\\"Codice Fiscale\\" value=\\"\\" maxLength={16} onChange={[Function: onFiscalCodeChange]} />
-      <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
-      <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
-      <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
-      <MemberTextField label=\\"Provincia\\" maxLength={2} value=\\"\\" onChange={[Function: onProvinceChange]} />
-      <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
-      <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
       <WithStyles(ForwardRef(InputLabel)) className=\\"makeStyles-selectField-3\\" id=\\"gender-select-id\\">
         Sesso
       </WithStyles(ForwardRef(InputLabel))>
@@ -28,6 +21,14 @@ exports[`Member Modal Component Should match snapshot 1`] = `
           F
         </WithStyles(ForwardRef(MenuItem))>
       </WithStyles(ForwardRef(Select))>
+      <br />
+      <MemberTextField label=\\"Codice Fiscale\\" value=\\"\\" maxLength={16} onChange={[Function: onFiscalCodeChange]} />
+      <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
+      <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
+      <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
+      <MemberTextField label=\\"Provincia\\" maxLength={2} value=\\"\\" onChange={[Function: onProvinceChange]} />
+      <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
+      <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
     </div>
   </div>
   <div className=\\"makeStyles-textContainer-2\\">

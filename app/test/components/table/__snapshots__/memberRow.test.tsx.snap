@@ -4,10 +4,10 @@ exports[`Member Row Component Should match snapshot 1`] = `
 "<Fragment>
   <WithStyles(ForwardRef(TableRow))>
     <WithStyles(ForwardRef(TableCell))>
-      Mario
+      Rossi
     </WithStyles(ForwardRef(TableCell))>
     <WithStyles(ForwardRef(TableCell))>
-      Rossi
+      Mario
     </WithStyles(ForwardRef(TableCell))>
     <WithStyles(ForwardRef(TableCell))>
       01/10/1980

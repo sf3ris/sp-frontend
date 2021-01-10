@@ -33,8 +33,8 @@ const MemberRowComponent : React.FC<IMemberRowComponentProps> = props => {
     return (
         <>
             <TableRow>
-                <TableCell>{ props.member.name }</TableCell>
                 <TableCell>{ props.member.last_name }</TableCell>
+                <TableCell>{ props.member.name }</TableCell>
                 <TableCell>{ birth_date }</TableCell>
                 <TableCell>{ props.member.fiscal_code }</TableCell>
                 <TableCell>{ props.member.city }</TableCell>

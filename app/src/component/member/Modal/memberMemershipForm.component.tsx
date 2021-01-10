@@ -9,7 +9,7 @@ import MemberMembershipList from './memberMembershipList.component';
 interface IMemberMembershipFormProps {
     onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
     onDeleteMembership: ( member : IMember, membership : IMembership ) => void;
-    member : IMember;
+    member: IMember ;
 }
 
 const useStyles = makeStyles((theme : Theme) => createStyles({
