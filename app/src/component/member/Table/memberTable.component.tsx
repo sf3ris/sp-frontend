@@ -14,19 +14,21 @@ interface IMemberTableComponentProps {
 
 const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
 
+    const renderToolbar = () => <MemberToolbarComponent 
+                                    onPDF={props.onPDF}
+                                    onNew={props.onNew} />
+
     return (
             <>
 
-                <MemberToolbarComponent 
-                    onPDF={props.onPDF}
-                    onNew={props.onNew} />
+                {renderToolbar()}
 
                 <TableContainer>
                     <Table>
                         <TableHead>
                             <TableRow>
-                                <TableCell>Nome</TableCell>
                                 <TableCell>Cognome</TableCell>
+                                <TableCell>Nome</TableCell>
                                 <TableCell>Data di nascita</TableCell>
                                 <TableCell>Codice Fiscale</TableCell>
                                 <TableCell>Città</TableCell>
@@ -42,7 +44,10 @@ const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
 
                         </TableBody>
                     </Table>
+
                 </TableContainer>
+
+                {props.members.length >= 10 ? renderToolbar() : null }
 
             </>
 

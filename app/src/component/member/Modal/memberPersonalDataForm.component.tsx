@@ -5,6 +5,7 @@ import { IMember } from '../../../features/members/models/IMember';
 import { dateUtils } from '../../../utils/dateUtils';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
+import CodiceFiscale from 'codice-fiscale-js';
 
 interface IMemberPersonalDataFormComponentProps {
     isOpen: boolean;
@@ -48,10 +49,37 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
     const [ phone, setPhone]            = useState<string>(props.member?.phone || '');
     const [ email, setEmail]            = useState<string>(props.member?.email || '');
 
-    const onNameChange          = ( value : string ) => setName(value);
-    const onLastNameChange      = ( value : string ) => setLastName(value);
-    const onBirthDateChange     = ( date : Date | null ) => setBirthDate(date);
-    const onBirthPlaceChange    = ( value : string ) => setBirthPlace(value);
+    const tryToCalculateFiscalCode = () => {
+
+        if(name && lastName && birthDate && birthPlace) {
+
+            try{
+
+                const cf = new CodiceFiscale({
+                    name: name,
+                    surname: lastName,
+                    gender: gender,
+                    day: birthDate.getDate(), 
+                    month: birthDate.getMonth() + 1,
+                    year: birthDate.getFullYear(),
+                    birthplace: birthPlace,
+                    birthplaceProvincia: province
+                });
+
+                setFiscalCode(cf.cf);
+
+            } catch(e) {
+                setFiscalCode('');
+            }
+
+        }
+
+    }
+
+    const onNameChange          = ( value : string ) => setName(value)
+    const onLastNameChange      = ( value : string ) => setLastName(value)
+    const onBirthDateChange     = ( date : Date | null ) => setBirthDate(date)
+    const onBirthPlaceChange    = ( value : string ) => setBirthPlace(value)
     const onFiscalCodeChange    = ( value : string ) => setFiscalCode(value.toUpperCase());
     const onAddressChange       = ( value : string ) => setAddress(value);
     const onZipCodeChange       = ( value : string ) => setZipCode(value);
@@ -153,6 +181,12 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
         props.member && setForm(props.member);
 
     }, [props.member])
+
+    useEffect(() => {
+
+        tryToCalculateFiscalCode();
+
+    }, [name, lastName, birthDate, birthPlace, gender]);
     
     return (
                 
@@ -161,14 +195,14 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                     <div className={classes.textContainer}>
 
                         <MemberTextField
-                            label="Nome"
-                            value={name}
-                            onChange={onNameChange} />
-
-                        <MemberTextField
                             label="Cognome"
                             value={lastName}
                             onChange={onLastNameChange} />
+
+                        <MemberTextField
+                            label="Nome"
+                            value={name}
+                            onChange={onNameChange} />
 
                         <MuiPickersUtilsProvider utils={DateFnsUtils}>
                             <KeyboardDatePicker
@@ -186,6 +220,18 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                             label="Luogo di nascita"
                             value={birthPlace}
                             onChange={onBirthPlaceChange} />
+
+                        <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
+                        <Select 
+                            labelId="gender-select-id"
+                            value={gender}
+                            onChange={onGenderChange}
+                            className={classes.selectField}
+                            >
+                                <MenuItem value="M">M</MenuItem>
+                                <MenuItem value="F">F</MenuItem>
+                        </Select>
+                        <br />
 
                         <MemberTextField
                             label="Codice Fiscale"
@@ -224,17 +270,6 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                             label="Email"
                             value={email}
                             onChange={onEmailChange} />
-
-                        <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
-                        <Select 
-                            labelId="gender-select-id"
-                            value={gender}
-                            onChange={onGenderChange}
-                            className={classes.selectField}
-                            >
-                                <MenuItem value="M">M</MenuItem>
-                                <MenuItem value="F">F</MenuItem>
-                            </Select>
                             
                     </div>
 
