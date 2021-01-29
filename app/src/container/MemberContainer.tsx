@@ -25,41 +25,31 @@ const MemberContainer : React.FC<{}> = props => {
 
     }, [])
 
-    const onSave = ( member : Partial<IMember> ) => {
-
+    const onSave = ( member : Partial<IMember>, memberships: Omit<IMembership,"_id">[] ) => {
+        console.log(memberships);
         if('_id' in member ) dispatch( putMember(member));
-        else dispatch( postMember( member ));
-
-
+        else dispatch( postMember(member, memberships));
     }
 
     const onDelete = ( member : IMember ) => {
-
         dispatch(deleteMember(member));
-
     }
 
     const onPDF = async ( columns : string []) => {
-
         if(columns.length <= 0) return;
         const pdf = await membersService.getPDF( columns );
 
         downloadPdf(pdf.data, 'members.pdf');
-
     }
 
     const onAddMembership = ( member : IMember, membership : Omit<IMembership,"_id"> ) => {
-
         dispatch(addMembership(member, membership));
-
     }
 
     const onDeleteMembership = ( member : IMember, membership : IMembership ) => {
-
         dispatch(
             deleteMembership( member, membership)
         );
-
     }
 
     return (

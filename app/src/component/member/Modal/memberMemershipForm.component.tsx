@@ -9,7 +9,8 @@ import MemberMembershipList from './memberMembershipList.component';
 interface IMemberMembershipFormProps {
     onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
     onDeleteMembership: ( member : IMember, membership : IMembership ) => void;
-    member: IMember ;
+    member: IMember | undefined;
+    onTemporaryAddMembership: (membership: Omit<IMembership,"_id">) => void;
 }
 
 const useStyles = makeStyles((theme : Theme) => createStyles({
@@ -47,20 +48,30 @@ const MemberMembershipForm : React.FC<IMemberMembershipFormProps> = props => {
 
     const onAddClick = () => {
 
-        startMembershipDate && stopMembershipDate && 
-         props.onAddMembership(
-            props.member,
-            {
-                start_date: startMembershipDate,
-                end_date : stopMembershipDate
-            }
-        )
+        if(props.member) {
+            startMembershipDate && stopMembershipDate &&
+                props.onAddMembership(
+                    props.member,
+                    {
+                        start_date: startMembershipDate,
+                        end_date : stopMembershipDate
+                    }
+                );
+        } else {
+            startMembershipDate && stopMembershipDate && props.onTemporaryAddMembership(
+                {
+                    start_date: startMembershipDate,
+                    end_date : stopMembershipDate
+                }
+            );
+            alert("Tesseramento eseguito correttamente, verrà salvato al completamento della registrazione");
+        }
 
     }
 
     const onDelete = ( membership : IMembership ) => {
 
-        props.onDeleteMembership(
+        props.member && props.onDeleteMembership(
             props.member,
             membership
         );
@@ -71,9 +82,9 @@ const MemberMembershipForm : React.FC<IMemberMembershipFormProps> = props => {
 
         <div className={classes.root}>
             <div className={classes.list}>
-                <MemberMembershipList
+                {props.member && <MemberMembershipList
                     onDeleteMembership={onDelete}
-                    memberships={props.member.memberships} />
+                    memberships={props.member.memberships} /> }
             </div>
             <div className={classes.form}>
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>

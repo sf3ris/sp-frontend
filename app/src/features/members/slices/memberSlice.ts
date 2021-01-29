@@ -71,11 +71,14 @@ export const getMembers = ( ) : AppThunk => async dispatch => {
 
 }
 
-export const postMember = ( member : Partial<Omit<IMember, "memberships"|"id">>) : AppThunk => async dispatch => {
+export const postMember = (
+    member : Partial<Omit<IMember, "memberships"|"id">>,
+    memberships: Omit<IMembership,"_id">[] = []
+) : AppThunk => async dispatch => {
 
     try {
 
-        await membersService.postMember( member );
+        await membersService.postMember(member, memberships);
 
         dispatch(getMembers());
 
@@ -126,7 +129,7 @@ export const addMembership = (member : IMember, membership : Omit<IMembership,"_
 
     try{
 
-        const response = await membershipService.addMembership( member, membership );
+        const response = await membershipService.addMembership(member, membership);
 
         dispatch(getMembers());
 
@@ -145,7 +148,7 @@ export const deleteMembership = ( member: IMember, membership : IMembership ) : 
 
     try{
 
-        const response = await membershipService.deleteMembership( member, membership );
+        const response = await membershipService.deleteMembership(member, membership);
 
         dispatch(getMembers());
 

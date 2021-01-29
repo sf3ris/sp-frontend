@@ -6,11 +6,12 @@ import { dateUtils } from '../../../utils/dateUtils';
 import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import CodiceFiscale from 'codice-fiscale-js';
+import { IMembership } from '../../../features/memberships/models/membership';
 
 interface IMemberPersonalDataFormComponentProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
-    onSave: ( member : Partial<IMember> ) => void;
+    onSave: ( member : Partial<IMember>, memberships: Omit<IMembership,"_id">[] ) => void;
     member? : IMember;
 }
 
@@ -170,7 +171,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
 
         if(props.member && '_id' in props.member) member._id = props.member._id;
 
-        props.onSave( member );
+        props.onSave(member, []);
 
         onClose();
 
@@ -276,11 +277,9 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                 </div>
                 <div className={classes.textContainer}>
 
-                        <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose} >Annulla</Button>
-
-                       {/*  <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate} >Popola</Button> */}
-
-                        <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}} >Salva</Button>
+                        <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose}>Annulla</Button>
+                        <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate}>Popola</Button>
+                        <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}}>Salva</Button>
 
                 </div>
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IMember } from '../../../features/members/models/IMember';
 import { Modal, Tabs, Tab } from '@material-ui/core';
 import TabPanel from '../../../layout/Tabs/TabPanel';
@@ -9,7 +9,7 @@ import { IMembership } from '../../../features/memberships/models/membership';
 interface IMemberModalProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
-    onSave: ( member : Partial<IMember> ) => void;
+    onSave: ( member : Partial<IMember>, memberships: Omit<IMembership,"_id">[] ) => void;
     member? : IMember;
     onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
     onDeleteMembership: ( member : IMember, membership : IMembership ) => void;
@@ -37,6 +37,19 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
 
     const handleTabChange = ( event : React.ChangeEvent<{}>, tab : number) => setTab(tab)
 
+    const [temporaryMemberships, setTemporaryMemberships] = useState<Omit<IMembership,"_id">[]>([]);
+
+    const onAddMembership = (membership: Omit<IMembership,"_id">) => {
+        setTemporaryMemberships([...temporaryMemberships, membership]);
+    }
+
+    const onSave =  ( member : Partial<IMember> ) => {
+        props.onSave(
+            member,
+            temporaryMemberships
+        );
+    }
+
     return (
 
         <Modal open={props.isOpen} onClose={props.toggle}>
@@ -45,7 +58,7 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
 
                 <Tabs value={tab} onChange={handleTabChange}>
                     <Tab label="Dati Anagrafici" />
-                    <Tab label="Tesseramenti" disabled={props.member ? false : true} />
+                    <Tab label="Tesseramenti" />
                     <Tab label="Documenti" disabled={props.member ? false : true} />
                 </Tabs>
 
@@ -54,7 +67,11 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
                     index={0}>
 
                         <MemberPersonalDataFormComponent
-                            {...props} />
+                            onSave={onSave}
+                            isOpen={props.isOpen}
+                            toggle={props.toggle}
+                            member={props.member}
+                            />
 
                 </TabPanel>
 
@@ -62,11 +79,11 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
                     tab={tab} 
                     index={1}>
 
-                        {props.member && 
-                            <MemberMembershipForm
-                                member={props.member}
-                                onDeleteMembership={props.onDeleteMembership}
-                                onAddMembership={props.onAddMembership}/> }
+                        <MemberMembershipForm
+                            onTemporaryAddMembership={onAddMembership}
+                            member={props.member}
+                            onDeleteMembership={props.onDeleteMembership}
+                            onAddMembership={props.onAddMembership}/>
 
                 </TabPanel>
 
