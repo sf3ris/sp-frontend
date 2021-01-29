@@ -18,11 +18,9 @@ const TabPanel : React.FC<ITabPanelProps> = props => {
         id={`simple-tabpanel-${index}`}
         aria-labelledby={`simple-tab-${index}`}
       >
-        {tab === index && (
           <Box p={3}>
             <Typography>{props.children}</Typography>
           </Box>
-        )}
       </div>
 
     )

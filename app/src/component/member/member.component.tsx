@@ -7,7 +7,7 @@ import { IMembership } from '../../features/memberships/models/membership';
 
 interface IMemberComponentProps {
     members : IMember[];
-    onSave: ( member : Partial<IMember>) => void;
+    onSave: ( member : Partial<IMember>, memberships: Omit<IMembership,"_id">[] ) => void;
     onDelete : ( member : IMember ) => void;
     onPDF : ( columns : string[]) => void;
     onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
