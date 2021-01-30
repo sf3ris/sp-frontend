@@ -278,7 +278,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                 <div className={classes.textContainer}>
 
                         <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose}>Annulla</Button>
-                        <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate}>Popola</Button>
+                        {/* <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate}>Popola</Button> */}
                         <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}}>Salva</Button>
 
                 </div>
