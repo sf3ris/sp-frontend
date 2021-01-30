@@ -14,7 +14,6 @@
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
     "@testing-library/user-event": "^7.1.2",
-    "@types/jest": "^26.0.14",
     "@types/node": "^14.11.2",
     "@types/react": "^16.9.0",
     "@types/react-big-calendar": "^0.24.8",
@@ -22,6 +21,7 @@
     "@types/react-redux": "^7.1.9",
     "@types/react-router-dom": "^5.1.5",
     "axios": "^0.20.0",
+    "codice-fiscale-js": "^2.3.7",
     "date-fns": "^2.16.1",
     "globalize": "^1.6.0",
     "react": "^16.13.1",
@@ -31,7 +31,7 @@
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.3",
     "ts-jest": "^26.4.0",
-    "typescript": "~3.7.2"
+    "typescript": "3.9.7"
   },
   "scripts": {
     "start": "PORT=3001 react-scripts start",

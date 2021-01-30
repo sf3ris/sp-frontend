@@ -1,18 +1,30 @@
 import axios from 'axios';
 import { IMember } from '../models/IMember';
-import qs from 'querystring';
+import qs, { stringify } from 'querystring';
 import {store} from '../../../core/store';
 import { request } from '../../../core/request/request';
+import { IMembership } from '../../memberships/models/membership';
+import { dateUtils } from '../../../utils/dateUtils';
  
-const getMembers = async ( ) : Promise<IMember[]> => {
+const getMembers = async(
+    name: string = '',
+    lastName: string = '',
+    fiscalCode: string = '',
+    status: boolean|undefined = undefined
+) : Promise<IMember[]> => {
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
 
     return new Promise( async (resolve,reject) => {
 
         try{
-
-            const endpoint = `/members`;
+            const qsObject = {
+                name,
+                lastName,
+                fiscalCode,
+                status
+            };
+            const endpoint = `/members?`+ qs.stringify(qsObject);
 
             const response = await request<IMember[]>( host, { url: endpoint })
 
@@ -29,7 +41,7 @@ const getMembers = async ( ) : Promise<IMember[]> => {
 
 }
 
-const getPDF = async ( columns : string[] ) : Promise<{data : string}> => {
+const getPDF = async ( columns : string[], nameFilter: string, lastNameFilter: string, fiscalCodeFilter: string, statusFilter: boolean|undefined ) : Promise<{data : string}> => {
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
 
@@ -39,7 +51,14 @@ const getPDF = async ( columns : string[] ) : Promise<{data : string}> => {
 
         try{
 
-            const endpoint = `/members?${qs.stringify({format:'pdf'})}&columns=${columns.join(',')}`;
+            const qsObject = {
+                format: 'pdf',
+                name: nameFilter,
+                lastName: lastNameFilter,
+                fiscalCode: fiscalCodeFilter,
+                status: statusFilter
+            }
+            const endpoint = `/members?${qs.stringify(qsObject)}&columns=${columns.join(',')}`;
 
             const response = await request<{data: string}>( host, { url: endpoint})
 
@@ -56,7 +75,17 @@ const getPDF = async ( columns : string[] ) : Promise<{data : string}> => {
 
 }
 
-const postMember = async ( member : Partial<Omit<IMember, "memberships"|"id">>) => {
+const postMember = async(
+    member : Partial<Omit<IMember, "memberships"|"id">>,
+    memberships: Omit<IMembership,"_id">[] = []
+) => {
+
+    const temporaryMemberships: {start_date: string, end_date: string}[] = memberships.map( membership => (
+        {
+            start_date: dateUtils.formatDateToServerFormat(membership.start_date), 
+            end_date: dateUtils.formatDateToServerFormat(membership.end_date)
+        }
+    ));
 
     const host = process.env.REACT_APP_MEMBERS_SP_HOST || '';
 
@@ -71,8 +100,8 @@ const postMember = async ( member : Partial<Omit<IMember, "memberships"|"id">>) 
                   'Content-Type': 'application/x-www-form-urlencoded'
                 }
             }
-
-            const response = await request<IMember>( host, { url: endpoint, method: 'POST', headers: config.headers, data: qs.stringify({...member})});
+            
+            const response = await request<IMember>( host, { url: endpoint, method: 'POST', headers: config.headers, data: qs.stringify({...member, temporaryMemberships: JSON.stringify(temporaryMemberships)})});
 
             resolve(response.data);
 

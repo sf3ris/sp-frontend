@@ -7,11 +7,12 @@ import { IMembership } from '../../features/memberships/models/membership';
 
 interface IMemberComponentProps {
     members : IMember[];
-    onSave: ( member : Partial<IMember>) => void;
+    onSave: ( member : Partial<IMember>, memberships: Omit<IMembership,"_id">[] ) => void;
     onDelete : ( member : IMember ) => void;
-    onPDF : ( columns : string[]) => void;
+    onPDF: (columns : string[], nameFilter: string, lastNameFilter: string, fiscalCodeFilter: string, statusFilter: boolean|undefined ) => void;
     onAddMembership: ( member : IMember, membership: Omit<IMembership,"_id">) => void;
     onDeleteMembership : ( member : IMember, membership : IMembership ) => void;
+    getMembers: (nameFilter: string, lastNameFilter: string, fiscalCodeFilter: string, statusFilter: boolean|undefined) => void;
 }
 
 const MemberComponent : React.FC<IMemberComponentProps> = props => {
@@ -54,6 +55,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                             members={props.members} 
                             onNew={toggleModal} 
                             onDelete={props.onDelete}
+                            getMembers={props.getMembers}
                             onEdit={onEdit}/>
 
                     </Grid>

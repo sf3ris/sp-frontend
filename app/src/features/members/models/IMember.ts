@@ -80,5 +80,9 @@ export const memberHeaders : MemberHeader[] = [
     {
         value: 'membership',
         label: 'Tesseramento'
+    },
+    {
+        value: 'status',
+        label: 'Stato'
     }
 ]
