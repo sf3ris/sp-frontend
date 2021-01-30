@@ -32,7 +32,8 @@ describe('Member table compponent', () => {
 
     it('Should match snapshot', () => {
 
-        const wrapper = shallow( <MemberTableComponent 
+        const wrapper = shallow( <MemberTableComponent
+                getMembers={jest.fn()} 
                 onPDF={jest.fn()}
                 members={members} 
                 onNew={jest.fn()}
@@ -45,7 +46,8 @@ describe('Member table compponent', () => {
 
     it('Should render 3 rows', () => {
 
-        const wrapper = shallow( <MemberTableComponent 
+        const wrapper = shallow( <MemberTableComponent
+                getMembers={jest.fn()}  
                 onPDF={jest.fn()}
                 members={members} 
                 onNew={jest.fn()}

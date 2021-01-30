@@ -10,17 +10,15 @@ interface IMemberTextFieldProps {
     disabled?: boolean;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-    textField : {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: '45%'
-    }
-}))
-
-
-
 const MemberTextField : React.FC<IMemberTextFieldProps> = props => {
+
+    const useStyles = makeStyles((theme: Theme) => createStyles({
+        textField : {
+            marginLeft: theme.spacing(1),
+            marginRight: theme.spacing(1),
+            width: props.width ? props.width + "%" : '45%'
+        }
+    }));
 
     const classes = useStyles();
 

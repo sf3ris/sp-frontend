@@ -49,11 +49,19 @@ const AthleteContainer : React.FC<{}> = props => {
 
     }
 
+    const getFilteredAthletes = (nameFilter: string, lastNameFilter: string, fiscalCodeFilter: string, statusFilter: boolean|undefined) => {
+        setTimeout(() => {
+            dispatch(getAthletes());
+        }, 1000);  
+    }
+
+
     return (
 
         <DefaultLayout>
 
             <MemberComponent
+                getMembers={getFilteredAthletes}
                 onSave={onSave}
                 onPDF={onPDF}
                 onDelete={onDelete}
