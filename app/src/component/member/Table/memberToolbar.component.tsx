@@ -6,7 +6,7 @@ import MemberPDFModal from '../PDFModal/memberPDFModal';
 
 interface IMemberToolbarComponentProps {
     onNew: (...args : any) => void;
-    onPDF: ( columns : string []) => void;
+    onPDF: (columns : string[]) => void;
 }
 
 const useStyles = makeStyles((theme: Theme) => createStyles({

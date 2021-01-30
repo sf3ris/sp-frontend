@@ -2,7 +2,7 @@
 
 exports[`Member table compponent Should match snapshot 1`] = `
 "<Fragment>
-  <MemberToolbarComponent onPDF={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onNew={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} />
+  <MemberToolbarComponent onPDF={[Function: onPDF]} onNew={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} />
   <WithStyles(ForwardRef(TableContainer))>
     <WithStyles(ForwardRef(Table))>
       <WithStyles(ForwardRef(TableHead))>
@@ -32,6 +32,26 @@ exports[`Member table compponent Should match snapshot 1`] = `
             Stato
           </WithStyles(ForwardRef(TableCell))>
           <WithStyles(ForwardRef(TableCell)) colSpan={2} />
+        </WithStyles(ForwardRef(TableRow))>
+      </WithStyles(ForwardRef(TableHead))>
+      <WithStyles(ForwardRef(TableHead))>
+        <WithStyles(ForwardRef(TableRow))>
+          <WithStyles(ForwardRef(TableCell))>
+            <MemberTextField label=\\"\\" onChange={[Function: onChange]} value=\\"\\" width=\\"100\\" />
+          </WithStyles(ForwardRef(TableCell))>
+          <WithStyles(ForwardRef(TableCell))>
+            <MemberTextField label=\\"\\" onChange={[Function: onChange]} value=\\"\\" width=\\"100\\" />
+          </WithStyles(ForwardRef(TableCell))>
+          <WithStyles(ForwardRef(TableCell)) />
+          <WithStyles(ForwardRef(TableCell))>
+            <MemberTextField label=\\"\\" onChange={[Function: onChange]} value=\\"\\" width=\\"100\\" />
+          </WithStyles(ForwardRef(TableCell))>
+          <WithStyles(ForwardRef(TableCell)) />
+          <WithStyles(ForwardRef(TableCell)) />
+          <WithStyles(ForwardRef(TableCell)) />
+          <WithStyles(ForwardRef(TableCell))>
+            <FontAwesomeIcon icon={{...}} color=\\"grey\\" onClick={[Function: switchStatusFilter]} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+          </WithStyles(ForwardRef(TableCell))>
         </WithStyles(ForwardRef(TableRow))>
       </WithStyles(ForwardRef(TableHead))>
       <WithStyles(ForwardRef(TableBody))>
