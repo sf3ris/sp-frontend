@@ -30,9 +30,7 @@ const AthleteContainer : React.FC<{}> = props => {
     }
 
     const onDelete = ( athlete : IMember ) => {
-
-        dispatch( deleteAthlete(athlete));
-
+        dispatch(deleteAthlete(athlete));
     }
 
     const onPDF = async ( columns : string []) => {

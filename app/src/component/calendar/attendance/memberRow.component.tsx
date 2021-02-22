@@ -5,11 +5,12 @@ import Checkbox from '@material-ui/core/Checkbox';
 interface IMemberRow {
     member: IMember;
     onChecked: ( member: IMember, checked: boolean ) => void;
+    isChecked: boolean;
 }
 
 const MemberRow: React.FC<IMemberRow> = props => {
 
-    const [ checked, setIsChecked ] = useState<boolean>(false);
+    const [ checked, setIsChecked ] = useState<boolean>(props.isChecked);
 
     const handleChange = ( e : React.ChangeEvent<HTMLInputElement> ) => {
 

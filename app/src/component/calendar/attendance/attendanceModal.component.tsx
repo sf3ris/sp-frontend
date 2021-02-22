@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import SimpleModal, { ISimpleModalProps } from '../../../layout/Modal/SimpleModal';
 import { IMember } from '../../../features/members/models/IMember';
 import { dateUtils } from '../../../utils/dateUtils';
@@ -9,7 +9,13 @@ import MemberRow from './memberRow.component';
 interface IAttendanceModalProps extends ISimpleModalProps  {
     startDate: Date;
     endDate: Date;
-    athletes: IMember[] ;
+    athletes: IMember[];
+    members: IMember[];
+    onSave: (athletesIds: string[], membersIds: string[], title: string) => void;
+    onDelete: () => void;
+    selectedAthletesIds: string[];
+    selectedMembersIds: string[];
+    title?: string;
 }
 
 const useStyles = makeStyles((theme : Theme) => createStyles({
@@ -31,6 +37,12 @@ const useStyles = makeStyles((theme : Theme) => createStyles({
     },
     row: {
         width: '100%'
+    },
+    buttonContainer: {
+        width: '100%',
+        marginRight:'auto',
+        marginLeft:'auto',
+        marginTop:'10px'
     }
 }))
 
@@ -38,31 +50,50 @@ const AttendanceModal : React.FC<IAttendanceModalProps> = props => {
 
     const classes = useStyles();
 
-    const [ selectedIds, setSelectedIds ] = useState<string[]>([]);
-    const [ eventDescription, setEventDescription ] = useState<string>('');
+    const [selectedAthletesIds, setSelectedAthletesIds] = useState<string[]>(props.selectedAthletesIds || []);
+    const [selectedMembersIds, setSelectedMembersIds] = useState<string[]>(props.selectedMembersIds || []);
+    const [eventDescription, setEventDescription] = useState<string>(props.title || '');
 
-    const handleAthleteCheck = (athlete : IMember, value: boolean ) => {
+    const handleAthleteCheck = (athlete : IMember, value: boolean) => {
 
-        const tmpSelectedIds = [...selectedIds ];
+        const tmpSelectedIds = [...selectedAthletesIds];
 
         if(!value) {
-
             tmpSelectedIds.splice(
-                tmpSelectedIds.indexOf( athlete._id ),
+                tmpSelectedIds.indexOf(athlete._id),
                 1
             );
-
         } else {
-
-            tmpSelectedIds.push( athlete._id );
-
+            tmpSelectedIds.push(athlete._id);
         }
 
-        setSelectedIds( tmpSelectedIds );
+        setSelectedAthletesIds(tmpSelectedIds);
 
     }
 
-    const renderAthlete = ( athlete : IMember ) => <MemberRow member={athlete} onChecked={handleAthleteCheck} />
+    const handleMembercheck = (member : IMember, value: boolean) => {
+
+        const tmpSelectedIds = [...selectedMembersIds];
+
+        if(!value) {
+            tmpSelectedIds.splice(
+                tmpSelectedIds.indexOf(member._id),
+                1
+            );
+        } else {
+            tmpSelectedIds.push(member._id);
+        }
+
+        setSelectedMembersIds(tmpSelectedIds);
+
+    }
+
+    const onSave = () => {
+        props.onSave(selectedAthletesIds, selectedMembersIds, eventDescription);
+    }
+
+    const renderAthlete = ( athlete : IMember ) => <MemberRow isChecked={selectedAthletesIds.includes(athlete._id)} member={athlete} onChecked={handleAthleteCheck} />
+    const renderMember = ( member : IMember ) => <MemberRow isChecked={selectedMembersIds.includes(member._id)} member={member} onChecked={handleMembercheck} />
 
     return (
 
@@ -88,13 +119,30 @@ const AttendanceModal : React.FC<IAttendanceModalProps> = props => {
                         value={eventDescription} 
                         onChange={e => setEventDescription(e.target.value)} />
 
-                    <h3 style={{marginTop:'10px', marginBottom:'10px'}}> Atleti </h3>
-                
-                    {props.athletes.map( renderAthlete )}
+                </div>
+
+                <div style={{width: '50%'}}>
+
+                    <h3 style={{marginTop:'10px', marginBottom:'10px'}}> Athletes </h3>
+            
+                    {props.athletes.map(renderAthlete)}
                 
                 </div>
 
-                <Button variant="contained" onClick={() => console.log(selectedIds)} > Salva </Button>
+                <div style={{width: '50%'}}>
+                    
+                    <h3 style={{marginTop:'10px', marginBottom:'10px'}}> Members </h3>
+        
+                    {props.members.map(renderMember)}
+                
+                </div>
+
+                <div className={classes.buttonContainer}>
+
+                    <Button variant="contained" color="secondary" onClick={props.onDelete}> Cancella </Button>
+                    <Button variant="contained" color="primary" onClick={onSave} style={{float:'right'}}> Salva </Button>
+
+                </div>
 
             </div>
 
