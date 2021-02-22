@@ -14,8 +14,12 @@ jobs:
       with:
         node-version: 14.x
     - name: Install dependencies
-      run: yarn install
+      run: \
+        cd app;
+        yarn install;
     - name: Run Tests
-      run: yarn run test
+      run: \
+        cd app;
+        yarn run test;
         
         
