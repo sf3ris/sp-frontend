@@ -1,0 +1,25 @@
+name: SP-Frontend Test Flow
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Node 3.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.x
+    - name: Install dependencies
+      run: |
+        cd app;
+        yarn install;
+    - name: Run Tests
+      run: |
+        cd app;
+        yarn run test;
+        
+        

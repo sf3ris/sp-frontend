@@ -14,11 +14,11 @@ services:
             - CHOKIDAR_USEPOLLING=true
         networks: 
             docker_app_network:
-                ipv4_address: 172.23.0.3
+                ipv4_address: 172.24.0.3
 
 networks: 
     docker_app_network:    
         driver: bridge
         ipam: 
             config: 
-               - subnet: 172.23.0.0/16
+               - subnet: 172.24.0.0/16
