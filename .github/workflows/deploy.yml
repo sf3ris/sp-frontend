@@ -37,10 +37,10 @@ jobs:
       uses: appleboy/ssh-action@master
       with:
         host: 159.65.125.31
-      username: ${{ secrets.SSH_USERNAME }}
-      password: ${{ secrets.SSH_PASSWORD }}
-      port: 22
-      script: |
-        rm -rf /usr/share/nginx/html.old;
-        mv /usr/share/nginx/html /usr/share/nginx/html.old && mv /usr/share/nginx/app/build /usr/share/nginx/html
+        username: ${{ secrets.SSH_USERNAME }}
+        password: ${{ secrets.SSH_PASSWORD }}
+        port: 22
+        script: |
+          rm -rf /usr/share/nginx/html.old;
+          mv /usr/share/nginx/html /usr/share/nginx/html.old && mv /usr/share/nginx/app/build /usr/share/nginx/html
         
