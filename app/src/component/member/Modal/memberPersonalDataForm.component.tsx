@@ -1,196 +1,176 @@
-import React, { useState, useEffect } from 'react';
-import { makeStyles, Theme, createStyles, Button, Select, MenuItem, InputLabel } from '@material-ui/core';
-import MemberTextField from './memberTextField.component';
-import { IMember } from '../../../features/members/models/IMember';
-import { dateUtils } from '../../../utils/dateUtils';
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers';
-import DateFnsUtils from '@date-io/date-fns';
-import CodiceFiscale from 'codice-fiscale-js';
-import { IMembership } from '../../../features/memberships/models/membership';
+import React, { useState, useEffect } from 'react'
+import { makeStyles, Theme, createStyles, Button, Select, MenuItem, InputLabel } from '@material-ui/core'
+import MemberTextField from './memberTextField.component'
+import { IMember } from '../../../features/members/models/IMember'
+import { dateUtils } from '../../../utils/dateUtils'
+import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
+import DateFnsUtils from '@date-io/date-fns'
+import CodiceFiscale from 'codice-fiscale-js'
+import { IMembership } from '../../../features/memberships/models/membership'
 
 interface IMemberPersonalDataFormComponentProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
-    onSave: ( member : Partial<IMember>, memberships: Omit<IMembership,"_id">[] ) => void;
+    onSave: (member : Partial<IMember>, memberships: Omit<IMembership, '_id'>[]) => void;
     member? : IMember;
 }
 
 const useStyles = makeStyles((theme : Theme) => createStyles({
-    root: {
-        display : 'flex',
-        flexWrap : 'wrap'
-    },
-    textContainer : {
-        width: '80%',
-        marginRight:'auto',
-        marginLeft:'auto',
-        marginTop:'10px'
-    },
-    selectField : {
-        marginLeft: theme.spacing(1),
-        marginRight: theme.spacing(1),
-        width: '45%'
-    }
+  root: {
+    display: 'flex',
+    flexWrap: 'wrap'
+  },
+  textContainer: {
+    width: '80%',
+    marginRight: 'auto',
+    marginLeft: 'auto',
+    marginTop: '10px'
+  },
+  selectField: {
+    marginLeft: theme.spacing(1),
+    marginRight: theme.spacing(1),
+    width: '45%'
+  }
 }))
 
 const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponentProps> = props => {
+  const classes = useStyles()
 
-    const classes = useStyles();
+  const [name, setName] = useState<string>(props.member?.name || '')
+  const [lastName, setLastName] = useState<string>(props.member?.last_name || '')
+  const [birthDate, setBirthDate] = useState<Date | null>(props.member ? new Date(props.member?.birth_date) : null)
+  const [birthPlace, setBirthPlace] = useState<string>(props.member?.birth_place || '')
+  const [fiscalCode, setFiscalCode] = useState<string>(props.member?.fiscal_code || '')
+  const [address, setAddress] = useState<string>(props.member?.address || '')
+  const [zipCode, setZipCode] = useState<string>(props.member?.zip_code || '')
+  const [city, setCity] = useState<string>(props.member?.city || '')
+  const [province, setProvince] = useState<string>(props.member?.province || '')
+  const [gender, setGender] = useState<string>(props.member?.gender || '')
+  const [phone, setPhone] = useState<string>(props.member?.phone || '')
+  const [email, setEmail] = useState<string>(props.member?.email || '')
 
-    const [ name, setName ]             = useState<string>(props.member?.name || '');
-    const [ lastName, setLastName]      = useState<string>(props.member?.last_name || '');
-    const [ birthDate, setBirthDate]    = useState<Date | null>(props.member ? new Date(props.member?.birth_date) : null);
-    const [ birthPlace, setBirthPlace]  = useState<string>(props.member?.birth_place || '');
-    const [ fiscalCode, setFiscalCode]  = useState<string>(props.member?.fiscal_code || '');
-    const [ address, setAddress]        = useState<string>(props.member?.address || '');
-    const [ zipCode, setZipCode]        = useState<string>(props.member?.zip_code || '');
-    const [ city, setCity]              = useState<string>(props.member?.city || '');
-    const [ province, setProvince]      = useState<string>(props.member?.province || '');
-    const [ gender, setGender]          = useState<string>(props.member?.gender || '');
-    const [ phone, setPhone]            = useState<string>(props.member?.phone || '');
-    const [ email, setEmail]            = useState<string>(props.member?.email || '');
+  const tryToCalculateFiscalCode = () => {
+    if (name && lastName && birthDate && birthPlace) {
+      try {
+        const cf = new CodiceFiscale({
+          name: name,
+          surname: lastName,
+          gender: gender,
+          day: birthDate.getDate(),
+          month: birthDate.getMonth() + 1,
+          year: birthDate.getFullYear(),
+          birthplace: birthPlace,
+          birthplaceProvincia: province
+        })
 
-    const tryToCalculateFiscalCode = () => {
+        setFiscalCode(cf.cf)
+      } catch (e) {
+        console.log(e)
+        // setFiscalCode('');
+      }
+    }
+  }
 
-        if(name && lastName && birthDate && birthPlace) {
+  const onNameChange = (value : string) => setName(value)
+  const onLastNameChange = (value : string) => setLastName(value)
+  const onBirthDateChange = (date : Date | null) => setBirthDate(date)
+  const onBirthPlaceChange = (value : string) => setBirthPlace(value)
+  const onFiscalCodeChange = (value : string) => setFiscalCode(value.toUpperCase())
+  const onAddressChange = (value : string) => setAddress(value)
+  const onZipCodeChange = (value : string) => setZipCode(value)
+  const onProvinceChange = (value : string) => setProvince(value)
+  const onCityChange = (value : string) => setCity(value)
+  const onGenderChange = (e : React.ChangeEvent<{value: unknown}>) => setGender(e.target.value as string)
+  const onPhoneChange = (value : string) => setPhone(value)
+  const onEmailChange = (value : string) => setEmail(value)
 
-            try{
+  const resetForm = () => {
+    setName('')
+    setLastName('')
+    setBirthDate(null)
+    setBirthPlace('')
+    setFiscalCode('')
+    setAddress('')
+    setZipCode('')
+    setProvince('')
+    setCity('')
+    setGender('')
+    setPhone('')
+    setEmail('')
+  }
 
-                const cf = new CodiceFiscale({
-                    name: name,
-                    surname: lastName,
-                    gender: gender,
-                    day: birthDate.getDate(), 
-                    month: birthDate.getMonth() + 1,
-                    year: birthDate.getFullYear(),
-                    birthplace: birthPlace,
-                    birthplaceProvincia: province
-                });
+  const onPopulate = () => {
+    setName('Mario')
+    setLastName('Verdi')
+    setBirthDate(new Date('10/01/1992'))
+    setBirthPlace('Milano')
+    setFiscalCode('MRAVRD92E10E783P')
+    setAddress('Via delle grazie,15')
+    setZipCode('54201')
+    setProvince('MI')
+    setCity('Milano')
+    setGender('M')
+    setPhone('33348859961')
+    setEmail('mra.vrd@yahoo.it')
+  }
 
-                setFiscalCode(cf.cf);
+  const setForm = (member : IMember) => {
+    const birth_date = dateUtils.formatDateToLocale(member.birth_date)
 
-            } catch(e) {
-                setFiscalCode('');
-            }
+    setName(member.name)
+    setLastName(member.last_name)
+    setBirthDate(new Date(member.birth_date))
+    setBirthPlace(member.birth_place)
+    setFiscalCode(member.fiscal_code)
+    setAddress(member.address)
+    setZipCode(member.zip_code)
+    setProvince(member.province)
+    setCity(member.city)
+    setGender(member.gender)
+    setPhone(member.phone)
+    setEmail(member.email)
+  }
 
-        }
+  const onClose = () => {
+    resetForm()
+    props.toggle()
+  }
 
+  const onSave = () => {
+    const bDate = dateUtils.formatDateToServerFormat(birthDate || new Date())
+
+    const member : Partial<IMember> = {
+      name,
+      last_name: lastName,
+      birth_date: bDate,
+      birth_place: birthPlace,
+      fiscal_code: fiscalCode,
+      address,
+      zip_code: zipCode,
+      city,
+      province,
+      gender,
+      phone,
+      email
     }
 
-    const onNameChange          = ( value : string ) => setName(value)
-    const onLastNameChange      = ( value : string ) => setLastName(value)
-    const onBirthDateChange     = ( date : Date | null ) => setBirthDate(date)
-    const onBirthPlaceChange    = ( value : string ) => setBirthPlace(value)
-    const onFiscalCodeChange    = ( value : string ) => setFiscalCode(value.toUpperCase());
-    const onAddressChange       = ( value : string ) => setAddress(value);
-    const onZipCodeChange       = ( value : string ) => setZipCode(value);
-    const onProvinceChange      = ( value : string ) => setProvince(value);
-    const onCityChange          = ( value : string ) => setCity(value);
-    const onGenderChange        = ( e : React.ChangeEvent<{value: unknown}> ) => setGender(e.target.value as string);
-    const onPhoneChange         = ( value : string ) => setPhone(value);
-    const onEmailChange         = ( value : string ) => setEmail(value);
+    if (props.member && '_id' in props.member) member._id = props.member._id
 
-    const resetForm = () => {
+    props.onSave(member, [])
 
-        setName('');
-        setLastName('');
-        setBirthDate(null);
-        setBirthPlace('');
-        setFiscalCode('');
-        setAddress('');
-        setZipCode('');
-        setProvince('');
-        setCity('');
-        setGender('');
-        setPhone('');
-        setEmail('');
+    onClose()
+  }
 
-    }
+  useEffect(() => {
+    props.member && setForm(props.member)
+  }, [props.member])
 
-    const onPopulate = () => {
+  useEffect(() => {
+    tryToCalculateFiscalCode()
+  }, [name, lastName, birthDate, birthPlace, gender])
 
-        setName('Mario');
-        setLastName('Verdi')
-        setBirthDate(new Date('10/01/1992'));
-        setBirthPlace('Milano');
-        setFiscalCode('MRAVRD92E10E783P');
-        setAddress('Via delle grazie,15');
-        setZipCode('54201');
-        setProvince('MI');
-        setCity('Milano');
-        setGender('M');
-        setPhone('33348859961');
-        setEmail('mra.vrd@yahoo.it');
+  return (
 
-    }
-
-    const setForm = ( member : IMember) => {
-
-        const birth_date = dateUtils.formatDateToLocale( member.birth_date );
-
-        setName(member.name);
-        setLastName(member.last_name);
-        setBirthDate(new Date(member.birth_date));
-        setBirthPlace(member.birth_place);
-        setFiscalCode(member.fiscal_code);
-        setAddress(member.address);
-        setZipCode(member.zip_code);
-        setProvince(member.province);
-        setCity(member.city);
-        setGender(member.gender);
-        setPhone(member.phone);
-        setEmail(member.email);
-
-    }
-
-    const onClose = () => {
-
-        resetForm();
-        props.toggle();
-
-    }
-
-    const onSave = () => {
-
-        const bDate = dateUtils.formatDateToServerFormat(birthDate || new Date());
-
-        const member : Partial<IMember> = {
-            name,
-            last_name: lastName,
-            birth_date: bDate,
-            birth_place: birthPlace,
-            fiscal_code: fiscalCode,
-            address,
-            zip_code: zipCode,
-            city,
-            province,
-            gender,
-            phone,
-            email
-        };
-
-        if(props.member && '_id' in props.member) member._id = props.member._id;
-
-        props.onSave(member, []);
-
-        onClose();
-
-    }
-
-    useEffect(() => {
-
-        props.member && setForm(props.member);
-
-    }, [props.member])
-
-    useEffect(() => {
-
-        tryToCalculateFiscalCode();
-
-    }, [name, lastName, birthDate, birthPlace, gender]);
-    
-    return (
-                
             <>
                 <div className={classes.root}>
                     <div className={classes.textContainer}>
@@ -223,7 +203,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                             onChange={onBirthPlaceChange} />
 
                         <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
-                        <Select 
+                        <Select
                             labelId="gender-select-id"
                             value={gender}
                             onChange={onGenderChange}
@@ -271,7 +251,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                             label="Email"
                             value={email}
                             onChange={onEmailChange} />
-                            
+
                     </div>
 
                 </div>
@@ -279,13 +259,12 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
 
                         <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose}>Annulla</Button>
                         {/* <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate}>Popola</Button> */}
-                        <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{float:'right'}}>Salva</Button>
+                        <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{ float: 'right' }}>Salva</Button>
 
                 </div>
 
             </>
-    )
-
+  )
 }
 
-export default MemberPersonalDataFormComponent;
+export default MemberPersonalDataFormComponent
