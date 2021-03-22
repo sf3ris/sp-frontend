@@ -1,4 +1,11 @@
 app/node_modules
 app/yarn.lock
+app/package-lock.json
 .env
 yarn.lock
+# IDE Specific folders
+.vscode
+.idea
+# Used for local node installations
+.node-version
+
