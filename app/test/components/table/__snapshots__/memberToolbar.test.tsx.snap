@@ -17,7 +17,14 @@ exports[`Member toolbar component Should match snapshot 1`] = `
         PDF
       </span>
     </WithStyles(ForwardRef(Button))>
+    <WithStyles(ForwardRef(Button)) className=\\"makeStyles-button-1\\" variant=\\"contained\\" id=\\"idImportButtonMemberTable\\" onClick={[Function: toggleImportModal]} color=\\"primary\\">
+      <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+      <span style={{...}}>
+        Import
+      </span>
+    </WithStyles(ForwardRef(Button))>
   </WithStyles(ForwardRef(Grid))>
   <MemberPDFModal onOk={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} isOpen={false} toggle={[Function: togglePDFModal]} />
+  <ImportModal onImportMembers={[Function: onImportModal]} isOpen={false} toggle={[Function: toggleImportModal]} />
 </WithStyles(ForwardRef(Grid))>"
 `;
