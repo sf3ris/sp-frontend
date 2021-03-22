@@ -1,64 +1,63 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import MemberComponent from '../component/member/member.component';
-import { RootState } from '../core/rootReducer';
-import { deleteAthlete, getAthletes, IAthletesState, postAthlete, putAthlete } from '../features/athletes/slices/athleteSlice';
-import { IMember } from '../features/members/models/IMember';
-import { IMembership } from '../features/memberships/models/membership';
-import DefaultLayout from '../layout/DefaultLayout';
-
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import MemberComponent from '../component/member/member.component'
+import { RootState } from '../core/rootReducer'
+import {
+  deleteAthlete,
+  getAthletes,
+  IAthletesState,
+  importAthletes,
+  postAthlete,
+  putAthlete
+} from '../features/athletes/slices/athleteSlice'
+import { IHeaderMap, IMember } from '../features/members/models/IMember'
+import { IMembership } from '../features/memberships/models/membership'
+import DefaultLayout from '../layout/DefaultLayout'
 
 const AthleteContainer : React.FC<{}> = props => {
+  const dispatch = useDispatch()
 
-    const dispatch = useDispatch();
+  const athletesState : IAthletesState = useSelector(
+    (state : RootState) => state.athleteState
+  )
 
-    const athletesState  : IAthletesState = useSelector(
-        ( state : RootState ) => state.athleteState
-    )
+  const onSave = (athlete : Partial<IMember>) => {
+    if ('_id' in athlete) dispatch(putAthlete(athlete))
+    else dispatch(postAthlete(athlete))
+  }
 
-    useEffect(() => {
+  const onDelete = (athlete : IMember) => {
+    dispatch(deleteAthlete(athlete))
+  }
 
-        dispatch( getAthletes() );
+  const onPDF = async (columns : string []) => {
 
-    } , [])
-    
-    const onSave = ( athlete : Partial<IMember> ) => {
+  }
 
-        if('_id' in athlete) dispatch(putAthlete(athlete));
-        else dispatch( postAthlete(athlete));
+  const onAddMembership = (athlete : IMember, membership : Omit<IMembership, '_id'>) => {
 
-    }
+  }
 
-    const onDelete = ( athlete : IMember ) => {
-        dispatch(deleteAthlete(athlete));
-    }
+  const onDeleteMembership = (athlete : IMember, membership : IMembership) => {
 
-    const onPDF = async ( columns : string []) => {
+  }
 
+  const onMembersImport = (file: File, headers: IHeaderMap[], headerRow: string) => {
+    dispatch(importAthletes(file, headers, headerRow))
+  }
 
-    }
+  const getFilteredAthletes = (nameFilter: string, lastNameFilter: string, fiscalCodeFilter: string, statusFilter: boolean|undefined) => {
+    setTimeout(() => {
+      dispatch(getAthletes())
+    }, 400)
+  }
 
-    const onAddMembership = ( athlete : IMember, membership : Omit<IMembership,"_id"> ) => {
-
-
-    }
-
-    const onDeleteMembership = ( athlete : IMember, membership : IMembership ) => {
-
-    }
-
-    const getFilteredAthletes = (nameFilter: string, lastNameFilter: string, fiscalCodeFilter: string, statusFilter: boolean|undefined) => {
-        setTimeout(() => {
-            dispatch(getAthletes());
-        }, 1000);  
-    }
-
-
-    return (
+  return (
 
         <DefaultLayout>
 
             <MemberComponent
+                onImportModal={onMembersImport}
                 getMembers={getFilteredAthletes}
                 onSave={onSave}
                 onPDF={onPDF}
@@ -69,8 +68,7 @@ const AthleteContainer : React.FC<{}> = props => {
 
         </DefaultLayout>
 
-    )
-
+  )
 }
 
-export default AthleteContainer;
+export default AthleteContainer
