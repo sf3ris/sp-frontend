@@ -71,7 +71,7 @@ top: 0;
 left: 0;
 right: 0;
 bottom: 0;
-overflow: auto;
+overflow: hidden;
 padding-top: 20px;
 width: var(--page-header-width);
 color: var(--page-header-txtColor);

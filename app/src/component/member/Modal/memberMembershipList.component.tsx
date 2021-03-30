@@ -1,53 +1,44 @@
-import React, { useEffect } from 'react';
-import { IMembership } from '../../../features/memberships/models/membership';
-import { TableContainer, Table, TableHead, TableCell, TableRow, TableBody } from '@material-ui/core';
-import { dateUtils } from '../../../utils/dateUtils';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import React, { useEffect } from 'react'
+import { IMembership } from '../../../features/memberships/models/membership'
+import { dateUtils } from '../../../utils/dateUtils'
+import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Table } from 'semantic-ui-react'
 
 interface IMemberMembershipListProps {
     memberships : IMembership[];
-    onDeleteMembership : ( membership : IMembership ) => void;
+    onDeleteMembership : (membership : IMembership) => void;
 }
 
 const MemberMembershipList : React.FC<IMemberMembershipListProps> = props => {
-
-    const renderMembership = ( membership : IMembership, index : number ) => 
-        <TableRow key={index}>
-            <TableCell>
+  const renderMembership = (membership : IMembership, index : number) =>
+        <Table.Row key={index}>
+            <Table.Cell>
                 {dateUtils.formatDateToLocale(membership.start_date.toString())}
-            </TableCell>
-            <TableCell>
+            </Table.Cell>
+            <Table.Cell>
                 {dateUtils.formatDateToLocale(membership.end_date.toString())}
-            </TableCell>
-            <TableCell>
+            </Table.Cell>
+            <Table.Cell>
                 <FontAwesomeIcon icon={faTrash} color="red" onClick={() => props.onDeleteMembership(membership)} />
-            </TableCell>
-        </TableRow>
+            </Table.Cell>
+        </Table.Row>
 
-    return (
-
+  return (
         <>
-
-            <h3 style={{margin:'auto'}}>Lista Tesseramenti</h3>
-
-            <TableContainer>
-                <Table>
-                    <TableHead>
-                        <TableCell> Data Inizio </TableCell>
-                        <TableCell> Data Fine </TableCell>
-                        <TableCell> </TableCell>
-                    </TableHead>
-                    <TableBody>
+            <h3 style={{ margin: 'auto' }}>Lista Tesseramenti</h3>
+            <Table>
+                    <Table.Header>
+                        <Table.HeaderCell> Data Inizio </Table.HeaderCell>
+                        <Table.HeaderCell> Data Fine </Table.HeaderCell>
+                        <Table.HeaderCell> </Table.HeaderCell>
+                    </Table.Header>
+                    <Table.Body>
                         {props.memberships.map(renderMembership)}
-                    </TableBody>
-                </Table>
-            </TableContainer>
-
+                    </Table.Body>
+            </Table>
         </>
-
-    )
-
+  )
 }
 
-export default MemberMembershipList;
+export default MemberMembershipList

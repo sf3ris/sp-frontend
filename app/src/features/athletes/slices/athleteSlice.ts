@@ -2,6 +2,8 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AppThunk } from '../../../core/store'
 import { IHeaderMap, IMember } from '../../members/models/IMember'
 import { athleteService } from '../services/athlete.service'
+import { IMembership } from '../../memberships/models/membership'
+import { membershipService } from '../../memberships/services/memberships.service'
 
 export interface IAthletesState {
     athletes : IMember[];
@@ -44,16 +46,17 @@ const athleteSlices = createSlice({
 export const { athletesFetching, athletesFetchedSuccessfully, athletesFetchError } = athleteSlices.actions
 export default athleteSlices.reducer
 
-export const getAthletes = () : AppThunk => async dispatch => {
+export const getAthletes = (
+  name: string = '',
+  lastName: string = '',
+  fiscalCode: string = '',
+  status: boolean|undefined = undefined
+) : AppThunk => async dispatch => {
   try {
     dispatch(athletesFetching(true))
-
-    const athletes = await athleteService.getAthletes()
-
-    dispatch(athletesFetchedSuccessfully(athletes))
+    const response = await athleteService.getAthletes(name, lastName, fiscalCode, status)
+    dispatch(athletesFetchedSuccessfully(response.data))
   } catch (e) {
-    console.log(e)
-
     dispatch(
       athletesFetchError(true)
     )
@@ -101,5 +104,25 @@ export const importAthletes = (
     dispatch(getAthletes())
   } catch (e) {
     dispatch(athletesFetchError(true))
+  }
+}
+
+export const addMembership = (athlete : IMember, membership : Omit<IMembership, '_id'>) : AppThunk => async dispatch => {
+  try {
+    await membershipService.addMembership(athlete, membership, 'athlete')
+
+    dispatch(getAthletes())
+  } catch (e) {
+    console.log(e)
+  }
+}
+
+export const deleteMembership = (athlete: IMember, membership : IMembership) : AppThunk => async dispatch => {
+  try {
+    await membershipService.deleteMembership(athlete, membership, 'athlete')
+
+    dispatch(getAthletes())
+  } catch (e) {
+    console.log(e)
   }
 }

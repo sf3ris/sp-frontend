@@ -1,55 +1,59 @@
-import React, { useState, useEffect } from 'react';
-import { TableRow, TableCell, IconButton } from '@material-ui/core';
-import { IMember } from '../../../features/members/models/IMember';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPencilAlt, faTrash, faCircle } from '@fortawesome/free-solid-svg-icons';
-import { dateUtils } from '../../../utils/dateUtils';
-import ConfirmDialog from '../../../layout/Dialog/ConfirmDialog';
+import React, { useState, useEffect } from 'react'
+import { IMember } from '../../../features/members/models/IMember'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPencilAlt, faTrash, faCircle } from '@fortawesome/free-solid-svg-icons'
+import { dateUtils } from '../../../utils/dateUtils'
+import ConfirmDialog from '../../../layout/Dialog/ConfirmDialog'
+import { Button, Table } from 'semantic-ui-react'
 
 interface IMemberRowComponentProps {
     member: IMember;
-    onEditClick: ( member : IMember ) => void;
-    onDeleteClick: ( member : IMember ) => void;
+    onEditClick: (member : IMember) => void;
+    onDeleteClick: (member : IMember) => void;
 }
 
 const MemberRowComponent : React.FC<IMemberRowComponentProps> = props => {
+  const [isOpenConfirmDialog, setIsOpenConfirmDialog] = useState<boolean>(false)
 
-    const [ isOpenConfirmDialog, setIsOpenConfirmDialog ] = useState<boolean>(false);
+  const birthDate = dateUtils.formatDateToLocale(
+    props.member.birth_date
+  )
 
-    const birth_date = dateUtils.formatDateToLocale(
-        props.member.birth_date
-    );
+  const onDelete = () => {
+    setIsOpenConfirmDialog(true)
+  }
 
-    const onDelete = () => {
-        setIsOpenConfirmDialog(true);
-    }
+  const confirmDelete = () => {
+    props.onDeleteClick(props.member)
+  }
 
-    const confirmDelete = () => {
-        props.onDeleteClick( props.member );
-    }
+  const isActive = props.member.memberships.some(membership => new Date(membership.end_date).getTime() >= new Date().getTime())
 
-    const isActive = props.member.memberships.some( membership => new Date(membership.end_date).getTime() >= new Date().getTime());
-
-    return (
+  return (
         <>
-            <TableRow>
-                <TableCell>{ props.member.last_name }</TableCell>
-                <TableCell>{ props.member.name }</TableCell>
-                <TableCell>{ birth_date }</TableCell>
-                <TableCell>{ props.member.fiscal_code }</TableCell>
-                <TableCell>{ props.member.city }</TableCell>
-                <TableCell>{ props.member.province }</TableCell>
-                <TableCell>{ props.member.email }</TableCell>
-                <TableCell><FontAwesomeIcon icon={faCircle} color={isActive ? 'green' : 'red'} /></TableCell>
-                <TableCell colSpan={2}>
-                    <IconButton id={"editButtonId_" + props.member._id} onClick={e => props.onEditClick(props.member)} size="small">
+            <Table.Row>
+                <Table.Cell>{ props.member.last_name }</Table.Cell>
+                <Table.Cell>{ props.member.name }</Table.Cell>
+                <Table.Cell>{ birthDate }</Table.Cell>
+                <Table.Cell>{ props.member.fiscal_code }</Table.Cell>
+                <Table.Cell>{ props.member.city }</Table.Cell>
+                <Table.Cell>{ props.member.province }</Table.Cell>
+                <Table.Cell>{ props.member.email }</Table.Cell>
+                <Table.Cell><FontAwesomeIcon icon={faCircle} color={isActive ? 'green' : 'red'} /></Table.Cell>
+                <Table.Cell colSpan={2}>
+                    <Button
+                        id={'editButtonId_' + props.member._id}
+                        onClick={e => props.onEditClick(props.member)} size="small"
+                    >
                         <FontAwesomeIcon icon={faPencilAlt} color="green" />
-                    </IconButton>
-                    <IconButton id={"deleteButtonId_" + props.member._id} onClick={onDelete} size="small">
+                    </Button>
+                    <Button
+                        id={'deleteButtonId_' + props.member._id}
+                        onClick={onDelete} size="small">
                         <FontAwesomeIcon icon={faTrash} color="red" />
-                    </IconButton>
-                </TableCell>
-            </TableRow>
+                    </Button>
+                </Table.Cell>
+            </Table.Row>
 
             <ConfirmDialog
                 title="Confermi cancellazione?"
@@ -59,8 +63,7 @@ const MemberRowComponent : React.FC<IMemberRowComponentProps> = props => {
 
         </>
 
-    )
-
+  )
 }
 
-export default MemberRowComponent;
+export default MemberRowComponent

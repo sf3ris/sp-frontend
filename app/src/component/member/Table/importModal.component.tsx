@@ -1,37 +1,11 @@
-import {
-  Button, Grid,
-  Input,
-  InputLabel,
-  Modal,
-  Table, TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow
-} from '@material-ui/core'
 import React, { useState } from 'react'
 import { IHeaderMap, MemberHeader, memberHeaders } from '../../../features/members/models/IMember'
+import { Button, Grid, Input, Label, Modal, Table } from 'semantic-ui-react'
 
 interface IImportModalProps {
     isOpen: boolean;
     toggle: () => void;
     onImportMembers: (file: File, headers: IHeaderMap[], headerRow: string) => void;
-}
-
-const modalStyle = (): React.CSSProperties => {
-  const top = '10vh'
-  const left = '25vw'
-
-  return {
-    top: top,
-    left: left,
-    backgroundColor: '#fff',
-    position: 'absolute',
-    padding: '10px',
-    width: '50vw',
-    height: '80vh',
-    overflow: 'scroll'
-  }
 }
 
 const ImportModal: React.FC<IImportModalProps> = props => {
@@ -59,62 +33,61 @@ const ImportModal: React.FC<IImportModalProps> = props => {
   }
 
   const renderMemberHeader = (header: MemberHeader) =>
-        <TableRow>
-            <TableCell>{header.label}</TableCell>
-            <TableCell>
+        <Table.Row>
+            <Table.Cell>{header.label}</Table.Cell>
+            <Table.Cell>
                 <Input
                 placeholder={headerMaps.find(item => item.header === header.value)?.value || ''}
                 onChange={e => onMappingChange(header.value, e.target.value)}
                 />
-            </TableCell>
-        </TableRow>
+            </Table.Cell>
+        </Table.Row>
 
   return (
         <Modal open={props.isOpen} onClose={props.toggle}>
-            <div style={modalStyle()}>
+            <Modal.Header>
+                <h3>Import Configuration</h3>
+            </Modal.Header>
+            <Modal.Content>
                 <div>
-                    <TableContainer>
-                        <Table size="small">
-                            <TableHead>
-                                <TableRow>
-                                    <TableCell>Field</TableCell>
-                                    <TableCell>Excel Header</TableCell>
-                                </TableRow>
-                            </TableHead>
-                            <TableBody>
-                                {memberHeaders.map(renderMemberHeader)}
-                            </TableBody>
-                        </Table>
-                    </TableContainer>
-                </div>
-                <div style={{ marginTop: '30px' }}>
-                    <Grid container spacing={3}>
-                        <Grid item xs={4}>
-                            <InputLabel>Header row on Excel</InputLabel>
+                    <Grid columns={3}>
+                        <Grid.Column>
                             <Input
                                 type="numeric"
                                 value={headerRow}
                                 onChange={e => setHeaderRow(e.target.value)}
                             />
-                        </Grid>
-                        <Grid item xs={4}>
-                            <input
+                            <Label pointing>Header on row...</Label>
+                        </Grid.Column>
+                        <Grid.Column>
+                            <Input
                                 type="file"
                                 onChange={e => handleFileUpload(e.target.files !!)}
                             />
-                        </Grid>
-                        <Grid xs={4}>
-                            <Button
-                                disabled={!fileUpload}
-                                variant="contained"
-                                onClick={onImport}
-                            >
-                                Import
-                            </Button>
-                        </Grid>
+                        </Grid.Column>
                     </Grid>
+                    <Table size="small">
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Field</Table.HeaderCell>
+                                <Table.HeaderCell>Excel Header</Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {memberHeaders.map(renderMemberHeader)}
+                        </Table.Body>
+                    </Table>
                 </div>
-            </div>
+            </Modal.Content>
+            <Modal.Actions>
+                <Button
+                    disabled={!fileUpload}
+                    primary
+                    onClick={onImport}
+                >
+                    Import
+                </Button>
+            </Modal.Actions>
         </Modal>
   )
 }

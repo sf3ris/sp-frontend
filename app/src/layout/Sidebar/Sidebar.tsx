@@ -1,36 +1,31 @@
 import React, { useState } from 'react'
-import Logo from './Logo/Logo';
-import { IRoute, routes } from '../../routes/routes';
-import MenuEntry from  './Menu/MenuEntry';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons';
-import { useHistory } from 'react-router-dom';
-
+import Logo from './Logo/Logo'
+import { IRoute, routes } from '../../routes/routes'
+import MenuEntry from './Menu/MenuEntry'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faChevronCircleLeft, faChevronCircleRight } from '@fortawesome/free-solid-svg-icons'
+import { useHistory } from 'react-router-dom'
 
 const Sidebar : React.FC<{}> = props => {
+  const [collapsed, setCollapsed] = useState<boolean>(false)
 
-    const [ collapsed, setCollapsed ] = useState<boolean>(false);
+  const history = useHistory()
 
-    const history = useHistory();
+  const renderRoute = (route : IRoute) => !route.hideFromMenu && <MenuEntry collapsed={collapsed} route={route} key={route.name} />
 
-    const renderRoute = ( route : IRoute ) => !route.hideFromMenu && <MenuEntry collapsed={collapsed} route={route} key={route.name} />
+  const onCollapse = () => {
+    document.body.classList.toggle('collapsed')
 
-    const onCollapse = () => {
+    setCollapsed(!collapsed)
+  }
 
-        document.body.classList.toggle('collapsed');
+  return (
 
-        setCollapsed(!collapsed);
-
-    }
-
-    return(
-        
-
-        history.location.pathname !== '/login' ?
-            <div className="page-header">
+    history.location.pathname !== '/login'
+      ? <div className="page-header">
 
             <Logo collapsed={collapsed} />
-            
+
             <nav>
                 <ul className="admin-menu">
 
@@ -38,17 +33,17 @@ const Sidebar : React.FC<{}> = props => {
 
                     <li>
                         <button onClick={onCollapse} aria-expanded="true" aria-label="collapse menu">
-                            <span> <FontAwesomeIcon icon={collapsed ? faChevronCircleRight : faChevronCircleLeft} /> Collapse</span>
+                            {/* <span> <FontAwesomeIcon icon={collapsed ? faChevronCircleRight : faChevronCircleLeft} /> Collapse</span> */}
                         </button>
                     </li>
 
                 </ul>
             </nav>
 
-        </div> : null
+        </div>
+      : null
 
-    )
-
+  )
 }
 
-export default Sidebar;
+export default Sidebar

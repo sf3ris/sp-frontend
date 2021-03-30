@@ -1,105 +1,72 @@
-import React, { useState } from 'react';
-import { Modal, Checkbox, FormControlLabel, makeStyles, Theme, createStyles, FormControl, Button } from '@material-ui/core';
-
-import { IMember, memberHeaders, MemberHeader } from '../../../features/members/models/IMember';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf } from '@fortawesome/free-regular-svg-icons';
+import React, { useState } from 'react'
+import { IMember, memberHeaders, MemberHeader } from '../../../features/members/models/IMember'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faFilePdf } from '@fortawesome/free-regular-svg-icons'
+import { Button, Checkbox, CheckboxProps, Form, Modal } from 'semantic-ui-react'
 
 interface IMemberPDFModal {
     isOpen: boolean;
-    onOk : ( columns : string[]) => void;
+    onOk : (columns : string[]) => void;
     toggle : (...args : any) => void;
-}
-
-const modalStyle = () : React.CSSProperties => {
-    const top = '10vh';
-    const left = '35vw';
-
-    return {
-        top : top,
-        left: left,
-        backgroundColor:'#fff',
-        position:'absolute',
-        padding:'10px',
-        width: '30vw',
-        height: '80vh',
-        overflow:'scroll'
-    }
 }
 
 interface HeaderCheck extends MemberHeader {
     checked : boolean
 }
 
-const useStyles = makeStyles((theme : Theme) => createStyles({
-    root : {
-        display: 'flex'
-    },
-    formControl: {
-        margin: theme.spacing(3)
-    }
-}))
-
 const MemberPDFModal : React.FC<IMemberPDFModal> = props => {
+  const [checkedHeaders, setCheckedHeaders] = useState<HeaderCheck[]>(memberHeaders.map(header => ({ ...header, checked: true })))
 
-    const classes = useStyles();
+  const handleHeaderChange = (e : React.FormEvent<HTMLInputElement>, data: CheckboxProps, header : HeaderCheck) => {
+    const i = checkedHeaders.findIndex(h => h.value === header.value)
 
-    const [ checkedHeaders, setCheckedHeaders ] = useState<HeaderCheck[]>(memberHeaders.map( header => ({...header, checked: false})));
+    const tmpCheckedHeader = [...checkedHeaders]
+    tmpCheckedHeader[i].checked = data.checked as boolean
 
-    const handleHeaderChange = ( e : React.ChangeEvent<HTMLInputElement>, header : HeaderCheck ) => {
+    setCheckedHeaders(
+      tmpCheckedHeader
+    )
+  }
 
-        const i = checkedHeaders.findIndex( h => h.value === header.value );
+  const renderCheckboxHeader = (header : HeaderCheck, index : number) =>
+      <Form.Field key={index}>
+          <Checkbox
+              toggle={true}
+              checked={header.checked}
+              label={<label>{header.label}</label>}
+              onChange={(e, data) => handleHeaderChange(e, data, header)} />
+      </Form.Field>
 
-        const tmpCheckedHeader = [...checkedHeaders];
-        tmpCheckedHeader[i].checked = e.target.checked;
+  const onPdf = () => {
+    props.onOk(
+      checkedHeaders.filter(header => header.checked === true).map(header => header.value)
+    )
+  }
 
-        setCheckedHeaders(
-            tmpCheckedHeader
-        )
-
-    }
-
-    const renderCheckboxHeader = ( header : HeaderCheck, index : number ) => <FormControlLabel key={index} control={ <Checkbox value={header.checked} onChange={e => handleHeaderChange(e, header)} /> } label={header.label} />
-
-    const onPdf = () => {
-
-        props.onOk(
-            checkedHeaders.filter( header => header.checked === true ).map( header => header.value)
-        );
-
-    }
-
-    return (
+  return (
 
         <Modal open={props.isOpen} onClose={props.toggle}>
-
-            <div style={modalStyle()}>
-
+            <Modal.Header>
                 <h3> Seleziona Colonne da esportare </h3>
-                
-                <div className={classes.root}>
-                    <FormControl className={classes.formControl}>
-
-                        {checkedHeaders.map( renderCheckboxHeader )}
-
-                    </FormControl>
+            </Modal.Header>
+            <Modal.Content>
+                <div>
+                    <Form>
+                        {checkedHeaders.map(renderCheckboxHeader)}
+                    </Form>
                 </div>
-
-                <Button 
-                    color="primary" 
-                    disabled={!checkedHeaders.some(header => header.checked)} 
-                    onClick={onPdf} 
-                    variant="contained" 
-                    startIcon={<FontAwesomeIcon icon={faFilePdf} />} > 
-                        Esporta 
+            </Modal.Content>
+            <Modal.Actions>
+                <Button
+                    primary
+                    disabled={!checkedHeaders.some(header => header.checked)}
+                    onClick={onPdf}
+                    startIcon={<FontAwesomeIcon icon={faFilePdf} />} >
+                    Esporta
                 </Button>
-
-            </div>
-
+            </Modal.Actions>
         </Modal>
-
-    )
-
+  )
 }
 
-export default MemberPDFModal;
+export default MemberPDFModal

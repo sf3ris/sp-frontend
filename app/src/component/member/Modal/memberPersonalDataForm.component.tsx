@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { makeStyles, Theme, createStyles, Button, Select, MenuItem, InputLabel } from '@material-ui/core'
-import MemberTextField from './memberTextField.component'
 import { IMember } from '../../../features/members/models/IMember'
 import { dateUtils } from '../../../utils/dateUtils'
-import { MuiPickersUtilsProvider, KeyboardDatePicker } from '@material-ui/pickers'
-import DateFnsUtils from '@date-io/date-fns'
 import CodiceFiscale from 'codice-fiscale-js'
 import { IMembership } from '../../../features/memberships/models/membership'
+import { Button, Form, Input, Select } from 'semantic-ui-react'
 
 interface IMemberPersonalDataFormComponentProps {
     isOpen: boolean;
@@ -15,30 +12,10 @@ interface IMemberPersonalDataFormComponentProps {
     member? : IMember;
 }
 
-const useStyles = makeStyles((theme : Theme) => createStyles({
-  root: {
-    display: 'flex',
-    flexWrap: 'wrap'
-  },
-  textContainer: {
-    width: '80%',
-    marginRight: 'auto',
-    marginLeft: 'auto',
-    marginTop: '10px'
-  },
-  selectField: {
-    marginLeft: theme.spacing(1),
-    marginRight: theme.spacing(1),
-    width: '45%'
-  }
-}))
-
 const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponentProps> = props => {
-  const classes = useStyles()
-
   const [name, setName] = useState<string>(props.member?.name || '')
   const [lastName, setLastName] = useState<string>(props.member?.last_name || '')
-  const [birthDate, setBirthDate] = useState<Date | null>(props.member ? new Date(props.member?.birth_date) : null)
+  const [birthDate, setBirthDate] = useState<string>(props.member?.birth_date || '')
   const [birthPlace, setBirthPlace] = useState<string>(props.member?.birth_place || '')
   const [fiscalCode, setFiscalCode] = useState<string>(props.member?.fiscal_code || '')
   const [address, setAddress] = useState<string>(props.member?.address || '')
@@ -52,13 +29,14 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   const tryToCalculateFiscalCode = () => {
     if (name && lastName && birthDate && birthPlace) {
       try {
+        const splittedDate = birthDate.split('/')
         const cf = new CodiceFiscale({
           name: name,
           surname: lastName,
           gender: gender,
-          day: birthDate.getDate(),
-          month: birthDate.getMonth() + 1,
-          year: birthDate.getFullYear(),
+          day: splittedDate[0],
+          month: splittedDate[1],
+          year: splittedDate[2],
           birthplace: birthPlace,
           birthplaceProvincia: province
         })
@@ -71,23 +49,23 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
     }
   }
 
-  const onNameChange = (value : string) => setName(value)
-  const onLastNameChange = (value : string) => setLastName(value)
-  const onBirthDateChange = (date : Date | null) => setBirthDate(date)
-  const onBirthPlaceChange = (value : string) => setBirthPlace(value)
-  const onFiscalCodeChange = (value : string) => setFiscalCode(value.toUpperCase())
-  const onAddressChange = (value : string) => setAddress(value)
-  const onZipCodeChange = (value : string) => setZipCode(value)
-  const onProvinceChange = (value : string) => setProvince(value)
-  const onCityChange = (value : string) => setCity(value)
-  const onGenderChange = (e : React.ChangeEvent<{value: unknown}>) => setGender(e.target.value as string)
-  const onPhoneChange = (value : string) => setPhone(value)
-  const onEmailChange = (value : string) => setEmail(value)
+  const onNameChange = (value: string) => setName(value)
+  const onLastNameChange = (value: string) => setLastName(value)
+  const onBirthDateChange = (value: string) => setBirthDate(value)
+  const onBirthPlaceChange = (value: string) => setBirthPlace(value)
+  const onFiscalCodeChange = (value: string) => setFiscalCode(value.toUpperCase())
+  const onAddressChange = (value: string) => setAddress(value)
+  const onZipCodeChange = (value: string) => setZipCode(value)
+  const onProvinceChange = (value: string) => setProvince(value)
+  const onCityChange = (value: string) => setCity(value)
+  const onGenderChange = (value: string) => setGender(value)
+  const onPhoneChange = (value: string) => setPhone(value)
+  const onEmailChange = (value: string) => setEmail(value)
 
   const resetForm = () => {
     setName('')
     setLastName('')
-    setBirthDate(null)
+    setBirthDate('')
     setBirthPlace('')
     setFiscalCode('')
     setAddress('')
@@ -102,7 +80,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   const onPopulate = () => {
     setName('Mario')
     setLastName('Verdi')
-    setBirthDate(new Date('10/01/1992'))
+    setBirthDate('10/11/1992')
     setBirthPlace('Milano')
     setFiscalCode('MRAVRD92E10E783P')
     setAddress('Via delle grazie,15')
@@ -115,11 +93,10 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   }
 
   const setForm = (member : IMember) => {
-    const birth_date = dateUtils.formatDateToLocale(member.birth_date)
-
     setName(member.name)
     setLastName(member.last_name)
-    setBirthDate(new Date(member.birth_date))
+    // setBirthDate(new Date(member.birth_date).toDateString())
+    setBirthDate(dateUtils.formatDateToLocale(member.birth_date))
     setBirthPlace(member.birth_place)
     setFiscalCode(member.fiscal_code)
     setAddress(member.address)
@@ -137,12 +114,10 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   }
 
   const onSave = () => {
-    const bDate = dateUtils.formatDateToServerFormat(birthDate || new Date())
-
     const member : Partial<IMember> = {
       name,
       last_name: lastName,
-      birth_date: bDate,
+      birth_date: birthDate,
       birth_place: birthPlace,
       fiscal_code: fiscalCode,
       address,
@@ -161,6 +136,11 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
     onClose()
   }
 
+  const genderOptions = [
+    { key: 'M', value: 'M', text: 'M' },
+    { key: 'F', value: 'F', text: 'F' }
+  ]
+
   useEffect(() => {
     props.member && setForm(props.member)
   }, [props.member])
@@ -172,37 +152,119 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   return (
 
             <>
-                <div className={classes.root}>
-                    <div className={classes.textContainer}>
-
-                        <MemberTextField
-                            label="Cognome"
-                            value={lastName}
-                            onChange={onLastNameChange} />
-
-                        <MemberTextField
-                            label="Nome"
-                            value={name}
-                            onChange={onNameChange} />
-
-                        <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                            <KeyboardDatePicker
-                                className={classes.selectField}
-                                margin="normal"
-                                label="Data di nascita"
-                                format="dd/MM/yyyy"
-                                value={birthDate}
-                                onChange={ date => onBirthDateChange(date)}
-                                ></KeyboardDatePicker>
-
-                        </MuiPickersUtilsProvider>
-
-                        <MemberTextField
-                            label="Luogo di nascita"
-                            value={birthPlace}
-                            onChange={onBirthPlaceChange} />
-
-                        <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
+                <div style={{ marginTop: '10px' }}>
+                        <Form>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Cognome"
+                                        value={lastName}
+                                        onChange={e => onLastNameChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Nome"
+                                        value={name}
+                                        onChange={e => onNameChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Luogo di nascita"
+                                        value={birthPlace}
+                                        onChange={e => onBirthPlaceChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Input
+                                        label="Data di nascita"
+                                        fluid
+                                        placeholder="Format: GG/MM/YYYY"
+                                        value={birthDate}
+                                        onChange={e => onBirthDateChange(e.target.value)}
+                                    />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Select
+                                        value={gender}
+                                        options={genderOptions}
+                                        onChange={(e, data) => onGenderChange(data.value as string)} />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Codice Fiscale"
+                                        value={fiscalCode}
+                                        onChange={e => onFiscalCodeChange(e.target.value)}
+                                    />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Indirizzo"
+                                        value={address}
+                                        onChange={e => onAddressChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="CAP"
+                                        value={zipCode}
+                                        maxLength={5}
+                                        onChange={e => onZipCodeChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Città"
+                                        value={city}
+                                        onChange={e => onCityChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Provincia"
+                                        maxLength={2}
+                                        value={province}
+                                        onChange={e => onProvinceChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                            </Form.Group>
+                            <Form.Group widths="equal">
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Telefono"
+                                        value={phone}
+                                        onChange={e => onPhoneChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                                <Form.Field>
+                                    <Input
+                                        fluid
+                                        label="Email"
+                                        value={email}
+                                        onChange={e => onEmailChange(e.target.value)}
+                                        />
+                                </Form.Field>
+                            </Form.Group>
+                        </Form>
+                        {/* <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
                         <Select
                             labelId="gender-select-id"
                             value={gender}
@@ -211,58 +273,23 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                             >
                                 <MenuItem value="M">M</MenuItem>
                                 <MenuItem value="F">F</MenuItem>
-                        </Select>
-                        <br />
-
-                        <MemberTextField
-                            label="Codice Fiscale"
-                            value={fiscalCode}
-                            maxLength={16}
-                            onChange={onFiscalCodeChange} />
-
-                        <MemberTextField
-                            label="Indirizzo"
-                            value={address}
-                            onChange={onAddressChange} />
-
-                        <MemberTextField
-                            label="CAP"
-                            maxLength={5}
-                            value={zipCode}
-                            onChange={onZipCodeChange} />
-
-                        <MemberTextField
-                            label="Città"
-                            value={city}
-                            onChange={onCityChange} />
-
-                        <MemberTextField
-                            label="Provincia"
-                            maxLength={2}
-                            value={province}
-                            onChange={onProvinceChange} />
-
-                        <MemberTextField
-                            label="Telefono"
-                            value={phone}
-                            onChange={onPhoneChange} />
-
-                        <MemberTextField
-                            label="Email"
-                            value={email}
-                            onChange={onEmailChange} />
-
-                    </div>
-
+                        </Select> */}
                 </div>
-                <div className={classes.textContainer}>
-
-                        <Button id="idDiscardButton" variant="contained" color="secondary" onClick={onClose}>Annulla</Button>
-                        {/* <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate}>Popola</Button> */}
-                        <Button id="idSaveButton" variant="contained" color="primary" onClick={onSave} style={{ float: 'right' }}>Salva</Button>
-
+                <div>
+                    <hr/>
+                    <Button
+                        primary
+                        id="idDiscardButton"
+                        onClick={onClose}
+                    >Annulla
+                    </Button>
+                    {/* <Button id="idPopulatedButton" variant="contained" color="secondary" onClick={onPopulate}>Popola</Button> */}
+                    <Button
+                        id="idSaveButton"
+                        onClick={onSave}
+                        style={{ float: 'right' }}
+                    >Salva</Button>
                 </div>
-
             </>
   )
 }

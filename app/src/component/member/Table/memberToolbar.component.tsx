@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import { Grid, Button, makeStyles, Theme, createStyles } from '@material-ui/core'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlusSquare, faFilePdf, faFileExcel } from '@fortawesome/free-regular-svg-icons'
 import MemberPDFModal from '../PDFModal/memberPDFModal'
 import ImportModal from './importModal.component'
 import { IHeaderMap } from '../../../features/members/models/IMember'
+import { Button, Grid, Label } from 'semantic-ui-react'
+import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { faFileExcel, faFilePdf } from '@fortawesome/free-regular-svg-icons'
 
 interface IMemberToolbarComponentProps {
     onNew: (...args : any) => void;
@@ -12,15 +13,7 @@ interface IMemberToolbarComponentProps {
     onImportModal: (file: File, headers: IHeaderMap[], headerRow: string) => void;
 }
 
-const useStyles = makeStyles((theme: Theme) => createStyles({
-  button: {
-    margin: theme.spacing(2)
-  }
-}))
-
 const MemberToolbarComponent : React.FC<IMemberToolbarComponentProps> = props => {
-  const classes = useStyles()
-
   const [isOpenPDFModal, setIsOpenPDFModal] = useState<boolean>(false)
   const [isOpenImportModal, setIsOpenImportModal] = useState<boolean>(false)
 
@@ -32,33 +25,44 @@ const MemberToolbarComponent : React.FC<IMemberToolbarComponentProps> = props =>
     props.onImportModal(file, headers, headerRow)
   }
 
+  const spanClass: React.CSSProperties = {
+    marginLeft: '5px'
+  }
+
   return (
+      <div>
+          <Button
+              primary={true}
+              id="idNewButtonMemberTable"
+              onClick={props.onNew}>
+              <FontAwesomeIcon icon={faPlus}/>
+              <span style={spanClass}>New</span>
+          </Button>
+          <Button
+              primary={true}
+              id="idPDFButtonMemberTable"
+              onClick={togglePDFModal}>
+              <FontAwesomeIcon icon={faFilePdf} />
+              <span style={spanClass}>Export PDF</span>
+          </Button>
+          <Button
+              primary={true}
+              id="idImportButtonMemberTable"
+              onClick={toggleImportModal}>
+              <FontAwesomeIcon icon={faFileExcel} />
+              <span style={spanClass}>Import XLSX</span>
+          </Button>
 
-        <Grid container >
-            <Grid item xs={12}>
-                <Button className={classes.button} variant="contained" id="idNewButtonMemberTable" onClick={props.onNew} color="primary">
-                    <FontAwesomeIcon icon={faPlusSquare} /> <span style={{ marginLeft: '5px' }}>Nuovo</span>
-                </Button>
+        <MemberPDFModal
+            onOk={props.onPDF}
+            isOpen={isOpenPDFModal}
+            toggle={togglePDFModal} />
 
-                <Button className={classes.button} variant="contained" id="idPDFButtonMemberTable" onClick={togglePDFModal} color="primary">
-                    <FontAwesomeIcon icon={faFilePdf} /> <span style={{ marginLeft: '5px' }}>PDF</span>
-                </Button>
-
-                <Button className={classes.button} variant="contained" id="idImportButtonMemberTable" onClick={toggleImportModal} color="primary">
-                    <FontAwesomeIcon icon={faFileExcel} /><span style={{ marginLeft: '5px' }}>Import</span>
-                </Button>
-            </Grid>
-
-            <MemberPDFModal
-                onOk={props.onPDF}
-                isOpen={isOpenPDFModal}
-                toggle={togglePDFModal} />
-
-            <ImportModal
-                onImportMembers={onImportModal}
-                isOpen={isOpenImportModal}
-                toggle={toggleImportModal} />
-        </Grid>
+        <ImportModal
+            onImportMembers={onImportModal}
+            isOpen={isOpenImportModal}
+            toggle={toggleImportModal} />
+      </div>
   )
 }
 

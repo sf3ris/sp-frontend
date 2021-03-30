@@ -1,43 +1,33 @@
-import React, { useState } from 'react';
-import { IMember } from '../../../features/members/models/IMember';
-import Checkbox from '@material-ui/core/Checkbox';
+import React, { useState } from 'react'
+import { IMember } from '../../../features/members/models/IMember'
+import { Checkbox, Form } from 'semantic-ui-react'
+import { CheckboxProps } from 'semantic-ui-react/dist/commonjs/modules/Checkbox/Checkbox'
 
 interface IMemberRow {
     member: IMember;
-    onChecked: ( member: IMember, checked: boolean ) => void;
+    onChecked: (member: IMember, checked: boolean) => void;
     isChecked: boolean;
 }
 
 const MemberRow: React.FC<IMemberRow> = props => {
+  const [checked, setIsChecked] = useState<boolean>(props.isChecked)
 
-    const [ checked, setIsChecked ] = useState<boolean>(props.isChecked);
+  const handleChange = (event: React.FormEvent<HTMLInputElement>, data: CheckboxProps) => {
+    const value = data.checked as boolean
+    setIsChecked(value)
+    props.onChecked(props.member, value)
+  }
 
-    const handleChange = ( e : React.ChangeEvent<HTMLInputElement> ) => {
-
-        const value = e.target.checked;
-
-        setIsChecked( value );
-        props.onChecked( props.member, value );
-
-    }
-
-    return (
-
-        <div style={{width:'100%'}}>
-
-            <p>
-                <Checkbox
-                    checked={checked}
-                    onChange={handleChange}
-                    />
-
-                    {props.member.name} {props.member.last_name}
-            </p>
-
-        </div>
-
-    )
-
+  return (
+        <Form.Field>
+            <Checkbox
+                toggle
+                checked={checked}
+                onChange={handleChange}
+                label={<label>{props.member.last_name} {props.member.name}</label>}
+                />
+        </Form.Field>
+  )
 }
 
-export default MemberRow;
+export default MemberRow

@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { IHeaderMap, IMember } from '../../features/members/models/IMember'
 import MemberTableComponent from './Table/memberTable.component'
-import { Grid } from '@material-ui/core'
 import MemberModal from './Modal/memberModal.component'
 import { IMembership } from '../../features/memberships/models/membership'
+import { Container, Grid } from 'semantic-ui-react'
 
 interface IMemberComponentProps {
     members : IMember[];
@@ -38,14 +38,9 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
   }, [props.members])
 
   return (
-
-        <section className="grid">
-            <article>
-
-                <Grid container spacing={3} style={{ padding: '10px' }}>
-
-                    <Grid item xs={12}>
-
+            <Container>
+                <Grid centered container columns="equal">
+                    <Grid.Column>
                         <MemberTableComponent
                             onImportModal={props.onImportModal}
                             onPDF={props.onPDF}
@@ -54,9 +49,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                             onDelete={props.onDelete}
                             getMembers={props.getMembers}
                             onEdit={onEdit}/>
-
-                    </Grid>
-
+                    </Grid.Column>
                 </Grid>
 
                 <MemberModal
@@ -66,10 +59,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
                     isOpen={isOpenNewModal}
                     onAddMembership={props.onAddMembership}
                     toggle={toggleModal} />
-
-            </article>
-        </section>
-
+            </Container>
   )
 }
 

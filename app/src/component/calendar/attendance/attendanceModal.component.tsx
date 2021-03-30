@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import SimpleModal, { ISimpleModalProps } from '../../../layout/Modal/SimpleModal';
-import { IMember } from '../../../features/members/models/IMember';
-import { dateUtils } from '../../../utils/dateUtils';
-import { createStyles, makeStyles, Theme, Button, TextField } from '@material-ui/core';
+import React, { useState } from 'react'
+import { IMember } from '../../../features/members/models/IMember'
+import { dateUtils } from '../../../utils/dateUtils'
+import MemberRow from './memberRow.component'
+import { Button, Form, Grid, Input, Modal } from 'semantic-ui-react'
 
-import MemberRow from './memberRow.component';
-
-interface IAttendanceModalProps extends ISimpleModalProps  {
+interface IAttendanceModalProps {
+    isOpen: boolean;
+    toggle: (...args: any) => void;
     startDate: Date;
     endDate: Date;
     athletes: IMember[];
@@ -18,138 +18,140 @@ interface IAttendanceModalProps extends ISimpleModalProps  {
     title?: string;
 }
 
-const useStyles = makeStyles((theme : Theme) => createStyles({
-    root: {
-        display : 'flex',
-        flexWrap : 'wrap',
-        width:'75%',
-        margin:'auto',
-        flexDirection: 'row',
-        marginTop:'20px'
-    },
-    form: {
-        width: '100%',
-        margin:'auto',
-        display: 'flex',
-        flexWrap: 'wrap',
-        flexDirection: 'row',
-        marginTop: '20px'
-    },
-    row: {
-        width: '100%'
-    },
-    buttonContainer: {
-        width: '100%',
-        marginRight:'auto',
-        marginLeft:'auto',
-        marginTop:'10px'
-    }
-}))
-
 const AttendanceModal : React.FC<IAttendanceModalProps> = props => {
+  const [selectedAthletesIds, setSelectedAthletesIds] = useState<string[]>(props.selectedAthletesIds || [])
+  const [selectedMembersIds, setSelectedMembersIds] = useState<string[]>(props.selectedMembersIds || [])
+  const [eventDescription, setEventDescription] = useState<string>(props.title || '')
+  const [athletesItemCount, setAthletesItemCount] = useState<number>(10)
+  const [membersItemCount, setMembersItemCount] = useState<number>(10)
+  const [athletes, setAthletes] = useState<IMember[]>(props.athletes || [])
+  const [members, setMembers] = useState<IMember[]>(props.members || [])
 
-    const classes = useStyles();
+  const handleAthleteCheck = (athlete : IMember, value: boolean) => {
+    const tmpSelectedIds = [...selectedAthletesIds]
 
-    const [selectedAthletesIds, setSelectedAthletesIds] = useState<string[]>(props.selectedAthletesIds || []);
-    const [selectedMembersIds, setSelectedMembersIds] = useState<string[]>(props.selectedMembersIds || []);
-    const [eventDescription, setEventDescription] = useState<string>(props.title || '');
-
-    const handleAthleteCheck = (athlete : IMember, value: boolean) => {
-
-        const tmpSelectedIds = [...selectedAthletesIds];
-
-        if(!value) {
-            tmpSelectedIds.splice(
-                tmpSelectedIds.indexOf(athlete._id),
-                1
-            );
-        } else {
-            tmpSelectedIds.push(athlete._id);
-        }
-
-        setSelectedAthletesIds(tmpSelectedIds);
-
+    if (!value) {
+      tmpSelectedIds.splice(
+        tmpSelectedIds.indexOf(athlete._id),
+        1
+      )
+    } else {
+      tmpSelectedIds.push(athlete._id)
     }
 
-    const handleMembercheck = (member : IMember, value: boolean) => {
+    setSelectedAthletesIds(tmpSelectedIds)
+  }
 
-        const tmpSelectedIds = [...selectedMembersIds];
+  const handleMembercheck = (member : IMember, value: boolean) => {
+    const tmpSelectedIds = [...selectedMembersIds]
 
-        if(!value) {
-            tmpSelectedIds.splice(
-                tmpSelectedIds.indexOf(member._id),
-                1
-            );
-        } else {
-            tmpSelectedIds.push(member._id);
-        }
-
-        setSelectedMembersIds(tmpSelectedIds);
-
+    if (!value) {
+      tmpSelectedIds.splice(
+        tmpSelectedIds.indexOf(member._id),
+        1
+      )
+    } else {
+      tmpSelectedIds.push(member._id)
     }
 
-    const onSave = () => {
-        props.onSave(selectedAthletesIds, selectedMembersIds, eventDescription);
-    }
+    setSelectedMembersIds(tmpSelectedIds)
+  }
 
-    const renderAthlete = ( athlete : IMember ) => <MemberRow isChecked={selectedAthletesIds.includes(athlete._id)} member={athlete} onChecked={handleAthleteCheck} />
-    const renderMember = ( member : IMember ) => <MemberRow isChecked={selectedMembersIds.includes(member._id)} member={member} onChecked={handleMembercheck} />
+  const onSave = () => {
+    props.onSave(selectedAthletesIds, selectedMembersIds, eventDescription)
+  }
 
-    return (
+  const onLoadMoreAthletes = (increment: number) => {
+    setAthletesItemCount(athletesItemCount + increment)
+  }
 
-        <SimpleModal isOpen={props.isOpen} toggle={props.toggle}>
+  const onLoadMoreMembers = (increment: number) => {
+    setMembersItemCount(membersItemCount + increment)
+  }
 
-            <div className={classes.root}>
+  const filterAthletes = (value: string) => {
+    const filteredAthletes = props.athletes.filter(athlete => athlete.name.includes(value) || athlete.last_name.includes(value))
 
+    setAthletes(filteredAthletes)
+  }
+
+  const filterMembers = (value: string) => {
+    const filteredMembers = props.members.filter(member => member.name.includes(value) || member.last_name.includes(value))
+
+    setMembers(filteredMembers)
+  }
+
+  const renderAthlete = (athlete : IMember) => <MemberRow
+      isChecked={selectedAthletesIds.includes(athlete._id)}
+      member={athlete}
+      onChecked={handleAthleteCheck} />
+
+  const renderMember = (member : IMember) => <MemberRow
+      isChecked={selectedMembersIds.includes(member._id)}
+      member={member}
+      onChecked={handleMembercheck} />
+
+  return (
+        <Modal open={props.isOpen} toggle={props.toggle}>
+            <Modal.Header>
                 <h1> Elenco presenze </h1>
-
-                <hr/>
-
-                <div className={classes.form}>
-
-                    <TextField 
-                        fullWidth 
-                        label="Inizio evento" 
-                        disabled 
-                        value={dateUtils.formatDateToLocale(props.startDate.toDateString())} />
-
-                    <TextField 
-                        fullWidth 
-                        label="Descrizione" 
-                        value={eventDescription} 
-                        onChange={e => setEventDescription(e.target.value)} />
-
-                </div>
-
-                <div style={{width: '50%'}}>
-
-                    <h3 style={{marginTop:'10px', marginBottom:'10px'}}> Athletes </h3>
-            
-                    {props.athletes.map(renderAthlete)}
-                
-                </div>
-
-                <div style={{width: '50%'}}>
-                    
-                    <h3 style={{marginTop:'10px', marginBottom:'10px'}}> Members </h3>
-        
-                    {props.members.map(renderMember)}
-                
-                </div>
-
-                <div className={classes.buttonContainer}>
-
-                    <Button variant="contained" color="secondary" onClick={props.onDelete}> Cancella </Button>
-                    <Button variant="contained" color="primary" onClick={onSave} style={{float:'right'}}> Salva </Button>
-
-                </div>
-
-            </div>
-
-        </SimpleModal>
-
-    )
-
+            </Modal.Header>
+            <Modal.Content>
+                <Grid columns="equal" container centered>
+                    <Grid.Column>
+                        <div>
+                            <Input
+                                label="Inizio evento"
+                                disabled
+                                value={dateUtils.formatDateToLocale(props.startDate.toDateString())} />
+                            <Input
+                                label="Descrizione"
+                                value={eventDescription}
+                                onChange={e => setEventDescription(e.target.value)} />
+                        </div>
+                    </Grid.Column>
+                </Grid>
+                <Grid columns="equal" container centered>
+                    <Grid.Column>
+                        <h3 style={{ marginTop: '10px', marginBottom: '10px' }}> Athletes </h3>
+                        <Form>
+                            <Form.Input
+                                placeholder="Filter athletes"
+                                onChange={ e => filterAthletes(e.target.value)}
+                            />
+                            {athletes.slice(0, athletesItemCount).map(renderAthlete)}
+                        </Form>
+                        <Button disabled={athletesItemCount === 10} style={{ marginTop: '10px' }} primary onClick={() => onLoadMoreAthletes(-10)}>
+                            Show less athletes
+                        </Button>
+                        <Button disabled={athletesItemCount >= props.athletes.length} style={{ marginTop: '10px' }} primary onClick={() => onLoadMoreAthletes(10)}>
+                            Show more athletes
+                        </Button>
+                    </Grid.Column>
+                    <Grid.Column>
+                        <h3 style={{ marginTop: '10px', marginBottom: '10px' }}> Members </h3>
+                        <Form>
+                            <Form.Input
+                                placeholder="Filter athletes"
+                                onChange={ e => filterMembers(e.target.value)}
+                            />
+                            {members.slice(0, membersItemCount).map(renderMember)}
+                        </Form>
+                        <Button disabled={membersItemCount === 10} style={{ marginTop: '10px' }} primary onClick={() => onLoadMoreMembers(-10)}>
+                            Show less members
+                        </Button>
+                        <Button disabled={membersItemCount >= props.members.length} style={{ marginTop: '10px' }} primary onClick={() => onLoadMoreMembers(+10)}>
+                            Show more members
+                        </Button>
+                    </Grid.Column>
+                </Grid>
+            </Modal.Content>
+            <Modal.Actions>
+                    <Button primary onClick={props.onDelete}> Cancella </Button>
+                    <Button primary onClick={onSave} style={{ float: 'right' }}> Salva </Button>
+            </Modal.Actions>
+        </Modal>
+  )
 }
 
-export default AttendanceModal;
+export default AttendanceModal

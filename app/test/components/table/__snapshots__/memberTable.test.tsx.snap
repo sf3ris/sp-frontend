@@ -3,63 +3,62 @@
 exports[`Member table compponent Should match snapshot 1`] = `
 "<Fragment>
   <MemberToolbarComponent onImportModal={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onPDF={[Function: onPDF]} onNew={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} />
-  <WithStyles(ForwardRef(TableContainer))>
-    <WithStyles(ForwardRef(Table))>
-      <WithStyles(ForwardRef(TableHead))>
-        <WithStyles(ForwardRef(TableRow))>
-          <WithStyles(ForwardRef(TableCell))>
-            Cognome
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Nome
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Data di nascita
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Codice Fiscale
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Città
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Provincia
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Email
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            Stato
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell)) colSpan={2} />
-        </WithStyles(ForwardRef(TableRow))>
-      </WithStyles(ForwardRef(TableHead))>
-      <WithStyles(ForwardRef(TableHead))>
-        <WithStyles(ForwardRef(TableRow))>
-          <WithStyles(ForwardRef(TableCell))>
-            <MemberTextField label=\\"\\" onChange={[Function: onChange]} value=\\"\\" width=\\"100\\" />
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell))>
-            <MemberTextField label=\\"\\" onChange={[Function: onChange]} value=\\"\\" width=\\"100\\" />
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell)) />
-          <WithStyles(ForwardRef(TableCell))>
-            <MemberTextField label=\\"\\" onChange={[Function: onChange]} value=\\"\\" width=\\"100\\" />
-          </WithStyles(ForwardRef(TableCell))>
-          <WithStyles(ForwardRef(TableCell)) />
-          <WithStyles(ForwardRef(TableCell)) />
-          <WithStyles(ForwardRef(TableCell)) />
-          <WithStyles(ForwardRef(TableCell))>
-            <FontAwesomeIcon icon={{...}} color=\\"grey\\" onClick={[Function: switchStatusFilter]} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-          </WithStyles(ForwardRef(TableCell))>
-        </WithStyles(ForwardRef(TableRow))>
-      </WithStyles(ForwardRef(TableHead))>
-      <WithStyles(ForwardRef(TableBody))>
-        <MemberRowComponent onDeleteClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onEditClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} member={{...}} />
-        <MemberRowComponent onDeleteClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onEditClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} member={{...}} />
-        <MemberRowComponent onDeleteClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onEditClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} member={{...}} />
-      </WithStyles(ForwardRef(TableBody))>
-    </WithStyles(ForwardRef(Table))>
-  </WithStyles(ForwardRef(TableContainer))>
+  <Table fixed={true} as=\\"table\\">
+    <TableHeader as=\\"thead\\">
+      <TableRow as=\\"tr\\" cellAs=\\"td\\">
+        <TableHeaderCell as=\\"th\\">
+          Cognome
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Nome
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Data di nascita
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Codice Fiscale
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Città
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Provincia
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Email
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          Stato
+        </TableHeaderCell>
+        <TableHeaderCell colSpan={2} as=\\"th\\" />
+      </TableRow>
+    </TableHeader>
+    <TableHeader as=\\"thead\\">
+      <TableRow as=\\"tr\\" cellAs=\\"td\\">
+        <TableHeaderCell as=\\"th\\">
+          <Input fluid={true} onChange={[Function: onChange]} value=\\"\\" type=\\"text\\" />
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\">
+          <Input fluid={true} onChange={[Function: onChange]} value=\\"\\" type=\\"text\\" />
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\" />
+        <TableHeaderCell as=\\"th\\">
+          <Input fluid={true} onChange={[Function: onChange]} value=\\"\\" type=\\"text\\" />
+        </TableHeaderCell>
+        <TableHeaderCell as=\\"th\\" />
+        <TableHeaderCell as=\\"th\\" />
+        <TableHeaderCell as=\\"th\\" />
+        <TableHeaderCell as=\\"th\\">
+          <FontAwesomeIcon icon={{...}} color=\\"grey\\" onClick={[Function: switchStatusFilter]} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+        </TableHeaderCell>
+        <TableHeaderCell colSpan={2} as=\\"th\\" />
+      </TableRow>
+    </TableHeader>
+    <TableBody as=\\"tbody\\">
+      <MemberRowComponent onDeleteClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onEditClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} member={{...}} />
+      <MemberRowComponent onDeleteClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onEditClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} member={{...}} />
+      <MemberRowComponent onDeleteClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} onEditClick={[Function: mockConstructor] { _isMockFunction: true, getMockImplementation: [Function (anonymous)], mock: { calls: [], instances: [], invocationCallOrder: [], results: [] }, mockClear: [Function (anonymous)], mockReset: [Function (anonymous)], mockRestore: [Function (anonymous)], mockReturnValueOnce: [Function (anonymous)], mockResolvedValueOnce: [Function (anonymous)], mockRejectedValueOnce: [Function (anonymous)], mockReturnValue: [Function (anonymous)], mockResolvedValue: [Function (anonymous)], mockRejectedValue: [Function (anonymous)], mockImplementationOnce: [Function (anonymous)], mockImplementation: [Function (anonymous)], mockReturnThis: [Function (anonymous)], mockName: [Function (anonymous)], getMockName: [Function (anonymous)] }} member={{...}} />
+    </TableBody>
+  </Table>
 </Fragment>"
 `;

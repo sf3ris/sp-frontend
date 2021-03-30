@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { IHeaderMap, IMember } from '../../../features/members/models/IMember'
-import { TableContainer, Table, TableHead, TableRow, TableCell, TableBody } from '@material-ui/core'
 import MemberRowComponent from './memberRow.component'
 import MemberToolbarComponent from './memberToolbar.component'
-import MemberTextField from '../Modal/memberTextField.component'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCircle } from '@fortawesome/free-solid-svg-icons'
+import { Input, Table } from 'semantic-ui-react'
 
 interface IMemberTableComponentProps {
     members: IMember[];
@@ -23,9 +22,9 @@ const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
   }
 
   const renderToolbar = () => <MemberToolbarComponent
-                                    onImportModal={props.onImportModal}
-                                    onPDF={onPDF}
-                                    onNew={props.onNew} />
+      onImportModal={props.onImportModal}
+      onPDF={onPDF}
+      onNew={props.onNew} />
 
   const [nameFilter, setNameFilter] = useState<string>('')
   const [lastNameFilter, setLastNameFilter] = useState<string>('')
@@ -46,67 +45,65 @@ const MemberTableComponent : React.FC<IMemberTableComponentProps> = props => {
 
   return (
             <>
-
                 {renderToolbar()}
-
-                <TableContainer>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>Cognome</TableCell>
-                                <TableCell>Nome</TableCell>
-                                <TableCell>Data di nascita</TableCell>
-                                <TableCell>Codice Fiscale</TableCell>
-                                <TableCell>Città</TableCell>
-                                <TableCell>Provincia</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Stato</TableCell>
-                                <TableCell colSpan={2}></TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>
-                                    <MemberTextField
-                                        label=""
-                                        onChange={(value: string) => setLastNameFilter(value)}
+                    <Table fixed>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>Cognome</Table.HeaderCell>
+                                <Table.HeaderCell>Nome</Table.HeaderCell>
+                                <Table.HeaderCell>Data di nascita</Table.HeaderCell>
+                                <Table.HeaderCell>Codice Fiscale</Table.HeaderCell>
+                                <Table.HeaderCell>Città</Table.HeaderCell>
+                                <Table.HeaderCell>Provincia</Table.HeaderCell>
+                                <Table.HeaderCell>Email</Table.HeaderCell>
+                                <Table.HeaderCell>Stato</Table.HeaderCell>
+                                <Table.HeaderCell colSpan={2}></Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Header>
+                            <Table.Row>
+                                <Table.HeaderCell>
+                                    <Input
+                                        fluid
+                                        onChange={ e => setLastNameFilter(e.target.value)}
                                         value={lastNameFilter}
-                                        width="100"/>
-                                </TableCell>
-                                <TableCell>
-                                    <MemberTextField
-                                        label=""
-                                        onChange={(value: string) => setNameFilter(value)}
+                                        />
+                                </Table.HeaderCell>
+                                <Table.HeaderCell>
+                                    <Input
+                                        fluid
+                                        onChange={e => setNameFilter(e.target.value)}
                                         value={nameFilter}
-                                        width="100" />
-                                </TableCell>
-                                <TableCell></TableCell>
-                                <TableCell>
-                                    <MemberTextField
-                                        label=""
-                                        onChange={(value: string) => setFiscalCodeFilter(value)}
+                                        />
+                                </Table.HeaderCell>
+                                <Table.HeaderCell></Table.HeaderCell>
+                                <Table.HeaderCell>
+                                    <Input
+                                        fluid
+                                        onChange={e => setFiscalCodeFilter(e.target.value)}
                                         value={fiscalCodeFilter}
-                                        width="100" />
-                                </TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell>
+                                        />
+                                </Table.HeaderCell>
+                                <Table.HeaderCell></Table.HeaderCell>
+                                <Table.HeaderCell></Table.HeaderCell>
+                                <Table.HeaderCell></Table.HeaderCell>
+                                <Table.HeaderCell>
                                     <FontAwesomeIcon
                                         icon={faCircle}
                                         color={statusFilter === undefined ? 'grey' : statusFilter ? 'green' : 'red'}
                                         onClick={switchStatusFilter} />
-                                </TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-
-                            {props.members.map(member => <MemberRowComponent onDeleteClick={props.onDelete} onEditClick={props.onEdit} member={member} key={member._id} />)}
-
-                        </TableBody>
+                                </Table.HeaderCell>
+                                <Table.HeaderCell colSpan={2}></Table.HeaderCell>
+                            </Table.Row>
+                        </Table.Header>
+                        <Table.Body>
+                            {props.members.map(member => <MemberRowComponent
+                                onDeleteClick={props.onDelete}
+                                onEditClick={props.onEdit}
+                                member={member}
+                                key={member._id} />)}
+                        </Table.Body>
                     </Table>
-
-                </TableContainer>
 
                 {props.members.length >= 10 ? renderToolbar() : null }
 

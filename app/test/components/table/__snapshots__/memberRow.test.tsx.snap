@@ -2,40 +2,40 @@
 
 exports[`Member Row Component Should match snapshot 1`] = `
 "<Fragment>
-  <WithStyles(ForwardRef(TableRow))>
-    <WithStyles(ForwardRef(TableCell))>
+  <TableRow as=\\"tr\\" cellAs=\\"td\\">
+    <TableCell as=\\"td\\">
       Rossi
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       Mario
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       01/10/1980
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       MRARSS80E01E783P
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       Tolentino
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       MC
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       mario.rossi@libero.it
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell))>
+    </TableCell>
+    <TableCell as=\\"td\\">
       <FontAwesomeIcon icon={{...}} color=\\"red\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-    </WithStyles(ForwardRef(TableCell))>
-    <WithStyles(ForwardRef(TableCell)) colSpan={2}>
-      <WithStyles(ForwardRef(IconButton)) id=\\"editButtonId_123\\" onClick={[Function: onClick]} size=\\"small\\">
+    </TableCell>
+    <TableCell colSpan={2} as=\\"td\\">
+      <Button id=\\"editButtonId_123\\" onClick={[Function: onClick]} size=\\"small\\" as=\\"button\\">
         <FontAwesomeIcon icon={{...}} color=\\"green\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-      </WithStyles(ForwardRef(IconButton))>
-      <WithStyles(ForwardRef(IconButton)) id=\\"deleteButtonId_123\\" onClick={[Function: onDelete]} size=\\"small\\">
+      </Button>
+      <Button id=\\"deleteButtonId_123\\" onClick={[Function: onDelete]} size=\\"small\\" as=\\"button\\">
         <FontAwesomeIcon icon={{...}} color=\\"red\\" border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-      </WithStyles(ForwardRef(IconButton))>
-    </WithStyles(ForwardRef(TableCell))>
-  </WithStyles(ForwardRef(TableRow))>
+      </Button>
+    </TableCell>
+  </TableRow>
   <ConfirmDialog title=\\"Confermi cancellazione?\\" onOk={[Function: confirmDelete]} onDiscard={[Function: onDiscard]} isOpen={false} />
 </Fragment>"
 `;

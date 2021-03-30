@@ -1,52 +1,38 @@
-import { IMember } from "../../members/models/IMember";
-import { IMembership } from "../models/membership";
+import { IMember } from '../../members/models/IMember'
+import { IMembership } from '../models/membership'
 import qs from 'querystring'
-import { dateUtils } from "../../../utils/dateUtils";
-import { request } from "../../../core/request/request";
+import { dateUtils } from '../../../utils/dateUtils'
+import { request } from '../../../core/request/request'
+import { AxiosResponse } from 'axios'
 
-export const addMembership =  async ( member : IMember, membership: Omit<IMembership,"_id"> ) : Promise<IMember> => {
+export const addMembership = (
+  member : IMember,
+  membership: Omit<IMembership, '_id'>,
+  type: 'athlete' | 'member'
+) : Promise<AxiosResponse<IMember>> => {
+  const host = process.env.REACT_APP_MEMBERS_SP_HOST || ''
+  const endpoint = host + `/${type === 'athlete' ? 'athletes' : 'members'}/${member._id}/memberships`
 
-    return new Promise( async (resolve,reject) => {
-
-        try{
-
-            const host      = process.env.REACT_APP_MEMBERS_SP_HOST || '';
-            const endpoint  = host + `/members/${member._id}/memberships`;
-
-            const response = await request<IMember>( host, {url: endpoint, method:'POST', data: qs.stringify(
-                {
-                    start_date : dateUtils.formatDateToServerFormat(membership.start_date),
-                    end_date : dateUtils.formatDateToServerFormat( membership.end_date)
-                })
-            })
-
-            resolve(response.data)
-
-        }
-        catch(e) { reject(e.responsne) }
-
-    })
-
+  return request<IMember>(host, {
+    url: endpoint,
+    method: 'POST',
+    data: qs.stringify(
+      {
+        start_date: dateUtils.formatDateToServerFormat(membership.start_date),
+        end_date: dateUtils.formatDateToServerFormat(membership.end_date)
+      })
+  })
 }
 
-export const deleteMembership =  async ( member : IMember, membership: IMembership ) : Promise<IMember> => {
+export const deleteMembership = (
+  member : IMember,
+  membership: IMembership,
+  type: 'athlete' | 'member'
+) : Promise<AxiosResponse<IMember>> => {
+  const host = process.env.REACT_APP_MEMBERS_SP_HOST || ''
+  const endpoint = host + `/${type === 'athlete' ? 'athletes' : 'members'}/${member._id}/memberships/${membership._id}`
 
-    return new Promise( async (resolve,reject) => {
-
-        try{
-
-            const host      = process.env.REACT_APP_MEMBERS_SP_HOST || '';
-            const endpoint  = host + `/members/${member._id}/memberships/${membership._id}`;
-
-            const response = await request<IMember>( host, {url: endpoint, method:'DELETE' })
-
-            resolve(response.data)
-
-        }
-        catch(e) { reject(e.responsne) }
-
-    })
-
+  return request<IMember>(host, { url: endpoint, method: 'DELETE' })
 }
 
-export const membershipService = { addMembership, deleteMembership };
+export const membershipService = { addMembership, deleteMembership }

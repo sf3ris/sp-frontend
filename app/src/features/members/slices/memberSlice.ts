@@ -96,7 +96,7 @@ export const deleteMember = (member : IMember) : AppThunk => async dispatch => {
 
 export const addMembership = (member : IMember, membership : Omit<IMembership, '_id'>) : AppThunk => async dispatch => {
   try {
-    await membershipService.addMembership(member, membership)
+    await membershipService.addMembership(member, membership, 'member')
 
     dispatch(getMembers())
   } catch (e) {
@@ -106,7 +106,7 @@ export const addMembership = (member : IMember, membership : Omit<IMembership, '
 
 export const deleteMembership = (member: IMember, membership : IMembership) : AppThunk => async dispatch => {
   try {
-    await membershipService.deleteMembership(member, membership)
+    await membershipService.deleteMembership(member, membership, 'member')
 
     dispatch(getMembers())
   } catch (e) {

@@ -2,42 +2,66 @@
 
 exports[`Member Modal Component Should match snapshot 1`] = `
 "<Fragment>
-  <div className=\\"makeStyles-root-1\\">
-    <div className=\\"makeStyles-textContainer-2\\">
-      <MemberTextField label=\\"Cognome\\" value=\\"\\" onChange={[Function: onLastNameChange]} />
-      <MemberTextField label=\\"Nome\\" value=\\"\\" onChange={[Function: onNameChange]} />
-      <MuiPickersUtilsProvider utils={[Function: DateFnsUtils]}>
-        <PickerWithState className=\\"makeStyles-selectField-3\\" margin=\\"normal\\" label=\\"Data di nascita\\" format=\\"dd/MM/yyyy\\" value={{...}} onChange={[Function: onChange]} minDate={{...}} maxDate={{...}} invalidDateMessage=\\"Invalid Date Format\\" minDateMessage=\\"Date should not be before minimal date\\" maxDateMessage=\\"Date should not be after maximal date\\" allowKeyboardControl={true} openTo=\\"date\\" views={{...}} />
-      </MuiPickersUtilsProvider>
-      <MemberTextField label=\\"Luogo di nascita\\" value=\\"\\" onChange={[Function: onBirthPlaceChange]} />
-      <WithStyles(ForwardRef(InputLabel)) className=\\"makeStyles-selectField-3\\" id=\\"gender-select-id\\">
-        Sesso
-      </WithStyles(ForwardRef(InputLabel))>
-      <WithStyles(ForwardRef(Select)) labelId=\\"gender-select-id\\" value=\\"\\" onChange={[Function: onGenderChange]} className=\\"makeStyles-selectField-3\\">
-        <WithStyles(ForwardRef(MenuItem)) value=\\"M\\">
-          M
-        </WithStyles(ForwardRef(MenuItem))>
-        <WithStyles(ForwardRef(MenuItem)) value=\\"F\\">
-          F
-        </WithStyles(ForwardRef(MenuItem))>
-      </WithStyles(ForwardRef(Select))>
-      <br />
-      <MemberTextField label=\\"Codice Fiscale\\" value=\\"\\" maxLength={16} onChange={[Function: onFiscalCodeChange]} />
-      <MemberTextField label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onAddressChange]} />
-      <MemberTextField label=\\"CAP\\" maxLength={5} value=\\"\\" onChange={[Function: onZipCodeChange]} />
-      <MemberTextField label=\\"Città\\" value=\\"\\" onChange={[Function: onCityChange]} />
-      <MemberTextField label=\\"Provincia\\" maxLength={2} value=\\"\\" onChange={[Function: onProvinceChange]} />
-      <MemberTextField label=\\"Telefono\\" value=\\"\\" onChange={[Function: onPhoneChange]} />
-      <MemberTextField label=\\"Email\\" value=\\"\\" onChange={[Function: onEmailChange]} />
-    </div>
+  <div style={{...}}>
+    <Form as=\\"form\\">
+      <FormGroup widths=\\"equal\\">
+        <FormField>
+          <Input fluid={true} label=\\"Cognome\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+        <FormField>
+          <Input fluid={true} label=\\"Nome\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+      </FormGroup>
+      <FormGroup widths=\\"equal\\">
+        <FormField>
+          <Input fluid={true} label=\\"Luogo di nascita\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+        <FormField>
+          <Input label=\\"Data di nascita\\" fluid={true} placeholder=\\"Format: GG/MM/YYYY\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+      </FormGroup>
+      <FormGroup widths=\\"equal\\">
+        <FormField>
+          <Select value=\\"\\" options={{...}} onChange={[Function: onChange]} />
+        </FormField>
+        <FormField>
+          <Input fluid={true} label=\\"Codice Fiscale\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+      </FormGroup>
+      <FormGroup widths=\\"equal\\">
+        <FormField>
+          <Input fluid={true} label=\\"Indirizzo\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+        <FormField>
+          <Input fluid={true} label=\\"CAP\\" value=\\"\\" maxLength={5} onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+      </FormGroup>
+      <FormGroup widths=\\"equal\\">
+        <FormField>
+          <Input fluid={true} label=\\"Città\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+        <FormField>
+          <Input fluid={true} label=\\"Provincia\\" maxLength={2} value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+      </FormGroup>
+      <FormGroup widths=\\"equal\\">
+        <FormField>
+          <Input fluid={true} label=\\"Telefono\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+        <FormField>
+          <Input fluid={true} label=\\"Email\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
+        </FormField>
+      </FormGroup>
+    </Form>
   </div>
-  <div className=\\"makeStyles-textContainer-2\\">
-    <WithStyles(ForwardRef(Button)) id=\\"idDiscardButton\\" variant=\\"contained\\" color=\\"secondary\\" onClick={[Function: onClose]}>
+  <div>
+    <hr />
+    <Button primary={true} id=\\"idDiscardButton\\" onClick={[Function: onClose]} as=\\"button\\">
       Annulla
-    </WithStyles(ForwardRef(Button))>
-    <WithStyles(ForwardRef(Button)) id=\\"idSaveButton\\" variant=\\"contained\\" color=\\"primary\\" onClick={[Function: onSave]} style={{...}}>
+    </Button>
+    <Button id=\\"idSaveButton\\" onClick={[Function: onSave]} style={{...}} as=\\"button\\">
       Salva
-    </WithStyles(ForwardRef(Button))>
+    </Button>
   </div>
 </Fragment>"
 `;
