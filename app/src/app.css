@@ -274,12 +274,6 @@ color: var(--white);
 background: var(--red);
 }
 
-.page-content .grid {
-display: grid;
-grid-template-columns: repeat(2, 1fr);
-grid-gap: 30px;
-}
-
 .page-content .grid > article {
 display: flex;
 min-height: 300px;
