@@ -39,7 +39,7 @@ const MemberComponent : React.FC<IMemberComponentProps> = props => {
 
   return (
             <Container>
-                <Grid centered container columns="equal">
+                <Grid centered container columns={1}>
                     <Grid.Column>
                         <MemberTableComponent
                             onImportModal={props.onImportModal}
