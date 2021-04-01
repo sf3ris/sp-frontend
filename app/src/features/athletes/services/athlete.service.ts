@@ -2,6 +2,7 @@ import { request } from '../../../core/request/request'
 import { IHeaderMap, IMember } from '../../members/models/IMember'
 import qs from 'querystring'
 import { AxiosResponse } from 'axios'
+import { dateUtils } from '../../../utils/dateUtils'
 
 const getAthletes = async (
   name: string = '',
@@ -24,7 +25,6 @@ const getAthletes = async (
 
 const postAthlete = async (athlete : Partial<Omit<IMember, 'memberships'|'id'>>) => {
   const host = process.env.REACT_APP_MEMBERS_SP_HOST || ''
-
   return new Promise(async (resolve, reject) => {
     try {
       const endpoint = '/athletes'
@@ -35,7 +35,18 @@ const postAthlete = async (athlete : Partial<Omit<IMember, 'memberships'|'id'>>)
         }
       }
 
-      const response = await request<IMember>(host, { url: endpoint, method: 'POST', headers: config.headers, data: qs.stringify({ ...athlete }) })
+      const response = await request<IMember>(
+        host,
+        {
+          url: endpoint,
+          method: 'POST',
+          headers: config.headers,
+          data: qs.stringify({
+            ...athlete,
+            birth_date: dateUtils.formatLocaleDatetoServerdate(athlete.birth_date!!)
+          })
+        }
+      )
 
       resolve(response.data)
     } catch (e) {
@@ -57,7 +68,17 @@ const putAthlete = async (athlete : Partial<Omit<IMember, 'memberships'>>) => {
         }
       }
 
-      const response = await request<IMember>(host, { url: endpoint, method: 'PUT', headers: config.headers, data: qs.stringify({ ...athlete }) })
+      const response = await request<IMember>(host,
+        {
+          url: endpoint,
+          method: 'PUT',
+          headers: config.headers,
+          data: qs.stringify({
+            ...athlete,
+            birth_date: dateUtils.formatLocaleDatetoServerdate(athlete.birth_date!!)
+          })
+        }
+      )
 
       resolve(response.data)
     } catch (e) {

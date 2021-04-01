@@ -3,13 +3,14 @@ import { IMember } from '../../../features/members/models/IMember'
 import { dateUtils } from '../../../utils/dateUtils'
 import CodiceFiscale from 'codice-fiscale-js'
 import { IMembership } from '../../../features/memberships/models/membership'
-import { Button, Form, Input, Select } from 'semantic-ui-react'
+import { Button, Form, Input, Label, Select } from 'semantic-ui-react'
 
 interface IMemberPersonalDataFormComponentProps {
     isOpen: boolean;
     toggle: (...args: any) => void;
     onSave: (member : Partial<IMember>, memberships: Omit<IMembership, '_id'>[]) => void;
-    member? : IMember;
+    member?: IMember;
+    parents?: IMember[];
 }
 
 const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponentProps> = props => {
@@ -25,6 +26,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   const [gender, setGender] = useState<string>(props.member?.gender || '')
   const [phone, setPhone] = useState<string>(props.member?.phone || '')
   const [email, setEmail] = useState<string>(props.member?.email || '')
+  const [tutors, setTutors] = useState<string[]|undefined>(undefined)
 
   const tryToCalculateFiscalCode = () => {
     if (name && lastName && birthDate && birthPlace) {
@@ -44,7 +46,6 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
         setFiscalCode(cf.cf)
       } catch (e) {
         console.log(e)
-        // setFiscalCode('');
       }
     }
   }
@@ -106,6 +107,7 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
     setGender(member.gender)
     setPhone(member.phone)
     setEmail(member.email)
+    member.tutors && setTutors(member.tutors)
   }
 
   const onClose = () => {
@@ -129,10 +131,9 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
       email
     }
 
+    if (tutors !== undefined) member.tutors = tutors
     if (props.member && '_id' in props.member) member._id = props.member._id
-
     props.onSave(member, [])
-
     onClose()
   }
 
@@ -150,7 +151,6 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
   }, [name, lastName, birthDate, birthPlace, gender])
 
   return (
-
             <>
                 <div style={{ marginTop: '10px' }}>
                         <Form>
@@ -263,20 +263,27 @@ const MemberPersonalDataFormComponent : React.FC<IMemberPersonalDataFormComponen
                                         />
                                 </Form.Field>
                             </Form.Group>
+                            <Form.Group widths="equal">
+                                {props.parents && <Form.Field>
+                                    <Select
+                                        value={tutors}
+                                        onChange={(e, data) => setTutors(data.value as string[])}
+                                        label={<label>Tutors</label>}
+                                        search
+                                        selection
+                                        multiple
+                                        placeholder="Tutors"
+                                        options={props.parents?.map(member => ({
+                                          text: `${member.last_name} ${member.name}`,
+                                          value: member._id,
+                                          key: member._id
+                                        }))}
+                                    />
+                                </Form.Field> }
+                            </Form.Group>
                         </Form>
-                        {/* <InputLabel className={classes.selectField} id="gender-select-id">Sesso</InputLabel>
-                        <Select
-                            labelId="gender-select-id"
-                            value={gender}
-                            onChange={onGenderChange}
-                            className={classes.selectField}
-                            >
-                                <MenuItem value="M">M</MenuItem>
-                                <MenuItem value="F">F</MenuItem>
-                        </Select> */}
                 </div>
-                <div>
-                    <hr/>
+                <div style={{ marginTop: '20px' }}>
                     <Button
                         primary
                         id="idDiscardButton"

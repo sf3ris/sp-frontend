@@ -73,7 +73,18 @@ const postMember = async (
         }
       }
 
-      const response = await request<IMember>(host, { url: endpoint, method: 'POST', headers: config.headers, data: qs.stringify({ ...member, temporaryMemberships: JSON.stringify(temporaryMemberships) }) })
+      const response = await request<IMember>(
+        host,
+        {
+          url: endpoint,
+          method: 'POST',
+          headers: config.headers,
+          data: qs.stringify({
+            ...member,
+            birth_date: dateUtils.formatLocaleDatetoServerdate(member.birth_date!!),
+            temporaryMemberships: JSON.stringify(temporaryMemberships)
+          })
+        })
 
       resolve(response.data)
     } catch (e) {
@@ -95,7 +106,13 @@ const putMember = async (member : Partial<Omit<IMember, 'memberships'>>) => {
         }
       }
 
-      const response = await request<IMember>(host, { url: endpoint, method: 'PUT', headers: config.headers, data: qs.stringify({ ...member }) })
+      const response = await request<IMember>(
+        host, {
+          url: endpoint,
+          method: 'PUT',
+          headers: config.headers,
+          data: qs.stringify({ ...member, birth_date: dateUtils.formatLocaleDatetoServerdate(member.birth_date!!) })
+        })
 
       resolve(response.data)
     } catch (e) {

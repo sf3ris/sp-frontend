@@ -33,7 +33,7 @@ const ImportModal: React.FC<IImportModalProps> = props => {
   }
 
   const renderMemberHeader = (header: MemberHeader) =>
-        <Table.Row>
+        <Table.Row key={header.value}>
             <Table.Cell>{header.label}</Table.Cell>
             <Table.Cell>
                 <Input

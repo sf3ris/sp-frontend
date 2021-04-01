@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import MemberComponent from '../component/member/member.component'
 import { RootState } from '../core/rootReducer'
@@ -14,7 +14,7 @@ import {
 import { IHeaderMap, IMember } from '../features/members/models/IMember'
 import { IMembership } from '../features/memberships/models/membership'
 import DefaultLayout from '../layout/DefaultLayout'
-import { getMembers } from '../features/members/slices/memberSlice'
+import { getMembers, IMembersState } from '../features/members/slices/memberSlice'
 import { membersService } from '../features/members/services/members.service'
 import { athleteService } from '../features/athletes/services/athlete.service'
 import useDownload from '../shared/hooks/useDownload'
@@ -25,9 +25,17 @@ const AthleteContainer : React.FC<{}> = props => {
 
   const [filterTimeout, setFilterTimeout] = useState<NodeJS.Timeout|undefined>(undefined)
 
-  const athletesState : IAthletesState = useSelector(
-    (state : RootState) => state.athleteState
+  const athletesState: IAthletesState = useSelector(
+    (state: RootState) => state.athleteState
   )
+
+  const membersState: IMembersState = useSelector(
+    (state: RootState) => state.membersState
+  )
+
+  useEffect(() => {
+    dispatch(getMembers())
+  }, [])
 
   const onSave = (athlete : Partial<IMember>) => {
     if ('_id' in athlete) dispatch(putAthlete(athlete))
@@ -78,10 +86,9 @@ const AthleteContainer : React.FC<{}> = props => {
   }
 
   return (
-
         <DefaultLayout>
-
             <MemberComponent
+                parents={membersState.members}
                 onImportModal={onMembersImport}
                 getMembers={getFilteredAthletes}
                 onSave={onSave}
@@ -90,9 +97,7 @@ const AthleteContainer : React.FC<{}> = props => {
                 onAddMembership={onAddMembership}
                 onDeleteMembership={onDeleteMembership}
                 members={athletesState.athletes} />
-
         </DefaultLayout>
-
   )
 }
 

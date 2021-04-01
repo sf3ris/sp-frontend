@@ -12,6 +12,7 @@ interface IMemberModalProps {
     member? : IMember;
     onAddMembership: (member : IMember, membership: Omit<IMembership, '_id'>) => void;
     onDeleteMembership: (member : IMember, membership : IMembership) => void;
+    parents?: IMember[];
 }
 
 const MemberModal : React.FC<IMemberModalProps> = props => {
@@ -30,8 +31,9 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
 
   const panes = [
     {
-      pane: <Tab.Pane>
+      pane: <Tab.Pane key={0}>
             <MemberPersonalDataFormComponent
+                parents={props.parents}
                 onSave={onSave}
                 isOpen={props.isOpen}
                 toggle={props.toggle}
@@ -42,7 +44,7 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
     },
     {
       menuItem: 'Tesseramenti',
-      pane: <Tab.Pane>
+      pane: <Tab.Pane key={1}>
           <MemberMembershipForm
               onTemporaryAddMembership={onAddMembership}
               member={props.member}
@@ -52,7 +54,7 @@ const MemberModal : React.FC<IMemberModalProps> = props => {
     },
     {
       menuItem: 'Documenti',
-      pane: <Tab.Pane> </Tab.Pane>
+      pane: <Tab.Pane key={2}> </Tab.Pane>
     }
   ]
 

@@ -29,9 +29,9 @@ const MemberMembershipList : React.FC<IMemberMembershipListProps> = props => {
             <h3 style={{ margin: 'auto' }}>Lista Tesseramenti</h3>
             <Table>
                     <Table.Header>
-                        <Table.HeaderCell> Data Inizio </Table.HeaderCell>
-                        <Table.HeaderCell> Data Fine </Table.HeaderCell>
-                        <Table.HeaderCell> </Table.HeaderCell>
+                        <Table.HeaderCell>Data Inizio</Table.HeaderCell>
+                        <Table.HeaderCell>Data Fine</Table.HeaderCell>
+                        <Table.HeaderCell></Table.HeaderCell>
                     </Table.Header>
                     <Table.Body>
                         {props.memberships.map(renderMembership)}
