@@ -12,15 +12,10 @@ export interface IMember {
     city : string;
     province : string;
     gender: string;
-    // gender : keyof typeof Gender;
     phone : string;
     email : string;
-    memberships : IMembership[]
-}
-
-enum Gender {
-    M = 'M',
-    F = 'F'
+    memberships : IMembership[],
+    tutors?: string[]
 }
 
 export interface MemberHeader {

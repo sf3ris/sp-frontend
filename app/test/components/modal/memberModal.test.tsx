@@ -1,61 +1,53 @@
-import React from 'react';
-import { shallow } from 'enzyme';
-import MemberNewModalComponent from '../../../src/component/member/Modal/memberPersonalDataForm.component';
+import React from 'react'
+import { shallow } from 'enzyme'
+import MemberNewModalComponent from '../../../src/component/member/Modal/memberPersonalDataForm.component'
 
 describe('Member Modal Component', () => {
+  const onSaveFn = jest.fn()
+  const onToggleFn = jest.fn()
 
-    const onSaveFn = jest.fn();
-    const onToggleFn = jest.fn();
-
-    it('Should match snapshot', () => {
-
-        const wrapper = shallow(
+  it('Should match snapshot', () => {
+    const wrapper = shallow(
             <MemberNewModalComponent
                 onSave={onSaveFn}
                 isOpen={true}
                 toggle={onToggleFn} />
-        )
+    )
 
-        expect(wrapper.debug()).toMatchSnapshot();
+    expect(wrapper.debug()).toMatchSnapshot()
+  })
 
-    });
-
-    it('Should trigger save', () => {
-
-        const wrapper = shallow(
+  it('Should trigger save', () => {
+    const wrapper = shallow(
             <MemberNewModalComponent
                 onSave={onSaveFn}
                 isOpen={true}
                 toggle={onToggleFn} />
-        )
+    )
 
-        const saveButton = wrapper.find('#idSaveButton');
-        
-        expect(saveButton.length).toBe(1);
-            
-        saveButton.simulate('click');
+    const saveButton = wrapper.find('#idSaveButton')
 
-        expect(onSaveFn).toBeCalled();
+    expect(saveButton.length).toBe(1)
 
-    });
+    saveButton.simulate('click')
 
-    it('Should trigger toggle', () => {
+    expect(onSaveFn).toBeCalled()
+  })
 
-        const wrapper = shallow(
+  it('Should trigger toggle', () => {
+    const wrapper = shallow(
             <MemberNewModalComponent
                 onSave={onSaveFn}
                 isOpen={true}
                 toggle={onToggleFn} />
-        )
+    )
 
-        const discardButton = wrapper.find('#idDiscardButton');
-        
-        expect(discardButton.length).toBe(1);
-            
-        discardButton.simulate('click');
+    const discardButton = wrapper.find('#idDiscardButton')
 
-        expect(onToggleFn).toBeCalled();
+    expect(discardButton.length).toBe(1)
 
-    });
-    
+    discardButton.simulate('click')
+
+    expect(onToggleFn).toBeCalled()
+  })
 })

@@ -1,26 +1,24 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Header layout component test Should match snapshot 1`] = `
-"<Container>
-  <Grid centered={true} container={true} columns=\\"equal\\">
-    <GridColumn width={3} floated=\\"right\\">
-      <section className=\\"search-and-user\\">
-        <div className=\\"admin-profile\\">
-          <span className=\\"greeting\\">
-            pippo
+"<Grid centered={true} columns=\\"equal\\">
+  <GridColumn width={2} floated=\\"right\\">
+    <section className=\\"search-and-user\\">
+      <div className=\\"admin-profile\\">
+        <span className=\\"greeting\\">
+          pippo
+        </span>
+        <div onClick={[Function: onUserClick]} className=\\"notifications\\">
+          <span className=\\"badge\\">
+            0
           </span>
-          <div onClick={[Function: onUserClick]} className=\\"notifications\\">
-            <span className=\\"badge\\">
-              0
-            </span>
-            <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-          </div>
-          <div onClick={[Function: onUserClick]} style={{...}}>
-            <FontAwesomeIcon onClick={[Function: onLogout]} icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
-          </div>
+          <FontAwesomeIcon icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
         </div>
-      </section>
-    </GridColumn>
-  </Grid>
-</Container>"
+        <div onClick={[Function: onUserClick]} style={{...}}>
+          <FontAwesomeIcon onClick={[Function: onLogout]} icon={{...}} border={false} className=\\"\\" mask={{...}} fixedWidth={false} inverse={false} flip={{...}} listItem={false} pull={{...}} pulse={false} rotation={{...}} size={{...}} spin={false} symbol={false} title=\\"\\" transform={{...}} swapOpacity={false} />
+        </div>
+      </div>
+    </section>
+  </GridColumn>
+</Grid>"
 `;

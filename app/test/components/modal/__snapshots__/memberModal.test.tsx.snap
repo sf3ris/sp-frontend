@@ -52,10 +52,10 @@ exports[`Member Modal Component Should match snapshot 1`] = `
           <Input fluid={true} label=\\"Email\\" value=\\"\\" onChange={[Function: onChange]} type=\\"text\\" />
         </FormField>
       </FormGroup>
+      <FormGroup widths=\\"equal\\" />
     </Form>
   </div>
-  <div>
-    <hr />
+  <div style={{...}}>
     <Button primary={true} id=\\"idDiscardButton\\" onClick={[Function: onClose]} as=\\"button\\">
       Annulla
     </Button>
