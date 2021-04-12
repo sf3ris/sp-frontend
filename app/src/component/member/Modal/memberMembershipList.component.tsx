@@ -1,7 +1,7 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { IMembership } from '../../../features/memberships/models/membership'
 import { dateUtils } from '../../../utils/dateUtils'
-import { faTrash } from '@fortawesome/free-solid-svg-icons'
+import { faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { Table } from 'semantic-ui-react'
 
@@ -20,6 +20,9 @@ const MemberMembershipList : React.FC<IMemberMembershipListProps> = props => {
                 {dateUtils.formatDateToLocale(membership.end_date.toString())}
             </Table.Cell>
             <Table.Cell>
+                <FontAwesomeIcon icon={faTimes} color="red" />
+            </Table.Cell>
+            <Table.Cell>
                 <FontAwesomeIcon icon={faTrash} color="red" onClick={() => props.onDeleteMembership(membership)} />
             </Table.Cell>
         </Table.Row>
@@ -31,6 +34,7 @@ const MemberMembershipList : React.FC<IMemberMembershipListProps> = props => {
                     <Table.Header>
                         <Table.HeaderCell>Data Inizio</Table.HeaderCell>
                         <Table.HeaderCell>Data Fine</Table.HeaderCell>
+                        <Table.HeaderCell>Pagato</Table.HeaderCell>
                         <Table.HeaderCell></Table.HeaderCell>
                     </Table.Header>
                     <Table.Body>
